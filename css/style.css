@@ -1,0 +1,144 @@
+/* 
+    Document   : style
+    Created on : May 31, 2011, 2:38:25 PM
+    Author     : salem
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+body{background-color: #fff; font-family: Tahoma,Verdana,Arial; font-size: 12px;}
+img{border: none;}
+a {text-decoration: none;}
+a:hover {color: #045379;}
+.message{color:#F6733B; float:right;}
+.tooltip-content {display: none; position: absolute; padding: 10px; border: 1px solid black; background-color: white;}
+.tooltip-content ol {margin:0px; padding:0px 15px;}
+.tooltip-content ol li {width:300px; border-bottom: 1px solid #CCC;}
+.tooltip-target{padding-left:15px; margin-left:5px; background: url('../images/notifications.png') no-repeat scroll 0 -305px transparent;color: #3D6DB5;}/*305*/
+.input_button{border: 1px solid #8E9C9D; color: #183B4D;}
+.input_text{border: 1px solid #000; width: 150px;}
+.text_area{border: 1px solid #000; width: 300px;}
+.hasDatepicker {border: 1px solid #000;}
+
+.center {text-align: center;}
+
+.pagewrap{margin: 10px auto 5px; width: 100%;}
+
+.topheader {width: 10%; height: 95px; position: relative;float: left;}
+.topheader .logo {width: 100%;}
+.topheader .topmenu {position: absolute; right: 0px; list-style-type:none; margin: 0px; top:10px;}
+.topheader .topmenu a {color: black; display: block;}
+.topheader .topmenu a:hover {color: #045379;}
+.topheader .topmenu li {float:right; text-align: center; margin-left: 10px; font-weight: bold;}
+.topheader .topprofile {position: absolute; right: 0px; top: 65px; color: white;}
+.top-filter {list-style-type:none;clear: both; padding: 10px;}
+.top-filter li {display: inline;}
+.top-filter li a{color: #fff; font-weight: bold;}
+
+.footer{margin-top:20px; text-align: center; color: white;}
+
+.box{background-color: #0462BF; margin-top: 10px;width: 85%; float: right;}
+.box_header{border: #A8B4B5 solid 1px; color: #fff; padding: 3px; font-weight: bold; font-size: 13px; background: #0462BF url(../images/expand_blue.gif) no-repeat right;}
+.box_header a {display: block; color: #FFF;}
+.box_header a:hover {color: #FFF;}
+.box_body{padding:5px; border-right: #A8B4B5 solid 1px; border-left: #A8B4B5 solid 1px; border-bottom: #A8B4B5 solid 1px;}
+
+.grid table th {background-color: #5E7A7D; color: white; font-weight: bold; border: #DDDDDD solid 1px; padding:2px; font-size: 13px;}
+.grid table td {border: white solid 1px;}
+
+.paging{margin-top: 10px;}
+
+.room_title {font-weight: bold; font-size: 14px; color: #183B4D;margin: 5px 0px;}
+.room_box {display: inline-table; text-align: center; margin-right: 15px;}
+.room_box_title {border: 1px solid #555; width: 60px; border-bottom: none; padding: 2px 0px;}
+.room_box_body {border: 1px solid #555; width: 60px; height: 30px; line-height: 30px;}
+.room_box_table {width: 44px; height: 50px; padding-bottom: 10px;}
+.room_green {background-color: #00FF00;}
+.room_yellow {background-color: yellow;}
+.room_red {background-color: red;}
+.room_dark {background-color: #800000; color: white;}
+.room_box a {display: block;}
+.room_box_title a {color: white;}
+
+.topMenus {
+    list-style-type: none; margin: 0;
+    padding-left: 0;
+}
+.logo img {
+    width: 100%;
+}
+.topMenus li {
+    /*float: right;*/
+    font-weight: bold;
+    /*margin-left: 10px;*/
+    text-align: center;    
+    display: block;
+    clear: both;
+    /*border-bottom: 1px solid #ccc;*/
+}
+.topMenus li img {
+    float: left;
+    position: relative;
+    top: -10px;
+}
+.topMenus li a span{
+    color: black;
+    display: block;
+    margin-top: 15px;
+}
+.userStatPagination li {
+    float: left;
+    list-style: none;
+    margin-right: 20px;
+    
+}
+.userStatPagination li a {
+    color: #fff;
+    font-weight: bold;
+}
+.userStatPagination {
+    float: right;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

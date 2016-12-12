@@ -1,0 +1,5 @@
+AuthName "Add your login message here."
+AuthType Basic
+AuthUserFile /home/mysite/.htpasswd
+AuthGroupFile /dev/null
+require valid-user

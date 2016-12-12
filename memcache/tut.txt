@@ -1,0 +1,3 @@
+http://www.leonardaustin.com/blog/technical/how-to-install-memcached-on-xampp-on-windows-7/
+
+https://commaster.net/content/installing-memcached-windows

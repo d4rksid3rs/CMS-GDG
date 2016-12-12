@@ -1,0 +1,8 @@
+AuthUserFile /home/admin/domains/phang.mobi/public_html/bem/bi/.htpasswd
+AuthGroupFile /dev/null
+AuthName "Bem Bem Bem Bem"
+AuthType Basic
+
+<Limit GET POST>
+require valid-user
+</Limit>
