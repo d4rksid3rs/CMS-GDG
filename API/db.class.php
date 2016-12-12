@@ -28,7 +28,7 @@ class db {
 //        $info_connect = "mysql:host=".__MYSQL_SERVER.";port=".__MYSQL_PASS.";dbname=".__DB.", ".__MYSQL_USER.", ".__MYSQL_PASS."";
 //        var_dump($info_connect);die;
         if (!self::$instance) {
-            self::$instance = new PDO("mysql:host=local.db;port=3306;dbname=gim_wap", 'gdg', '$#Fsda345#1z');
+            self::$instance = new PDO("mysql:host=local.db;port=3306;dbname=gim_wap", 'gdg', 'gfsd34312saAAdaq');
             self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         return self::$instance;
