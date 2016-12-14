@@ -432,7 +432,7 @@ echo substr($output, 0, -1);
                                 $obj = json_decode($row['data']);
                                 echo "<tr>";
                                 echo "<td>{$row['day']}</td>";
-                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH;
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 echo "<td>" . number_format($obj->FACEBOOK) . "</td>";
@@ -446,7 +446,8 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->MONACO_FIRSTWIN) . "</td>";
                                 echo "<td>" . number_format($row['taixiu']) . "</td>";
 
-                                $total2 = $total + $obj->FACEBOOK + $obj->DAILY_BONUS + $obj->EXP_MISSION + $obj->EVENT + $obj->KOINSMS + $obj->KOINCARD + $obj->KOINADMIN + $row['regKoin'] + $obj->MONACO_FIRSTWIN + $row['regKoin'];
+                                $total2 = $total + $obj->FACEBOOK + $obj->DAILY_BONUS + $obj->KOINADMIN + $obj->EXP_MISSION + $obj->EVENT + 
+                                        $obj->KOINSMS + $obj->KOINCARD  + $row['regKoin'] + $obj->MONACO_FIRSTWIN + $row['taixiu'];
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($row['koin']) . "</b></td>";
                                 echo "</tr>";

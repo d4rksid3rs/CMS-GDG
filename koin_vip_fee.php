@@ -473,7 +473,7 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->BAUCUA) . "</td>";
                                 echo "<td>" . number_format($obj->XITO) . "</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC +
-                                        $obj->POKER + $obj->BACAYCHVIP + $obj->BACAYVIP +
+                                        $obj->POKER + $obj->BACAYCH + $obj->BACAY +
                                         $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
@@ -516,7 +516,7 @@ echo substr($output, 0, -1);
                                 echo "<tr>";
                                 echo "<td>{$row['day']}</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC +
-                                        $obj->POKER + $obj->BACAYCHVIP + $obj->BACAYVIP +
+                                        $obj->POKER + $obj->BACAYCH + $obj->BACAY +
                                         $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
