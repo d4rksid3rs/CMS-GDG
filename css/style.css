@@ -10,7 +10,7 @@
    TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
-body{background-color: #fff; font-family: Tahoma,Verdana,Arial; font-size: 12px;}
+body{background-color: #829395; font-family: Tahoma,Verdana,Arial; font-size: 12px;}
 img{border: none;}
 a {text-decoration: none;}
 a:hover {color: #045379;}
@@ -28,8 +28,8 @@ a:hover {color: #045379;}
 
 .pagewrap{margin: 10px auto 5px; width: 100%;}
 
-.topheader {width: 10%; height: 95px; position: relative;float: left;}
-.topheader .logo {width: 100%;}
+.topheader {width: 100%; height: 95px; position: relative;}
+.topheader .logo {position: absolute;}
 .topheader .topmenu {position: absolute; right: 0px; list-style-type:none; margin: 0px; top:10px;}
 .topheader .topmenu a {color: black; display: block;}
 .topheader .topmenu a:hover {color: #045379;}
@@ -41,8 +41,8 @@ a:hover {color: #045379;}
 
 .footer{margin-top:20px; text-align: center; color: white;}
 
-.box{background-color: #0462BF; margin-top: 10px;width: 85%; float: right;}
-.box_header{border: #A8B4B5 solid 1px; color: #fff; padding: 3px; font-weight: bold; font-size: 13px; background: #0462BF url(../images/expand_blue.gif) no-repeat right;}
+.box{background-color: #256F92; margin-top: 10px;}
+.box_header{border: #A8B4B5 solid 1px; color: #fff; padding: 3px; font-weight: bold; font-size: 13px; background: #256F92 url(../images/expand_blue.gif) no-repeat right;}
 .box_header a {display: block; color: #FFF;}
 .box_header a:hover {color: #FFF;}
 .box_body{padding:5px; border-right: #A8B4B5 solid 1px; border-left: #A8B4B5 solid 1px; border-bottom: #A8B4B5 solid 1px;}
@@ -65,31 +65,19 @@ a:hover {color: #045379;}
 .room_box_title a {color: white;}
 
 .topMenus {
-    list-style-type: none; margin: 0;
-    padding-left: 0;
-}
-.logo img {
-    width: 100%;
+    list-style-type: none; margin: 0; position: absolute; right: 0; top: 10px;
 }
 .topMenus li {
-    /*float: right;*/
+    float: right;
     font-weight: bold;
-    /*margin-left: 10px;*/
-    text-align: center;    
-    display: block;
-    clear: both;
-    /*border-bottom: 1px solid #ccc;*/
+    margin-left: 10px;
+    text-align: center;
 }
-.topMenus li img {
-    float: left;
-    position: relative;
-    top: -10px;
-}
-.topMenus li a span{
+.topMenus li a {
     color: black;
     display: block;
-    margin-top: 15px;
 }
+
 .userStatPagination li {
     float: left;
     list-style: none;

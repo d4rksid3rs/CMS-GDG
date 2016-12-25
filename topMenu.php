@@ -22,12 +22,15 @@ $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip")
 $exchange = array("link" => "exchange.php", "img" => "exchange.png", "title" => "User đổi thưởng");
 $exchange_return = array("link" => "exchange_return.php", "img" => "exchange_return.png", "title" => "User cộng bù Chip");
 $merchant = array("link" => "merchant.php", "img" => "merchants.png", "title" => "Đại lý");
+$new_statistic = array("link" => "new_statistic.php", "img" => "new_statistic.png", "title" => "Thống kê Mới");
 ?>
 <div class="topheader">
     <div class="logo">
-        <a href="index.php" title="<?php if (isset($totalMoney)) {
-    echo number_format($totalMoney);
-} ?>"><img src="images/logo.png" alt="" height="85px" /></a>
+        <a href="index.php" title="<?php
+        if (isset($totalMoney)) {
+            echo number_format($totalMoney);
+        }
+        ?>"><img src="images/logo.png" alt="" height="85px" /></a>
     </div>
     <ul class="topMenus">
 
@@ -41,7 +44,7 @@ $merchant = array("link" => "merchant.php", "img" => "merchants.png", "title" =>
         switch ($u) {
             case "bemon":
 
-                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $merchant, $dau, $game);
+                $menu = array($logout, $settings, $activity, $koin, $money, $vip, $tool, $system, $exchange_return, $exchange, $new_statistic, $user, $comment, $merchant, $dau, $game);
                 break;
 //            case "monaco":
 //
@@ -93,13 +96,13 @@ $merchant = array("link" => "merchant.php", "img" => "merchants.png", "title" =>
 
 
 
-        foreach (array_reverse($menu) as $m) {
+        foreach ($menu as $m) {
             $link = $m['link'];
             $img = $m['img'];
             $head_title = $m['title'];
             echo "<li>
 						<a href='{$link}'><img src='images/ui/{$img}' height='40px'/>
-						<span>{$head_title}</span></a>
+						<br/>{$head_title}</a>
 					</li>";
         }
         ?>
