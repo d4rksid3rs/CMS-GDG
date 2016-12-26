@@ -6,7 +6,7 @@
 //require('../Config.php');
 define('__PORT', "6666");
 define('__TIMEOUT', "15");
-define('__HOST', "125.212.220.122");
+define('__HOST', "g.gamedangianonline.com");
 
 function sendMessage($service, $body) {
     $receiveBufferSize = 2048;
