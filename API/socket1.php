@@ -4,9 +4,9 @@
 //define('__TIMEOUT', "15");
 //define('__HOST', "104.155.222.189");
 //require('../Config.php');
-define('__PORT', "8081");
+define('__PORT', "6666");
 define('__TIMEOUT', "15");
-define('__HOST', "104.155.222.189");
+define('__HOST', "125.212.220.122");
 
 function sendMessage($service, $body) {
     $receiveBufferSize = 2048;
