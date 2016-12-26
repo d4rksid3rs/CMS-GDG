@@ -86,9 +86,9 @@ $today = date('Y-m-d', time());
                 <div class="box_body">
                     <form id="top_charge_user">
                         Từ Ngày
-                        <input type="text" class="datepicker" name="fromDate" value="<?= $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
                         Tới Ngày
-                        <input type="text" class="datepicker" name="toDate" value="<?= $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
                         Card
                         <select name="type">
                             <option value="2" selected="selected">CARD</option>

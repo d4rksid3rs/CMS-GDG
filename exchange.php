@@ -65,9 +65,9 @@ $today = date('Y-m-d', time());
                 <div class="box_body">
                     <form id="koin_vip_exchange">
                         Từ Ngày
-                        <input type="text" class="datepicker" name="fromDate" value="<?= $today?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today;?>" style="text-align: center; width: 100px;" />
                         Tới Ngày
-                        <input type="text" class="datepicker" name="toDate" value="<?= $today?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today;?>" style="text-align: center; width: 100px;" />
                         <input type="button" name="add" value="Thống kê" onclick="getExchange();"/>
                         <span id="total-koin" style="font-weight: bold; color: #fff;"></span>
                     </form>
