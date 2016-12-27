@@ -28,10 +28,16 @@ if ($found) {
     $location = $path . $name;
 
     $rootPath = dirname(__FILE__);
-    $rootPath = str_replace('\API', '', $rootPath);
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        $rootPath = str_replace('\API', '', $rootPath);
+    } else {
+        $rootPath = str_replace('/API', '', $rootPath);
+    }
+    
 
     $saveFile = $rootPath . $path . "/" . $name;
-    var_dump($saveFile);die;
+    var_dump($saveFile);
+    die;
     $url = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
     $url = str_replace('API/uploadAvatar.php', '', $url);
     $linkAvatar = $url . $location;
