@@ -10,7 +10,7 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
     try {
 //        $sql = "SELECT * FROM `koin_deduct` WHERE `date_created` BETWEEN '$fromDate' AND '$toDate' AND `return_code` = 1";        
         if ($type == 1) {
-            $sql = "SELECT SUM(coin) as total FROM `koin_deduct` WHERE date(date_created) >= '$fromDate' AND date(date_created) <= '$toDate' AND return_code = 1";
+            $sql = "SELECT SUM(chip) as total FROM `koin_deduct` WHERE date(date_created) >= '$fromDate' AND date(date_created) <= '$toDate'";
         } else {
             $sql = "SELECT SUM(coin) as total FROM `koin_add_deducterror` WHERE date(date_created) >= '$fromDate' AND date(date_created) <= '$toDate' AND return_code = 1";
         }
@@ -19,7 +19,7 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
 
         foreach ($db->query($sql) as $row) {
             $found = true;
-            $html = "Tổng: " . number_format($row['total'], 0, ",", ".") . ' Chip';
+            $html = "Tổng: " . number_format($row['total'], 0, ",", ".") . ' Vàng';
         }
         if ($found == true) {
             echo $html;

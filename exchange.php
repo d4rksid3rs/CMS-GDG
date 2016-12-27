@@ -4,7 +4,7 @@ $today = date('Y-m-d', time());
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Người chơi</title>
+        <title>Thống kê Đổi thưởng</title>
         <?php require('header.php'); ?>
         <script src="js/highcharts.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/themes/grid.js"></script> 

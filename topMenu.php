@@ -44,7 +44,7 @@ $new_statistic = array("link" => "new_statistic.php", "img" => "new_statistic.pn
         switch ($u) {
             case "bemon":
 
-                $menu = array($logout, $settings, $activity, $koin, $money, $vip, $tool, $system, $exchange_return, $exchange, $new_statistic, $user, $comment, $merchant, $dau, $game);
+                $menu = array($logout, $settings, $activity, $koin, $money, $vip, $tool, $system, $exchange, $new_statistic, $user, $comment, $merchant, $dau, $game);
                 break;
 //            case "monaco":
 //
