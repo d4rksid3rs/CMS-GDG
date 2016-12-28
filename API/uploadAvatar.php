@@ -25,7 +25,9 @@ if ($found) {
     $path = '/uploads/avatar/'; // file sẽ lưu vào thư mục data    
     $tmp_name = $file['tmp_name'];
     $name = basename($file["name"]);
-    $location = $path . $name;
+    $ext = end((explode(".", $name))); # extra () to prevent notice    
+    $new_name = $username."_avatar_gdg.".$ext;
+    $location = $path . $new_name;
 
     $rootPath = dirname(__FILE__);
     if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
@@ -33,7 +35,7 @@ if ($found) {
     } else {
         $rootPath = str_replace('/API', '', $rootPath);
     }   
-    $saveFile = $rootPath . $path . "/" . $name;
+    $saveFile = $rootPath . $path . "/" . $new_name;
     $url = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
     $url = str_replace('API/uploadAvatar.php', '', $url);
     $linkAvatar = $url . $location;

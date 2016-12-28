@@ -16,17 +16,29 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
         $found = false;
         $resultData = array();
         $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;'>";
-        $html .= "<td>STT</td><td>Username</td><td>Vàng</td><td>Thẻ</td><td>Thời gian</td></tr>";
+        $html .= "<td>STT</td><td>Username</td><td>Vàng</td><td>Thẻ</td><td>Trạng thái</td><td>Thời gian</td></tr>";
         $i = 0;
         foreach ($db->query($sql) as $row) {
+            switch ($row['state']) {
+                case 0:
+                    $state = 'Chờ xử lý';
+                    break;
+                case 1: 
+                    $state = 'Đã trả thưởng';
+                    break;
+                case 2:
+                    $state = 'Đã từ chối và cộng bù';
+                    break;
+            }
             $i+=1;
             $found = true;
             $html .= "<tr style='background-color: rgb(" . ($i % 2 > 0 ? "204,204,204" : "255, 255, 255") . ");text-align:center;'>";
             $html .= "<td width='5%'>" . $i. "</td>";
-            $html .= "<td width='25%'>" . $row['username'] . "</td>";
-            $html .= "<td width='25%'>" . number_format($row['chip']) . "</td>";
-            $html .= "<td width='25%'>" . number_format($row['value']) . "</td>";
-            $html .= "<td width='25%'>" . $row['date_created'] . "</td>";
+            $html .= "<td width='10%'>" . $row['username'] . "</td>";
+            $html .= "<td width='20%'>" . number_format($row['chip']) . "</td>";
+            $html .= "<td width='20%'>" . number_format($row['value']) . "</td>";
+            $html .= "<td width='20%'>" . $state . "</td>";
+            $html .= "<td width='20%'>" . $row['date_created'] . "</td>";
             $html .= "</tr>";
         }
         $html .= "</table>";        
