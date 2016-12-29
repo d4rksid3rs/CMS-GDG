@@ -28,14 +28,15 @@ try {
     include('Net/SSH2.php');
 
     $server = __HOST;
-    $remote = "ms002";
-    $password = "U6wRdEWHws4qLafWAde3";
+    $port = __PORT;
+    $remote = "gdg";
+    $password = "$#Fsda345#1z";
     $command = "ps";
     $log = '';
-    $ssh = new Net_SSH2($server);
+    $ssh = new Net_SSH2($server, $port, 100);
     if (!$ssh->login($remote, $password)) {
         exit('Login Failed');
-    }
+    }    
     foreach ($array_date as $date) {
         if ($date == $today) {
             $date_str = '';
@@ -43,11 +44,11 @@ try {
             $date_str = '.' . $date;
         }
         if ($type == 1) {
-            $cmd = "cat beme/logs/money.log$date_str | grep \" u_$username \" > $username.txt";
+            $cmd = "cat monaco/logs/money.log$date_str | grep \" u_$username \" > $username.txt";
             $money = "Xu";
         } else if ($type == 2) {
-            $cmd = "cat beme/logs/moneyvip.log$date_str | grep \" u_$username \" > $username.txt";
-            $money = "Chip";
+            $cmd = "cat monaco/logs/moneyvip.log$date_str | grep \" u_$username \" > $username.txt";
+            $money = "Vàng";
         }
         $ssh->exec($cmd);
         $log .= $ssh->exec("cat $username.txt");

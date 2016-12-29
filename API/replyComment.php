@@ -12,7 +12,7 @@ if ($type == "reply") {
         if (isset($content) && strlen($content) > 0) {
             $sql = "update feedback f set f.status=1,f.feedback=concat(f.feedback,' -> $content') where f.id=" . $id;
             $db->exec($sql);
-            $sql = "insert into user_message(user_id, sender_id, content,sender_name,title) values('" . $userId . "','" . __GMID . "','" . $content . "','admin','Trả lời góp ý')";
+            $sql = "insert into user_message(user_id, sender_id, content,sender_name,title, message_type) values('" . $userId . "','" . __GMID . "','" . $content . "','admin','Trả lời góp ý', 1)";
             $db->exec($sql);
             echo "{\"status\":1,\"message\":\"Cập nhật thành công\"}";
         } else {
