@@ -16,9 +16,11 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
         $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;font-weight:bold;'>";
         $html .= "<td>STT</td><td>Tên Người chuyển</td><td>Tên Người nhận</td><td>Xu chuyển</td><td>Số xu cũ</td><td>Số xu mới</td><td>Mô tả</td><td>Ngày</td></tr>";
         $i = 0;
+        $total = 0;
         foreach ($db->query($sql) as $row) {
             $i+=1;
             $found = true;
+            $total = $total + $row['money_chuyen'];
             $html .= "<tr style='background-color: rgb(" . ($i % 2 > 0 ? "204,204,204" : "255, 255, 255") . ");text-align:left;'>";
             $html .= "<td width='5%'>" . $i. "</td>";
             $html .= "<td width='10%'>" . $row['user_send_name'] . "</td>";
@@ -30,6 +32,7 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
             $html .= "<td width='10%'>" . $row['date_created'] . "</td>";
             $html .= "</tr>";
         }
+        $html .= "<tr style='background-color: #fff;'><td colspan='8'>Tổng: ".number_format($total)." Xu</td></tr>";
         $html .= "</table>";        
         if ($found == true) {
             echo $html;
