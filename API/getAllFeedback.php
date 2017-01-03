@@ -3,7 +3,7 @@ require('../Config.php');
 require('db.class.php');
 try {
     $userId = $_GET['uid'];
-        $sql = "SELECT f.* FROM feedback f WHERE user_id = $userId order by date_created DESC";
+        $sql = "SELECT f.* FROM feedback f WHERE user_id = $userId order by date_created ASC";
         //echo $sql;
 ?>
 <table width="100%" cellspacing="1" border="1" style="font-size:13px;">

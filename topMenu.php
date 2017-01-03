@@ -46,6 +46,10 @@ $new_statistic = array("link" => "new_statistic.php", "img" => "new_statistic.pn
 
                 $menu = array($logout, $settings, $activity, $koin, $money, $vip, $tool, $system, $exchange, $new_statistic, $user, $comment, $merchant, $dau, $game);
                 break;
+            case "cskh":
+
+                $menu = array($logout, $settings, $koin, $money, $new_statistic, $user, $comment);
+                break;
 //            case "monaco":
 //
 //                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $merchant, $dau, $game);

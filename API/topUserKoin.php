@@ -15,7 +15,7 @@ foreach ($db->query($sql) as $row) {
     $html .= "<td width='5%'>" . $i . "</td>";
     $html .= "<td width='20%'>" . $row['username'] . "</td>";
     $html .= "<td width='20%'>" . $row['screen_name'] . "</td>";
-    $html .= "<td width='20%'>" . $row['koin'] . "</td>";
+    $html .= "<td width='20%'>" . number_format($row['koin']) . "</td>";
     $html .= "</tr>";
 }
 $html .= "</table>";

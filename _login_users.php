@@ -8,7 +8,8 @@ $random_num_3 = 2;   //Pick a random number between 1 to 3
 
 
 $users = array(
-    'bemon' => 'badaucach',
+    'bemon' => 'admingdg2017$',
+    'cskh' => 'cskhgdg2017',
 //    'huong' => 'chiuchiu2023',
 //    'nguyet' => 'nguyet2023',
 //    'lam' => 'lam2023',
