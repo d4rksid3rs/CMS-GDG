@@ -4,6 +4,7 @@ require('API/db.class.php');
 require('./_login_users.php');
 $user_list = array_keys($users);
 $sql_merchants = "SELECT merchants.*, auth_user.koin, auth_user.koin_vip FROM `merchants` JOIN auth_user ON merchants.username = auth_user.username";
+//echo $sql_merchants;die;die
 $i = 0;
 if (!empty($_POST)) {
     $user = $_POST['user'];
@@ -328,17 +329,17 @@ $_POST = array();
                         </tr>
                         <?php foreach ($db->query($sql_merchants) as $row) : ?>
                             <?php $i+=1; ?>
-                            <tr id="merchant-<?= $row['id'] ?>" style='background-color: rgb(<?php ($i % 2 > 0) ? '204,204,204' : '255, 255, 255' ?>);text-align:center;'>
-                                <td><?= $row['username'] ?></td>
-                                <td><?= $row['merchant_name'] ?></td>
-                                <td><?= $row['screen_name'] ?></td>
-                                <td><?= $row['mobile'] ?></td>
-                                <td><?= $row['address'] ?></td>
-                                <td><?= $row['email'] ?></td>
-                                <td><?= $row['facebook'] ?></td>
-                                <td><?= $row['koin'] ?></td>
-                                <td><?= $row['koin_vip'] ?></td>
-                                <td><button onclick="editMerchant(<?= $row['id'] ?>)">Sửa</button> &nbsp; <button  onclick="deleteMerchant(<?= $row['id'] ?>)">Xóa</button></td>
+                            <tr id="merchant-<?php echo $row['id'] ?>" style='background-color: rgb(<?php ($i % 2 > 0) ? '204,204,204' : '255, 255, 255' ?>);text-align:center;'>
+                                <td><?php echo $row['username'] ?></td>
+                                <td><?php echo $row['merchant_name'] ?></td>
+                                <td><?php echo $row['screen_name'] ?></td>
+                                <td><?php echo $row['mobile'] ?></td>
+                                <td><?php echo $row['address'] ?></td>
+                                <td><?php echo $row['email'] ?></td>
+                                <td><?php echo $row['facebook'] ?></td>
+                                <td><?php echo $row['koin'] ?></td>
+                                <td><?php echo $row['koin_vip'] ?></td>
+                                <td><button onclick="editMerchant(<?php $row['id'] ?>)">Sửa</button> &nbsp; <button  onclick="deleteMerchant(<?php $row['id'] ?>)">Xóa</button></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
@@ -364,9 +365,9 @@ $_POST = array();
                         Merchant
                         <input type="text" name="user" style="width: 100px"/>
                         Từ Ngày
-                        <input type="text" class="datepicker" name="fromDate" value="<?= $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="fromDate" value="<?php $today ?>" style="text-align: center; width: 100px;" />
                         Tới Ngày
-                        <input type="text" class="datepicker" name="toDate" value="<?= $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="toDate" value="<?php $today ?>" style="text-align: center; width: 100px;" />
                         <input type="button" name="add" value="Thống kê" onclick="getLogAddKoinByMerchant();"/>
 
                     </form>
@@ -382,9 +383,9 @@ $_POST = array();
                         Người nạp
                         <input type="text" name="user" style="width: 100px"/>
                         Từ Ngày
-                        <input type="text" class="datepicker" name="fromDate" value="<?= $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="fromDate" value="<?php $today ?>" style="text-align: center; width: 100px;" />
                         Tới Ngày
-                        <input type="text" class="datepicker" name="toDate" value="<?= $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="toDate" value="<?php $today ?>" style="text-align: center; width: 100px;" />
                         <input type="button" name="add" value="Thống kê" onclick="getLogAddKoinByUser();"/>
 
                     </form>
