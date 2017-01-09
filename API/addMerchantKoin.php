@@ -18,7 +18,7 @@ $rate_array = json_decode($json, true);
 $rate = $rate_array['merchant_rate'];
 if (is_numeric($vnd) && strlen($pass) > 0 && strlen($user) > 0) {
     $koin = $vnd * $rate;
-    if ($pass == "pwdaddmoeny123$%^") {
+    if ($pass == "daily2017") {
         try {
             $db->query("SET NAMES 'UTF8'");
             $sql = "select * from auth_user where username='" . $user . "' limit 0,1";

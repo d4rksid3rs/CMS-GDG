@@ -12,7 +12,7 @@ $pass = mysql_escape_string($pass);
 $cause = mysql_escape_string($cause);
 $current_user = $_COOKIE['username'];
 if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause) > 0) {
-    if ($pass == "pwdaddmoeny123$%^") {
+    if ($pass == "gdgonline@2017") {
         if ($koin <= $allowMaxKoin) {
             try {
                 $db->query("SET NAMES 'UTF8'");

@@ -339,7 +339,7 @@ $_POST = array();
                                 <td><?php echo $row['facebook'] ?></td>
                                 <td><?php echo $row['koin'] ?></td>
                                 <td><?php echo $row['koin_vip'] ?></td>
-                                <td><button onclick="editMerchant(<?php $row['id'] ?>)">Sửa</button> &nbsp; <button  onclick="deleteMerchant(<?php $row['id'] ?>)">Xóa</button></td>
+                                <td><button onclick="editMerchant(<?php echo $row['id'] ?>)">Sửa</button> &nbsp; <button  onclick="deleteMerchant(<?php echo $row['id'] ?>)">Xóa</button></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
@@ -365,9 +365,9 @@ $_POST = array();
                         Merchant
                         <input type="text" name="user" style="width: 100px"/>
                         Từ Ngày
-                        <input type="text" class="datepicker" name="fromDate" value="<?php $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today ?>" style="text-align: center; width: 100px;" />
                         Tới Ngày
-                        <input type="text" class="datepicker" name="toDate" value="<?php $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today ?>" style="text-align: center; width: 100px;" />
                         <input type="button" name="add" value="Thống kê" onclick="getLogAddKoinByMerchant();"/>
 
                     </form>
@@ -383,9 +383,9 @@ $_POST = array();
                         Người nạp
                         <input type="text" name="user" style="width: 100px"/>
                         Từ Ngày
-                        <input type="text" class="datepicker" name="fromDate" value="<?php $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today ?>" style="text-align: center; width: 100px;" />
                         Tới Ngày
-                        <input type="text" class="datepicker" name="toDate" value="<?php $today ?>" style="text-align: center; width: 100px;" />
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today ?>" style="text-align: center; width: 100px;" />
                         <input type="button" name="add" value="Thống kê" onclick="getLogAddKoinByUser();"/>
 
                     </form>
