@@ -11,7 +11,7 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
 //        $sql = "SELECT * FROM `koin_deduct` WHERE `date_created` BETWEEN '$fromDate' AND '$toDate' AND `return_code` = 1";                
         $sql = "SELECT l.username, sum(l.money) as total, u.screen_name, u.mobile, u.cp FROM `log_nap_koin` l "
                 . "LEFT JOIN  user u ON l.username = u.username "
-                . "WHERE created_on >= '{$fromDate}' AND created_on <= '{$toDate}' AND type = {$type} AND flag1 = 1 group by username order by total desc LIMIT 0,{$limit}";
+                . "WHERE created_on >= '{$fromDate}' AND created_on <= '{$toDate}' AND type = {$type} group by username order by total desc LIMIT 0,{$limit}";
         
         //select koin, date(date) as day from server_koin where date(date) >= '2016-08-18' and date(date) <= '2016-09-07' 
         $found = false;
