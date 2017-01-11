@@ -14,7 +14,8 @@ if (!isset($acc)) {
 if (!isset($message)) {
     $message = "";
 }
-$sql = "Select * from (SELECT fb.*, u.screen_name, u.koin_added, u.vip FROM (SELECT f.* FROM feedback f ORDER BY id DESC ) fb LEFT JOIN user u ON fb.user_id = u.id ";
+$sql = "Select * from (SELECT fb.*, u.screen_name, u.koin_added, u.vip FROM (SELECT f.* FROM feedback f ORDER BY id DESC ) fb "
+        . "LEFT JOIN user u ON fb.user_id = u.id ORDER by fb.date_created desc limit 0,30 ";
 if ($acc != "") {
     $query .= "a=" . $acc;
     $sql .= " where fb.user like '%" . $acc . "%'";
