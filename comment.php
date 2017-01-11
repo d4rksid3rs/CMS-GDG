@@ -20,7 +20,7 @@ if ($acc != "") {
     $query .= "a=" . $acc;
     $sql .= " where fb.user like '%" . $acc . "%'";
 }
-
+echo $sql;die;
 if ($message != "" && $acc == "") {
     $query .= "m=" . $message;
     $sql .= " where fb.feedback like '%" . $message . "%'";
