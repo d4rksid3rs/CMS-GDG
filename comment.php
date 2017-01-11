@@ -15,12 +15,11 @@ if (!isset($message)) {
     $message = "";
 }
 $sql = "Select * from (SELECT fb.*, u.screen_name, u.koin_added, u.vip FROM (SELECT f.* FROM feedback f ORDER BY id DESC ) fb "
-        . "LEFT JOIN user u ON fb.user_id = u.id ORDER by fb.date_created desc limit 0,30 ";
+        . "LEFT JOIN user u ON fb.user_id = u.id  ";
 if ($acc != "") {
     $query .= "a=" . $acc;
     $sql .= " where fb.user like '%" . $acc . "%'";
 }
-echo $sql;die;
 if ($message != "" && $acc == "") {
     $query .= "m=" . $message;
     $sql .= " where fb.feedback like '%" . $message . "%'";
@@ -28,7 +27,7 @@ if ($message != "" && $acc == "") {
     $query .= "&m=" . $message;
     $sql .= " and fb.feedback like '%" . $message . "%'";
 }
-$sql .= " GROUP BY user_id order by fb.date_created desc limit " . ($page - 1) * $pageSize . "," . $pageSize. ") as tmp_table group by user_id";
+$sql .= " ORDER by fb.date_created desc limit ". ($page - 1) * $pageSize . "," . $pageSize. ") as tmp_table group by user_id";
 //echo $sql;die;
 $comments = array();
 foreach ($db->query($sql) as $row) {
