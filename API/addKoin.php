@@ -2,7 +2,7 @@
 
 require('../Config.php');
 require('db.class.php');
-$allowMaxKoin = 10000000;
+$allowMaxKoin = 1000000000;
 $user = $_POST['user'];
 $pass = $_POST['pass'];
 $koin = $_POST['koin'];
