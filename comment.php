@@ -27,8 +27,8 @@ if ($message != "" && $acc == "") {
     $query .= "&m=" . $message;
     $sql .= " and fb.feedback like '%" . $message . "%'";
 }
-$sql .= " ORDER by fb.date_created desc limit ". ($page - 1) * $pageSize . "," . $pageSize. ") as tmp_table group by user_id";
-//echo $sql;die;
+$sql .= " ORDER by fb.date_created desc limit ". ($page - 1) * $pageSize . "," . $pageSize. ") as tmp_table group by user_id order by date_created";
+echo $sql;die;
 $comments = array();
 foreach ($db->query($sql) as $row) {
     $comments[] = array(
