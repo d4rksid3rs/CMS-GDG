@@ -145,12 +145,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $arr['cardvip']['factor'] = $factor6;
 //    var_dump($arr);die;
     $json = json_encode($arr);
-    
+
     $sql = sprintf("update config set value = '%s' where `key` = 'special_offer_koin_v3'", $json);
     $result = mysql_query($sql);
     echo 'xxx';
 }
-    
+
 //    var_dump($arr);die;
 //}
 //var_dump($arr);
@@ -161,7 +161,7 @@ $sql = "select value from config where `key` = 'special_offer_koin_v3' limit 1";
 $result = mysql_query($sql);
 if ($row = mysql_fetch_assoc($result)) {
 //    var_dump($row);die;
-    $value = $row['value'];    
+    $value = $row['value'];
     if (!empty($value)) {
         $init = FALSE;
         // sms
@@ -688,7 +688,17 @@ foreach ($value as $k => $v) {
                                     foreach ($msg as $m) {
                                         echo "<tr>";
                                         echo "<td>" . substr($m['content'], 0, strrpos($m['content'], '@@@')) . "</td>";
-                                        echo "<td>" . str_replace("\n", "<br/>", substr($m['content'], strrpos($m['content'], '@@@') + 3)) . "</td>";
+                                        $flag_event_text = str_replace("\n", "<br/>", substr($m['content'], strrpos($m['content'], '@@@') + 3));                                        
+                                        if ($flag_event_text == 'event_text') {
+                                            $sql_top_text = "select * from user order by event_text desc limit 0,10";                                            
+                                            $str_top_text = "";
+                                            foreach ($db->query($sql_top_text) as $key => $row) {
+                                                $str_top_text = $str_top_text . ($key + 1). '. '.$row['username'].': '.$row['event_text']. ' bộ chữ<br/>';                                                
+                                            }
+                                            echo "<td>".$str_top_text."</td>";
+                                        } else {
+                                            echo "<td>" . str_replace("\n", "<br/>", substr($m['content'], strrpos($m['content'], '@@@') + 3)) . "</td>";
+                                        }
                                         echo "<td>" . $m['dateBegin'] . "</td>";
                                         echo "<td>" . $m['dateEnd'] . "</td>";
                                         echo "<td>";
@@ -742,7 +752,7 @@ foreach ($value as $k => $v) {
                             Có hiển thị full game? <select name="gamevms" id="gamevms"> <option value="1">Có</option><option value="0">Không</option> </select> <br />
                         <?php } else { ?>
                             Có hiển thị full game? <select name="gamevms" id="gamevms"><option value="0">Không</option> <option value="1">Có</option> </select> <br />
-                        <?php } ?>
+<?php } ?>
                         <input type="button" value="Xác nhận" onclick="configFullgame();"/>
                     </form>
                 </div>
@@ -808,18 +818,18 @@ foreach ($value as $k => $v) {
                 </div>
             </div>
 
-<!--            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Bật tắt kênh thanh toán</a></div>
-                <div class="box_body">
-                    <div style="margin-right:10px;">
-                        Viettel: <input type="checkbox" value="viettel" name="paymentCard" <?php if ($json_settings['payment']['viettel'] == 1) echo 'checked="checked"' ?> /><br />
-                        Vinaphone: <input type="checkbox" value="vina" name="paymentCard" <?php if ($json_settings['payment']['vina'] == 1) echo 'checked="checked"' ?> /><br />
-                        Mobifone: <input type="checkbox" value="mobi" name="paymentCard" <?php if ($json_settings['payment']['mobi'] == 1) echo 'checked="checked"' ?> /><br />
-                        SMS: <input type="text" value="<?php echo implode(",", $json_settings['payment']['sms']); ?>" id="paymentSMS" /> (SMS có dạng 8x62)<br />
-                    </div>
-                    <input type="button" value="Lưu" onclick="saveConfigPayment();"/>
-                </div>
-            </div>-->
+            <!--            <div class="box grid">
+                            <div class="box_header"><a href="javascript:void(0);">Bật tắt kênh thanh toán</a></div>
+                            <div class="box_body">
+                                <div style="margin-right:10px;">
+                                    Viettel: <input type="checkbox" value="viettel" name="paymentCard" <?php if ($json_settings['payment']['viettel'] == 1) echo 'checked="checked"' ?> /><br />
+                                    Vinaphone: <input type="checkbox" value="vina" name="paymentCard" <?php if ($json_settings['payment']['vina'] == 1) echo 'checked="checked"' ?> /><br />
+                                    Mobifone: <input type="checkbox" value="mobi" name="paymentCard" <?php if ($json_settings['payment']['mobi'] == 1) echo 'checked="checked"' ?> /><br />
+                                    SMS: <input type="text" value="<?php echo implode(",", $json_settings['payment']['sms']); ?>" id="paymentSMS" /> (SMS có dạng 8x62)<br />
+                                </div>
+                                <input type="button" value="Lưu" onclick="saveConfigPayment();"/>
+                            </div>
+                        </div>-->
         </div>
     </body>
 </html>
