@@ -688,7 +688,7 @@ foreach ($value as $k => $v) {
                                     foreach ($msg as $m) {
                                         echo "<tr>";
                                         echo "<td>" . substr($m['content'], 0, strrpos($m['content'], '@@@')) . "</td>";
-                                        $flag_event_text = str_replace("\n", "<br/>", substr($m['content'], strrpos($m['content'], '@@@') + 3));                                        
+                                        $flag_event_text = trim(str_replace("\n", "<br/>", substr($m['content'], strrpos($m['content'], '@@@') + 3)));                                        
                                         if ($flag_event_text == 'event_text') {
                                             $sql_top_text = "select * from user order by event_text desc limit 0,10";                                            
                                             $str_top_text = "";

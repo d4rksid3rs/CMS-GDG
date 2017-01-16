@@ -10,7 +10,7 @@ $pars .= isset($_REQUEST['nocache']) ? '&nocache' : '';
 <ul class="top-filter">
     <li><a href="koin.php<?php // echo $pars; ?>">Xu trên thị trường</a> |</li>
     <li><a href="koin_fee.php">Tổng Xu fee</a> |</li>
-    <li><a href="koin_vip_fee.php">Tổng Chip fee</a> |</li>
+    <li><a href="koin_vip_fee.php">Tổng Vàng fee</a> |</li>
     <!--
     <a href="koin_nap.php<?php echo $pars; ?>">Lượng koin nạp từ thẻ</a> |
     <a href="koin_nap_sms.php<?php echo $pars; ?>">Lượng koin nạp từ SMS</a> |

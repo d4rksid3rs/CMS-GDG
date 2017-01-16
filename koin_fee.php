@@ -225,6 +225,14 @@ foreach ($chart_data as $row) {
         $output .= $obj->BAUCUA . ",";
     }
     $output .= "]}, ";
+    // Transfer Xu
+    $output .= "{name: 'Fee Chuyển Xu',";
+    $output .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output .= $obj->TRANSFERXU . ",";
+    }
+    $output .= "]}, ";
     //buy item
     /*
       $output .= "{name: 'BUY ITEM',";
@@ -362,6 +370,7 @@ echo substr($output, 0, -1);
                                 <td>Binh</td>
                                 <td>Xoc Dia</td>
                                 <td>Bau Cua</td>
+                                <td>Fee Chuyển Xu</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Xu game</b></td>
 
 <!--                                <td>Facebook</td>
@@ -390,7 +399,10 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->MAUBINH) . "</td>";
                                 echo "<td>" . number_format($obj->XOCDIA) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUA) . "</td>";
-                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA;
+                                echo "<td>" . number_format($obj->TRANSFERXU) . "</td>";
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + 
+                                        $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + 
+                                        $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA + $obj->TRANSFERXU;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 /*
@@ -432,7 +444,9 @@ echo substr($output, 0, -1);
                                 $obj = json_decode($row['data']);
                                 echo "<tr>";
                                 echo "<td>{$row['day']}</td>";
-                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA;
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + 
+                                        $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + 
+                                        $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA+ $obj->TRANSFERXU;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 echo "<td>" . number_format($obj->FACEBOOK) . "</td>";
@@ -465,4 +479,5 @@ echo substr($output, 0, -1);
     </body>
 </html>
 <?php include 'cache_end.php'; ?>
+
 

@@ -224,7 +224,7 @@ foreach ($chart_data as $row) {
     }
     $output .= "]}, ";
     //koin sms
-    $output2 .= "{name: 'CHIP SMS',";
+    $output2 .= "{name: 'VÀNG SMS',";
     $output2 .= "data:[";
     foreach ($chart_data as $row2) {
         $obj = json_decode($row2['data']);
@@ -232,7 +232,7 @@ foreach ($chart_data as $row) {
     }
     $output2 .= "]}, ";
     //koin card
-    $output2 .= "{name: 'CHIP CARD',";
+    $output2 .= "{name: 'VÀNG CARD',";
     $output2 .= "data:[";
     foreach ($chart_data as $row2) {
         $obj = json_decode($row2['data']);
@@ -256,7 +256,7 @@ foreach ($chart_data as $row) {
     }
     $output2 .= "]}, ";
     // IAP Koin
-    $output2 .= "{name: 'ADMIN ADD CHIP',";
+    $output2 .= "{name: 'ADMIN ADD VÀNG',";
     $output2 .= "data:[";
     foreach ($chart_data as $row2) {
         $obj = json_decode($row2['data']);
@@ -337,7 +337,7 @@ foreach ($chart_data as $row) {
                         defaultSeriesType: 'spline'
                     },
                     title: {
-                        text: 'Chips Game'
+                        text: 'Vàng SMS, Card'
                     },
                     xAxis: {
                         categories:
@@ -368,7 +368,7 @@ echo substr($output2, 0, -1);
                         defaultSeriesType: 'spline'
                     },
                     title: {
-                        text: 'Chip SMS, Card'
+                        text: 'Vàng Game'
                     },
                     xAxis: {
                         categories:
@@ -383,7 +383,7 @@ foreach ($chart_data as $row) {
                     },
                     yAxis: {
                         title: {
-                            text: 'Chip'
+                            text: 'Vàng'
                         }
                     },
                     series: [
@@ -496,11 +496,11 @@ echo substr($output, 0, -1);
                         <table width="100%" style="padding-top:20px">
                             <tr>
                                 <td>Ngày</td>
-                                <td align="center" style="background-color:#81A0F3;"><b>Chip game</b></td>                                
-                                <td>Chip IAP</td>
+                                <td align="center" style="background-color:#81A0F3;"><b>Vàng từ Game</b></td>                                
+                                <td>Vàng IAP</td>
 
-                                <td>Chip SMS</td>
-                                <td>Chip Card</td>
+                                <td>Vàng SMS</td>
+                                <td>Vàng Card</td>
                                 <td>Bau Cua</td>
                                 <td>Xoc Dia</td>
                                 <td>Tai Xiu</td>
