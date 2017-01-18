@@ -867,6 +867,30 @@ $today = date('Y-m-d', time());
                     }
                 });
             }
+            
+            function changePassUser() {
+                var username = $("#changeUserPassForm input[name=username]").val();
+                var pass = $("#changeUserPassForm input[name=pass]").val();
+                var confirm_pass = $("#changeUserPassForm input[name=confirm_pass]").val();
+                $.ajax({
+                    type: "POST",
+                    url: "API/changePass.php",
+                    data: {
+                        "username": username,
+                        "pass": pass,
+                        "confirm_pass": confirm_pass
+                    },
+                    dataType: 'text',
+                    success: function (msg) {                        
+                        var data = jQuery.parseJSON(msg);
+                        $("#changeUserPassForm #message").html(data.message);
+                    },
+                    failure: function () {
+                        $("#changeUserPassForm #message").html("<span>Không truy cập được dữ liệu</span>");                        
+                    }
+                });
+            }
+            
             function findUserMobile() {
                 var phonenumber = $("#findPhoneData input[name=phonenumber]").val();
                 var fdate = $("#findPhoneData input[name=fromDate]").val();
@@ -1447,6 +1471,21 @@ $today = date('Y-m-d', time());
                 </div>
             </div>
 
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);">Đổi Mật khẩu</a></div>
+                <div class="box_body" style="display: none">                    
+                    <form id="changeUserPassForm">
+                        Username:
+                        <input type="text" name="username" value="" />
+                        Mật khẩu mới:
+                        <input type="password" name="pass" value="" />
+                        Xác nhận mật khẩu mới:
+                        <input type="password" name="confirm_pass" value="" />
+                        <input type="button" name="add" id="btnChangePassUser" value="Search" onclick="changePassUser();"/>
+                        <span id="message" style="color: #800000; font-weight: bold"></span>
+                    </form>
+                </div>
+            </div>
 
             <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Tìm kiếm theo số điện thoại</a></div>
@@ -1463,23 +1502,6 @@ $today = date('Y-m-d', time());
                     <div id="userPassword" style="display: none; padding-top:3px;"></div>
                 </div>
             </div>
-
-
-            <!--            <div class="box grid">
-                            <div class="box_header"><a href="javascript:void(0);">Tìm kiếm số điện thoại</a></div>
-                            <div class="box_body" style="display: none">                    
-                                <form id="findUserPhoneData">
-                                    Username:
-                                    <input type="text" name="username" value="" />
-                                    <input type="button" name="add" id="btnFindUserMobileDataSMS" value="Search" onclick="findMobileUser();"/>
-                                    <span id="message" style="color: #800000; font-weight: bold"></span>
-                                </form>                    
-                                <div id="phoneData">
-                                    <div id="userphoneDataDetail"></div>                        
-                                </div>
-                                <div id="userPassword" style="display: none; padding-top:3px;"></div>
-                            </div>
-                        </div>-->
 
 
             <div class="box grid">
@@ -1532,38 +1554,6 @@ $today = date('Y-m-d', time());
 
                 </div>
             </div>            
-
-
-            <!--            <div class="box grid">
-                            <div class="box_header"><a href="javascript:void(0);">Tìm kiếm list user theo passport</a></div>
-                            <div class="box_body" style="display: none">
-                                <form id="findUserPassport">
-                                    Passport: <input type="text" name="passport" value="" />
-                                    <input type="button" name="add" id="btnFindUserPassport" value="Search" onclick="findListUserPassport();"/><br />
-                                    Lý do khoá: <input type="text" name="cause" value="" />
-                                    <input type="button" name="add" id="btnFindLockPassport" value="Khoá" onclick="lockPassport();"/>
-                                    <input type="button" name="add" id="btnFindLockPassport" value="Mở Khoá" onclick="unlockPassport();"/>
-                                </form>                    
-                                <div id="userData">
-                                    <div id="userPassport"></div>                        
-                                </div>
-                            </div>
-                        </div>-->
-
-
-            <!--            <div class="box grid">
-                            <div class="box_header"><a href="javascript:void(0);">Tìm kiếm list user theo số điện thoại nạp sms</a></div>
-                            <div class="box_body" style="display: none">
-                                <form id="findUserSMS">
-                                    Số điện thoại:
-                                    <input type="text" name="mobile" value="" /> (có dạng: 84xxxxxxx)
-                                    <input type="button" name="add" id="btnFindUserSMS" value="Search" onclick="findListUserSMS();"/>
-                                </form>                    
-                                <div id="userData">
-                                    <div id="userSMS"></div>                        
-                                </div>
-                            </div>
-                        </div>-->
 
             <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Gửi tin nhắn cho 1 người chơi</a></div>
@@ -1631,31 +1621,7 @@ $today = date('Y-m-d', time());
                     </form>
                 </div>
             </div>
-            <!--            <div class="box grid">
-                            <div class="box_header"><a href="javascript:void(0);">Thay huy hiệu bang</a></div>
-                            <div class="box_body" style="display: none">
-                                <form id="changeIcon">						
-                                    Tên bang <input type="text" name="guild_name" style="width: 100px"/>
-                                    Mã huy hiệu <input type="text" name="icon_id" style="width: 100px"/>
-                                    <input type="button" name="add" value="Xem thông tin" onclick="findGuild();"/>
-                                    <input type="button" name="add" value="Thay đổi" onclick="changeIcon();"/>
             
-                                    <span id="message" style="color: #800000; font-weight: bold"></span>
-                                </form>
-                            </div>
-                            <div id="guildDetail" style="display: none;">
-                                <table width="100%">
-                                    <tr>
-                                        <td width="10%">Tên bang hội</td>
-                                        <td><span id="name"></span></td>
-                                        <td width="10%">Bang chủ</td>
-                                        <td><span id="owner"></span></td>
-                                        <td width="10%">Huy hiệu</td>
-                                        <td><span id="icon"></span></td>
-                                    </tr>                            
-                                </table>
-                            </div>
-                        </div>-->            
         </div>
         <!-- The Modal -->
         <div id="myModal" class="modal">
