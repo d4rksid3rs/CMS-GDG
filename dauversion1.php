@@ -21,7 +21,7 @@ while (strtotime($date_start) < strtotime($end_date)) {
 }
 
 //TOP CP trong vong 1 tuan
-$sql = "select name1,name2, sum(dau) from active_user_detail where type=5 and date_login >= '{$start_date}' AND date_login <= '{$end_date}' group by name1,name2 order by dau desc LIMIT 0,20";
+$sql = "select name1,name2, sum(dau) from active_user_detail where type=6 and date_login >= '{$start_date}' AND date_login <= '{$end_date}' group by name1,name2 order by dau desc LIMIT 0,20";
 
 
 
@@ -45,7 +45,7 @@ $cplist = implode(",",$cps);
 //var_dump($cps);
 
 $sql1 = "select date_login,name1,name2, dau from active_user_detail 
-			where type=5
+			where type=6
 					and (name1,name2) IN ({$cplist}) 
 					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
 				group by name1,name2,date_login 

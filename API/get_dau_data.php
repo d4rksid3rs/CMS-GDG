@@ -19,8 +19,13 @@ require('db.class.php');
 //    $week[] = $date_start;
 //}
 
-$today = date('Y-m-d');
+//$today = date('Y-m-d');
 //$today = date('2016-07-23');
+if ($_GET['date']) {
+    $today = $_GET['date'];
+} else {
+    $today = date('Y-m-d');
+}
 $month = date("Y-m-d", strtotime("-30 day", strtotime($today)));
 $today_start = $today . ' 00:00:00';
 $month_start = $month . ' 00:00:00';
@@ -115,8 +120,8 @@ if ($stmt5->rowCount() > 0) {
 }
 
 // Log Login by OS
-$sql_login_os_day = "select count(*) as total, os_type from user where date_created > '{$today_start}' group by os_type";
-$sql_login_os_month = "select count(*) as total, os_type from user where date_created > '{$month_start}' group by os_type";
+$sql_login_os_day = "select count(*) as total, os_type from user where last_login > '{$today_start}' group by os_type";
+$sql_login_os_month = "select count(*) as total, os_type from user where last_login > '{$month_start}' group by os_type";
 $stmt7 = $db->prepare($sql_login_os_day);
 $stmt7->execute();
 
@@ -142,12 +147,69 @@ if ($stmt7->rowCount() > 0) {
     echo 'No Moeny for Today !!';
 }
 
+// Log Dang ky by Version
+$sql_reg_client_day = "select count(*) as total, client_version from user where date_created > '{$today_start}' group by client_version";
+$sql_reg_client_month = "select count(*) as total, client_version from user where date_created > '{$month_start}' group by client_version";
+$stmt9 = $db->prepare($sql_reg_client_day);
+$stmt9->execute();
+
+$stmt10 = $db->prepare($sql_reg_client_month);
+$stmt10->execute();
+
+if ($stmt9->rowCount() > 0) {
+    foreach ($stmt9 as $row) {
+        $total_month = 0;
+        foreach ($stmt10 as $row2) {
+            if ($row2['client_version'] == $row['client_version']) {
+                $total_month = $row2['total'];
+                break;
+            }
+        }
+        $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '5', '{$row['client_version']}', '{$row['client_version']}', '{$row['total']}', '{$total_month}')";
+        $db->exec($sql_insert);
+    }
+    echo 'Success !!!!';
+} else {
+//    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '')";
+//    $db->exec($sql_insert);
+    echo 'No Moeny for Today !!';
+}
+
+// Log Login by Version
+$sql_login_client_day = "select count(*) as total, client_version from user where last_login > '{$today_start}' group by client_version";
+$sql_login_client_month = "select count(*) as total, client_version from user where last_login > '{$month_start}' group by client_version";
+$stmt11 = $db->prepare($sql_login_client_day);
+$stmt11->execute();
+
+$stmt12 = $db->prepare($sql_login_client_month);
+$stmt12->execute();
+
+if ($stmt11->rowCount() > 0) {
+    foreach ($stmt11 as $row) {
+        $total_month = 0;
+        foreach ($stmt12 as $row2) {
+            if ($row2['client_version'] == $row['client_version']) {
+                $total_month = $row2['total'];
+                break;
+            }
+        }
+        $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '6', '{$row['client_version']}', '{$row['client_version']}', '{$row['total']}', '{$total_month}')";
+        $db->exec($sql_insert);
+    }
+    echo 'Success !!!!';
+} else {
+//    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '')";
+//    $db->exec($sql_insert);
+    echo 'No Moeny for Today !!';
+}
+
+
 // Server Koin
 $sql_koin = "select sum(koin) as total, sum(koin_vip) as total_vip from auth_user";
-$stmt10 = $db->prepare($sql_koin);
-$stmt10->execute();
+$stmt20 = $db->prepare($sql_koin);
+$stmt20->execute();
 $today_timestamp = date("Y-m-d H:i:s");
-foreach ($stmt10 as $row) {
+foreach ($stmt20 as $row) {
     $sql_insert = "INSERT INTO `server_koin` (`date`, `koin`, `koin_vip`) VALUES ('{$today_timestamp}', {$row['total']}, {$row['total_vip']})";
     $db->exec($sql_insert);
 }

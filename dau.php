@@ -55,7 +55,8 @@
 			<td colspan="2">Version</td>
 		</tr>
 		<tr>
-			<td colspan=2 align=center><iframe height="345px" width="100%" frameBorder="0" src="dauversion.php">your browser does not support IFRAMEs</iframe></td>
+			<td width=50% align=center><iframe height="345px" width="100%" frameBorder="0" src="dauversion.php">your browser does not support IFRAMEs</iframe></td>
+                        <td width=50% align=center><iframe height="345px" width="100%" frameBorder="0" src="dauversion1.php">your browser does not support IFRAMEs</iframe></td>
 		</tr>
 	</table>
 	
