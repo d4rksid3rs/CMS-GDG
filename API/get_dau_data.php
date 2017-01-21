@@ -21,7 +21,7 @@ require('db.class.php');
 
 //$today = date('Y-m-d');
 //$today = date('2016-07-23');
-if ($_GET['date']) {
+if (isset($_GET['date'])) {
     $today = $_GET['date'];
 } else {
     $today = date('Y-m-d');
