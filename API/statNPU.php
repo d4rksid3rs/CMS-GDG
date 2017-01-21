@@ -7,7 +7,7 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
     $toDate = $_GET['toDate'] . " 23:59:59";
     try {
 //        $sql = "SELECT * FROM `koin_deduct` WHERE `date_created` BETWEEN '$fromDate' AND '$toDate' AND `return_code` = 1";                
-        $sql = "select u.username, u.screen_name, auv.sum_money, b.sms, c.card, d.iap from user u 
+        $sql = "select u.*, auv.sum_money, b.sms, c.card, d.iap from user u 
 left join (select username, sum(money) as sms from log_nap_koin where type = 1 group by username) b on u.username = b.username
 left join (select username, sum(money) as card from log_nap_koin where type = 2 group by username) c on u.username = c.username
 left join (select username, sum(money) as iap from log_nap_koin where type = 4 group by username) d on u.username = d.username
