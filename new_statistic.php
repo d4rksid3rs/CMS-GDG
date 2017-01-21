@@ -35,8 +35,29 @@ $today = date('Y-m-d', time());
                         $("#btnFindListUser").attr("disabled", false);
                     }
                 });
-
             }
+            
+            function statNPU() {
+                var fromDate = $("#statNPU input[name=fromDate]").val();
+                var toDate = $("#statNPU input[name=toDate]").val();
+                $.ajax({
+                    type: "GET",
+                    url: "API/statNPU.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#statNPUResult").html(msg);
+                        $("#statNPUResult").show();
+                    },
+                    failure: function () {
+                        $("#statNPUResult").html("<b>Không truy cập được dữ liệu</b>");
+                    }
+                });
+            }
+            
             function koinUserRange() {
                 $.ajax({
                     type: "GET",
@@ -138,6 +159,23 @@ $today = date('Y-m-d', time());
                     </form>
                 </div>
                 <div id="userTopKoin" style="display: none;">
+
+                </div>
+            </div> 
+            <div class="box grid">
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê NPU</a></div>
+                <div class="box_body"  style="display: none">
+                    <form id="statNPU">    
+                        Từ Ngày
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Tới Ngày
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Số lượng
+                        <input type="button" name="add" value="Thống kê" onclick="statNPU();"/>
+                        <!--<span id="top-charge" style="font-weight: bold; color: #fff;"></span>-->
+                    </form>
+                </div>
+                <div id="statNPUResult" style="display: none;">
 
                 </div>
             </div> 
