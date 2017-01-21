@@ -163,7 +163,7 @@ if (!isset($toDate)) {
                     <table width=100%>
                         <tr>
                             <td width="100%"> 
-                                <iframe height="370" width="100%" frameBorder="0" src="nchart.php?fromDate=<?php echo $fromDate; ?>&toDate=<?php echo $toDate; ?>">your browser does not support IFRAMEs</iframe></td>
+                                <iframe height="450" width="100%" frameBorder="0" src="nchart.php?fromDate=<?php echo $fromDate; ?>&toDate=<?php echo $toDate; ?>">your browser does not support IFRAMEs</iframe></td>
                             <!--
                                     <td width="50%"> <iframe height="370" width="100%" frameBorder="0" src="chart.php?fromDate=<?php echo $fromDate; ?>&toDate=<?php echo $toDate; ?>">your browser does not support IFRAMEs</iframe></td>
                                     <td width="50%"> <iframe height="370" width="100%" frameBorder="0" src="chart2.php?fromDate=<?php echo $fromDate; ?>&toDate=<?php echo $toDate; ?>">your browser does not support IFRAMEs</iframe></td>
