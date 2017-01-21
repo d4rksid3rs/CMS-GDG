@@ -15,6 +15,10 @@ if (!isset($toDate)) {
 }
 try {
     $sql = "select type, hour(dateOnline) as hourTime, sum(online)/count(*) as online, sum(total)/count(*) as total from user_online_history where date(dateOnline) >= '" . $fromDate . "' and date(dateOnline) <= '" . $toDate . "' group by type,hour(dateOnline) order by hour(dateOnline)";
+    $sql_avg = "select avg(total) as avg from user_online_history where date(dateOnline) >= '{$fromDate}' and date(dateOnline) <= '{$toDate}'";
+    $total = $db->prepare($sql_avg);
+    $total->execute();
+    $result = $total->fetch();
     $users = array();
     foreach ($db->query($sql) as $row) {
         $type = $row['type'];
@@ -77,7 +81,6 @@ foreach ($users as $key => $val) {
 
     $output = $output . $op . "]},";
 }
-
 $all = $all . "{name: 'Tổng người chơi',";
 $all = $all . "data:[";
 $op = "";
@@ -89,7 +92,6 @@ $all = $all . $op . "]}";
 
 //$output = substr($output,0, strlen($output)-1);
 $chart = $output . $all;
-
 ?>
 <html>
     <head>
@@ -117,13 +119,16 @@ $chart = $output . $all;
                             text: 'Quantity'
                         }
                     },
-                    series: [<?php echo $chart;?>]
+                    series: [<?php echo $chart; ?>]
                 });
             });
         </script>
     </head>
     <body>
-        <div id="chart-container-1" style="width: 100%; height: 350px"></div>
-        <?php //echo $output;  ?>
+        <div id="chart-container-1" style="width: 100%; height: 350px">
+
+        </div>
+        <span style="font-weight: bold;">CCU Trung bình: <?php echo round($result['avg']); ?></span>
+<?php //echo $output;   ?>
     </body>
 </html>

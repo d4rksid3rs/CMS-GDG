@@ -38,6 +38,7 @@ $today = date('Y-m-d', time());
             }
             
             function statNPU() {
+                $("#dvloader").show();
                 var fromDate = $("#statNPU input[name=fromDate]").val();
                 var toDate = $("#statNPU input[name=toDate]").val();
                 $.ajax({
@@ -51,6 +52,7 @@ $today = date('Y-m-d', time());
                     success: function (msg) {
                         $("#statNPUResult").html(msg);
                         $("#statNPUResult").show();
+                        $("#dvloader").hide();
                     },
                     failure: function () {
                         $("#statNPUResult").html("<b>Không truy cập được dữ liệu</b>");
@@ -191,6 +193,8 @@ $today = date('Y-m-d', time());
                 </pre>
             </div>
 
+        </div>
+        <div style="display:none" id="dvloader">
         </div>
     </body>
 </html>
