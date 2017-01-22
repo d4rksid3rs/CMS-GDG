@@ -115,7 +115,7 @@ $today = date('Y-m-d', time());
                         Card
                         <select name="type">
                             <option value="2" selected="selected">CARD</option>
-                            <option value="1" selected="selected">SMS</option>
+                            <option value="1">SMS</option>
                             <option value="4">IAP</option>
                         </select>
                         Số lượng

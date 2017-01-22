@@ -162,6 +162,49 @@ if (!isset($toDate)) {
                 });
             }
 
+            function getNapIAP() {
+
+                var fromDate = $("#napIAP input[name=fromDate]").val();
+                var toDate = $("#napIAP input[name=toDate]").val();
+
+                //alert(fromDate);
+
+                $.ajax({
+                    type: "GET",
+                    url: "API/getActivity.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate,
+                        "type": "napiap"
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        msg = msg.trim();
+                        if (msg != '' && msg.length > 2) {
+                            var data = jQuery.parseJSON(msg);
+                            if (data.status == 1) {
+                                $("#napIAP #message").text(data.numuser);
+                            } else {
+                                $("#napIAP #message").html(data.message);
+                                $(this).oneTime(5000, function () {
+                                    $("#napIAP #message").html("");
+                                });
+                            }
+                        } else {
+                            $("#napIAP #message").html("Lỗi hệ thống");
+                            $(this).oneTime(5000, function () {
+                                $("#napIAP #message").html("");
+                            });
+                        }
+                    },
+                    failure: function () {
+                        $("#napIAP #message").html("Lỗi hệ thống");
+                        $(this).oneTime(5000, function () {
+                            $("#napIAP #message").html("");
+                        });
+                    }
+                });
+            }
 
             function getNapCard() {
 
@@ -269,7 +312,7 @@ if (!isset($toDate)) {
 
 
             <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);"><?php echo "Số thuê bao điện thoại Nạp tiền qua IAP"; ?></a></div>
+                <div class="box_header"><a href="javascript:void(0);"><?php echo "Số thuê bao điện thoại Nạp tiền qua SMS"; ?></a></div>
                 <div class="box_body">
                     <table width="100%">
                         <tr><td>
@@ -282,6 +325,28 @@ if (!isset($toDate)) {
                                         <input type="text" id="datepicker5" name="toDate" style="text-align: center; width: 100px;" value="<?php echo $toDate; ?>"/> 
                                         (23:59:59)
                                         <input type="button" value="Cập nhật" class="input_button" onClick="getNapSMS();"/>
+                                        <span id="message" style="color: #800000; font-weight: bold"></span>
+                                    </form>
+                                </div>
+
+                            </td></tr></table>		
+                </div>
+            </div>
+            
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);"><?php echo "Số thuê bao điện thoại Nạp tiền qua IAP"; ?></a></div>
+                <div class="box_body">
+                    <table width="100%">
+                        <tr><td>
+                                <div style="padding-left:10px;">
+                                    <form id="napIAP">
+                                        Từ ngày
+                                        <input type="text" id="datepicker4" name="fromDate" style="text-align: center; width: 100px;" value="<?php echo $fromDate; ?>"/> 
+                                        (00:00:00)
+                                        Tới ngày
+                                        <input type="text" id="datepicker5" name="toDate" style="text-align: center; width: 100px;" value="<?php echo $toDate; ?>"/> 
+                                        (23:59:59)
+                                        <input type="button" value="Cập nhật" class="input_button" onClick="getNapIAP();"/>
                                         <span id="message" style="color: #800000; font-weight: bold"></span>
                                     </form>
                                 </div>
@@ -325,15 +390,15 @@ if (!isset($toDate)) {
                         </tr>
                     </table>
                     <div style="padding-left:10px;">
-                        <!--
-                                <form method="index.php" method="GET">
-                                        Từ ngày 
-                                        <input type="text" id="datepicker1" name="fromDate" style="text-align: center; width: 100px;" value="<?php echo $fromDate; ?>"/> 
-                                        Tới ngày 
-                                        <input type="text" id="datepicker2" name="toDate" style="text-align: center; width: 100px;" value="<?php echo $toDate; ?>"/> 
-                                        <input type="submit" value="Cập nhật" class="input_button"/>
-                                </form>
-                        </div>
+                        <!--                        
+                                                        <form method="index.php" method="GET">
+                                                                Từ ngày 
+                                                                <input type="text" id="datepicker1" name="fromDate" style="text-align: center; width: 100px;" value="<?php echo $fromDate; ?>"/> 
+                                                                Tới ngày 
+                                                                <input type="text" id="datepicker2" name="toDate" style="text-align: center; width: 100px;" value="<?php echo $toDate; ?>"/> 
+                                                                <input type="submit" value="Cập nhật" class="input_button"/>
+                                                        </form>
+                                                </div>
                         -->
                     </div>
 
