@@ -4,21 +4,27 @@ require('chartutil.php');
 
  
 
-$end_date = date('Y-m-d');
-
-$date_start = date ("Y-m-d", strtotime("-7 day", strtotime($end_date)));
+//$end_date = date('Y-m-d');
+//
+//$date_start = date ("Y-m-d", strtotime("-7 day", strtotime($end_date)));
+//
+//$start_date = $date_start;
+//
+//$week = array();
+//while (strtotime($date_start) <= strtotime($end_date)) {
+//        $date_start = date ("Y-m-d", strtotime("+1 day", strtotime($date_start)));         
+//	$week[]= $date_start;
+//}
+$date_start = $_GET['fromDate'];
+$end_date = $_GET['toDate'];
 
 $start_date = $date_start;
 
 $week = array();
-while (strtotime($date_start) <= strtotime($end_date)) {
-        $date_start = date ("Y-m-d", strtotime("+1 day", strtotime($date_start)));         
+while (strtotime($date_start) <= strtotime($end_date)) {               
 	$week[]= $date_start;
+        $date_start = date ("Y-m-d", strtotime("+1 day", strtotime($date_start)));  
 }
-
-
-
-
 //$cpname = asort($cpname);
 
 //$cplist = implode(",",$cps);
@@ -132,12 +138,7 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
     </script>
   </head>
   <body style="font-family: Arial;border: 0 none;">
-    <table width=100%>
-		<tr>
-		<td width=50% align=center valign=top><div>Đăng ký</div><div id="visualization" style="width: 500px; height: 300px;"></div></td>
-		<td width=50% align=center><div>Đăng nhập</div><div><iframe height="350px" width="100%" frameBorder="0" src="dauos1.php">your browser does not support IFRAMEs</iframe></td></div></td>
-	</tr>
-	</table>
+      <div id="visualization" style="width: 500px; height: 300px;"></div>
   </body>
 </html>
 ​

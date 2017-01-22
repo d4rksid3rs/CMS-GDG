@@ -9,15 +9,17 @@ $end_date = date('Y-m-d');
 
 //$date_start = date ("Y-m-d",strtotime("yesterday"));
 
-$date_start = date ("Y-m-d", strtotime("-7 day", strtotime($end_date)));
-$end_date = date ("Y-m-d", strtotime("-1 day", strtotime($end_date)));
+//$date_start = date ("Y-m-d", strtotime("-7 day", strtotime($end_date)));
+//$end_date = date ("Y-m-d", strtotime("-1 day", strtotime($end_date)));
+$date_start = $_GET['fromDate'];
+$end_date = $_GET['toDate'];
 
 $start_date = $date_start;
 
 $week = array();
-while (strtotime($date_start) < strtotime($end_date)) {
-        $date_start = date ("Y-m-d", strtotime("+1 day", strtotime($date_start)));         
+while (strtotime($date_start) <= strtotime($end_date)) {               
 	$week[]= $date_start;
+        $date_start = date ("Y-m-d", strtotime("+1 day", strtotime($date_start)));  
 }
 
 //TOP CP trong vong 1 tuan

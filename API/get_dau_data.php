@@ -27,14 +27,16 @@ if (isset($_GET['date'])) {
     $today = date('Y-m-d');
 }
 $month = date("Y-m-d", strtotime("-30 day", strtotime($today)));
-$today_start = $today . ' 00:00:00';
-$month_start = $month . ' 00:00:00';
+//$today_start = $today . ' 00:00:00';
+//$month_start = $month . ' 00:00:00';
+$today_start = $today;
+$month_start = $month;
 
 //$today_start = '2016-07-23 00:00:00';
 //$month_start = '2016-06-23 00:00:00';
 // Log Dang ky by CP
-$sql_reg_cp_day = "select count(*) as total, cp from user where date_created > '{$today_start}' group by cp";
-$sql_reg_cp_month = "select count(*) as total, cp from user where date_created > '{$month_start}' group by cp";
+$sql_reg_cp_day = "select count(*) as total, cp from user where date(date_created) = '{$today_start}' group by cp";
+$sql_reg_cp_month = "select count(*) as total, cp from user where date(date_created) = '{$month_start}' group by cp";
 $stmt1 = $db->prepare($sql_reg_cp_day);
 $stmt1->execute();
 
@@ -63,8 +65,8 @@ if ($stmt1->rowCount() > 0) {
 }
 // Log Login by CP
 
-$sql_login_cp_day = "select count(*) as total, cp from user where  last_login > '{$today_start}' group by cp";
-$sql_login_cp_month = "select count(*) as total, cp from user where  last_login > '{$month_start}' group by cp";
+$sql_login_cp_day = "select count(*) as total, cp from user where date(last_login) = '{$today_start}' group by cp";
+$sql_login_cp_month = "select count(*) as total, cp from user where  date(last_login) = '{$month_start}' group by cp";
 $stmt3 = $db->prepare($sql_login_cp_day);
 $stmt3->execute();
 
@@ -92,8 +94,8 @@ if ($stmt3->rowCount() > 0) {
 }
 
 // Log Dang ky by OS
-$sql_reg_os_day = "select count(*) as total, os_type from user where date_created > '{$today_start}' group by os_type";
-$sql_reg_os_month = "select count(*) as total, os_type from user where date_created > '{$month_start}' group by os_type";
+$sql_reg_os_day = "select count(*) as total, os_type from user where date(date_created) = '{$today_start}' group by os_type";
+$sql_reg_os_month = "select count(*) as total, os_type from user where date(date_created) = '{$month_start}' group by os_type";
 $stmt5 = $db->prepare($sql_reg_os_day);
 $stmt5->execute();
 
@@ -120,8 +122,8 @@ if ($stmt5->rowCount() > 0) {
 }
 
 // Log Login by OS
-$sql_login_os_day = "select count(*) as total, os_type from user where last_login > '{$today_start}' group by os_type";
-$sql_login_os_month = "select count(*) as total, os_type from user where last_login > '{$month_start}' group by os_type";
+$sql_login_os_day = "select count(*) as total, os_type from user where date(last_login) = '{$today_start}' group by os_type";
+$sql_login_os_month = "select count(*) as total, os_type from user where date(last_login) = '{$month_start}' group by os_type";
 $stmt7 = $db->prepare($sql_login_os_day);
 $stmt7->execute();
 
@@ -148,8 +150,8 @@ if ($stmt7->rowCount() > 0) {
 }
 
 // Log Dang ky by Version
-$sql_reg_client_day = "select count(*) as total, client_version from user where date_created > '{$today_start}' group by client_version";
-$sql_reg_client_month = "select count(*) as total, client_version from user where date_created > '{$month_start}' group by client_version";
+$sql_reg_client_day = "select count(*) as total, client_version from user where date(date_created) = '{$today_start}' group by client_version";
+$sql_reg_client_month = "select count(*) as total, client_version from user where date(date_created) = '{$month_start}' group by client_version";
 $stmt9 = $db->prepare($sql_reg_client_day);
 $stmt9->execute();
 
@@ -176,8 +178,8 @@ if ($stmt9->rowCount() > 0) {
 }
 
 // Log Login by Version
-$sql_login_client_day = "select count(*) as total, client_version from user where last_login > '{$today_start}' group by client_version";
-$sql_login_client_month = "select count(*) as total, client_version from user where last_login > '{$month_start}' group by client_version";
+$sql_login_client_day = "select count(*) as total, client_version from user where date(last_login) = '{$today_start}' group by client_version";
+$sql_login_client_month = "select count(*) as total, client_version from user where date(last_login) = '{$month_start}' group by client_version";
 $stmt11 = $db->prepare($sql_login_client_day);
 $stmt11->execute();
 
