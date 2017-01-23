@@ -64,30 +64,6 @@ foreach ($key as $k) {
     $value1[$k]["playingTable"] = $jsonData->{$k}->{"playingTable"};
     $value1["total"] += $value1[$k]["online"];
 }
-/* * ********************************************* */
-/* * **********Server 2*************************** */
-/* * ********************************************* */
-$my_file = file_get_contents("./sdata2");
-$jsonData2 = json_decode($my_file);
-
-$value2 = array();
-$value2["online"] = $jsonData2->{"online"};
-$value2["total"] = 0;
-foreach ($key as $k) {
-    $value2[$k]["online"] = 0;
-    foreach ($jsonData2->{$k}->{"room"} as $row) {
-        $value2[$k]["online"] += $row->{"online"};
-        $value2[$k]["room"] = array("id" => $row->{"id"},
-            "name" => $row->{"name"},
-            "online" => $row->{"online"},
-            "maxBlind" => $row->{"maxBlind"},
-            "minBlind" => $row->{"minBlind"},
-            "limit" => $row->{"limit"});
-    }
-    $value2[$k]["playingTable"] = $jsonData2->{$k}->{"playingTable"};
-    $value2["total"] += $value2[$k]["online"];
-}
-
 $fromDate = $_GET['fromDate'];
 $toDate = $_GET['toDate'];
 if (!isset($fromDate)) {
@@ -96,6 +72,19 @@ if (!isset($fromDate)) {
 if (!isset($toDate)) {
     $toDate = date('Y-m-d', time());
 }
+require 'API/db.class.php';
+$today = date('Y-m-d');
+$sql_reg_today = "select count(*) as total from user where date(date_created) = '{$today}'";
+$sql_login_today = "select count(*) as total from user where date(last_login) = '{$today}'";
+
+$rs1 = $db->prepare($sql_reg_today);
+$rs1->execute();
+$total_reg = $rs1->fetch();
+
+$rs2 = $db->prepare($sql_login_today);
+$rs2->execute();
+$total_login = $rs2->fetch();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -113,7 +102,10 @@ if (!isset($toDate)) {
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
             <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);" title="<?php echo $jsonData->{'count'} . " - " . $jsonData2->{'count'} . " - " . ($jsonData->{'count'} + $jsonData2->{'count'}); ?>">Người chơi <?php echo ($value1["total"] + $value2["total"] + $value3["total"]) . "/" . ($value1["online"] + $value2["online"] + $value3["online"]) ?></a></div>
+                <div class="box_header">
+                    <a href="javascript:void(0);" >Đăng ký / Login: <?php echo $total_reg['total'] ."/".$total_login['total']. " Người chơi"; ?>
+                    </a>
+                </div>
                 <div class="box_body">
                     <table width="100%">
                         <tr>
