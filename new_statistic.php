@@ -41,12 +41,14 @@ $today = date('Y-m-d', time());
                 $("#dvloader").show();
                 var fromDate = $("#statNPU input[name=fromDate]").val();
                 var toDate = $("#statNPU input[name=toDate]").val();
+                var osType = $("#statNPU select[name=os_type]").val();
                 $.ajax({
                     type: "GET",
                     url: "API/statNPU.php",
                     data: {
                         "fromDate": fromDate,
-                        "toDate": toDate
+                        "toDate": toDate,
+                        "osType": osType,
                     },
                     dataType: 'text',
                     success: function (msg) {
@@ -56,6 +58,31 @@ $today = date('Y-m-d', time());
                     },
                     failure: function () {
                         $("#statNPUResult").html("<b>Không truy cập được dữ liệu</b>");
+                    }
+                });
+            }
+            
+            function statPU() {
+                $("#dvloader").show();
+                var fromDate = $("#statPU input[name=fromDate]").val();
+                var toDate = $("#statPU input[name=toDate]").val();
+                var osType = $("#statPU select[name=os_type]").val();
+                $.ajax({
+                    type: "GET",
+                    url: "API/statPU.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate,
+                        "osType": osType,
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#statPUResult").html(msg);
+                        $("#statPUResult").show();
+                        $("#dvloader").hide();
+                    },
+                    failure: function () {
+                        $("#statPUResult").html("<b>Không truy cập được dữ liệu</b>");
                     }
                 });
             }
@@ -82,7 +109,8 @@ $today = date('Y-m-d', time());
                     type: "GET",
                     url: "API/topUserKoin.php",
                     data: {
-                        "limit": limit
+                        "limit": limit,
+                        "type": 1
                     },
                     dataType: 'text',
                     success: function (msg) {
@@ -91,6 +119,54 @@ $today = date('Y-m-d', time());
                     },
                     failure: function () {
                         $("#userTopKoin").html("<span>Không truy cập được dữ liệu</span>");
+                    }
+                });
+            }
+            
+            function topKoinVIPUser() {
+                var limit = $("#user_top_gold select[name=limit]").val();
+
+                $("#btnFindListUser").attr("disabled", true);
+                $.ajax({
+                    type: "GET",
+                    url: "API/topUserKoin.php",
+                    data: {
+                        "limit": limit,
+                        "type": 2
+                        
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#userTopKoinVip").html(msg);
+                        $("#userTopKoinVip").show();
+                    },
+                    failure: function () {
+                        $("#userTopKoinVip").html("<span>Không truy cập được dữ liệu</span>");
+                    }
+                });
+            }
+            
+            function statIngame() {
+                $("#dvloader").show();
+                var fromDate = $("#statIngame input[name=fromDate]").val();
+                var toDate = $("#statIngame input[name=toDate]").val();
+                var osType = $("#statIngame select[name=os_type]").val();
+                $.ajax({
+                    type: "GET",
+                    url: "API/statIngame.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate,
+                        "osType": osType
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#statIngameResult").html(msg);
+                        $("#statIngameResult").show();
+                        $("#dvloader").hide();
+                    },
+                    failure: function () {
+                        $("#statIngameResult").html("<span>Không truy cập được dữ liệu</span>");
                     }
                 });
             }
@@ -165,6 +241,25 @@ $today = date('Y-m-d', time());
                 </div>
             </div> 
             <div class="box grid">
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê TOP VÀNG trong Game</a></div>
+                <div class="box_body"  style="display: none">
+                    <form id="user_top_gold">    
+                        Số lượng
+                        <select name="limit">
+                            <option value="10" selected="selected">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <input type="button" name="add" value="Thống kê" onclick="topKoinVIPUser();"/>
+                        <!--<span id="top-charge" style="font-weight: bold; color: #fff;"></span>-->
+                    </form>
+                </div>
+                <div id="userTopKoinVip" style="display: none;">
+
+                </div>
+            </div> 
+            <div class="box grid">
                 <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê NPU</a></div>
                 <div class="box_body"  style="display: none">
                     <form id="statNPU">    
@@ -172,12 +267,60 @@ $today = date('Y-m-d', time());
                         <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
                         Tới Ngày
                         <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
-                        Số lượng
+                        Hệ Điều hành
+                        <select name="os_type">
+                            <option value="0" selected="selected"></option>
+                            <option value="1">iOS</option>
+                            <option value="2">Android</option>
+                        </select>
                         <input type="button" name="add" value="Thống kê" onclick="statNPU();"/>
                         <!--<span id="top-charge" style="font-weight: bold; color: #fff;"></span>-->
                     </form>
                 </div>
                 <div id="statNPUResult" style="display: none;">
+
+                </div>
+            </div> 
+            <div class="box grid">
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê PU</a></div>
+                <div class="box_body"  style="display: none">
+                    <form id="statPU">    
+                        Từ Ngày
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Tới Ngày
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Hệ Điều hành
+                        <select name="os_type">
+                            <option value="0" selected="selected"></option>
+                            <option value="1">iOS</option>
+                            <option value="2">Android</option>
+                        </select>
+                        <input type="button" name="add" value="Thống kê" onclick="statPU();"/>
+                        <!--<span id="top-charge" style="font-weight: bold; color: #fff;"></span>-->
+                    </form>
+                </div>
+                <div id="statPUResult" style="display: none;">
+
+                </div>
+            </div> 
+            <div class="box grid">
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê ARPU</a></div>
+                <div class="box_body"  style="display: none">
+                    <form id="statIngame">    
+                        Từ Ngày
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Tới Ngày
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Hệ Điều hành
+                        <select name="os_type">
+                            <option value="0" selected="selected"></option>
+                            <option value="1">iOS</option>
+                            <option value="2">Android</option>
+                        </select>
+                        <input type="button" name="add" value="Thống kê" onclick="statIngame();"/>
+                    </form>
+                </div>
+                <div id="statIngameResult" style="display: none;">
 
                 </div>
             </div> 

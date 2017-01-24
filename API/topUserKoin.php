@@ -3,10 +3,19 @@
 require('../Config.php');
 require('db.class.php');
 $limit = $_GET['limit'];
-$sql = "select au.username, u.screen_name, au.koin from auth_user au left join user u on au.username = u.username order by koin desc limit 0,{$limit}";
+$type = $_GET['type'];
+if ($type == 1) {
+    $sql = "select au.username, u.screen_name, au.koin as koin from auth_user au left join user u on au.username = u.username order by koin desc limit 0,{$limit}";
+} else {
+    $sql = "select au.username, u.screen_name, au.koin_vip as koin from auth_user au left join user u on au.username = u.username order by koin desc limit 0,{$limit}";
+}
 $found = false;
 $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;font-weight:bold;'>";
+if ($type == 1) {
 $html .= "<td>STT</td><td>Username</td><td>Screen Name</td><td>Xu</td></tr>";
+} else {
+$html .= "<td>STT</td><td>Username</td><td>Screen Name</td><td>Vàng</td></tr>";    
+}
 $i = 0;
 foreach ($db->query($sql) as $row) {
     $i+=1;

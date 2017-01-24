@@ -20,12 +20,12 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
     }
     try {
 //        $sql = "SELECT * FROM `koin_deduct` WHERE `date_created` BETWEEN '$fromDate' AND '$toDate' AND `return_code` = 1";                
-        $sql = "select u.*, auv.sum_money, b.sms, c.card, d.iap from user u 
-left join (select username, sum(money) as sms from log_nap_koin where type = 1 group by username) b on u.username = b.username
-left join (select username, sum(money) as card from log_nap_koin where type = 2 group by username) c on u.username = c.username
-left join (select username, sum(money) as iap from log_nap_koin where type = 4 group by username) d on u.username = d.username
-join auth_user_vip auv on u.id = auv.auth_user_id 
-where (u.date_created >= '{$fromDate}' AND u.date_created <= '{$toDate}' AND auv.sum_money > 0 AND u.os_type like '%{$os}%')";        
+        $sql = "select l.*, sum(l.money) as sum_money, b.sms, c.card, d.iap, u.screen_name, u.cp, u.os_type,  u.mobile from log_nap_koin l 
+join user u on l.username = u.username
+left join (select username, sum(money) as sms from log_nap_koin where type = 1 group by username) b on u.username = b.username 
+left join (select username, sum(money) as card from log_nap_koin where type = 2 group by username) c on u.username = c.username 
+left join (select username, sum(money) as iap from log_nap_koin where type = 4 group by username) d on u.username = d.username 
+where l.created_on >= '{$fromDate}' AND l.created_on <= '{$toDate}' AND u.os_type like '%{$os}%' group by l.username";        
         $sql_count = "select count(u.username) count from user u join auth_user_vip auv on u.id = auv.auth_user_id "
                 . "where (u.date_created  >= '{$fromDate}' AND u.date_created <= '{$toDate}' AND auv.sum_money > 0 AND u.os_type like '%{$os}%')";
         $total = $db->prepare($sql_count);
@@ -54,7 +54,7 @@ where (u.date_created >= '{$fromDate}' AND u.date_created <= '{$toDate}' AND auv
             $html .= "<td width='10%'>" . number_format($row['card']) . "</td>";
             $html .= "<td width='10%'>" . number_format($row['iap']) . "</td>";
             $html .= "<td width='10%'>" . number_format($row['sum_money']) . "</td>";
-            $html .= "<td width='10%'>" . $row['date_created'] . "</td>";
+            $html .= "<td width='10%'>" . $row['created_on'] . "</td>";
             $html .= "</tr>";
         }
         $html .= "</table>";
