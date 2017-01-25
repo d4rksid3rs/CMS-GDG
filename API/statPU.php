@@ -25,14 +25,14 @@ join user u on l.username = u.username
 left join (select username, sum(money) as sms from log_nap_koin where type = 1 group by username) b on u.username = b.username 
 left join (select username, sum(money) as card from log_nap_koin where type = 2 group by username) c on u.username = c.username 
 left join (select username, sum(money) as iap from log_nap_koin where type = 4 group by username) d on u.username = d.username 
-where l.created_on >= '{$fromDate}' AND l.created_on <= '{$toDate}' AND u.os_type like '%{$os}%' group by l.username";        
-        $sql_count = "select count(u.username) count from user u join auth_user_vip auv on u.id = auv.auth_user_id "
-                . "where (u.date_created  >= '{$fromDate}' AND u.date_created <= '{$toDate}' AND auv.sum_money > 0 AND u.os_type like '%{$os}%')";
+where l.created_on >= '{$fromDate}' AND l.created_on <= '{$toDate}' AND u.os_type like '%{$os}%' group by l.username"; 
+        $sql_count = "select count(DISTINCT (l.username)) count from log_nap_koin l join user u on l.username = u.username  
+where l.created_on >= '{$fromDate}' AND l.created_on <= '{$toDate}' AND u.os_type like '%{$os}%'";
         $total = $db->prepare($sql_count);
 
         $total->execute();
 
-        $result = $total->fetch();
+        $result = $total->fetch();        
         $found = false;
         $resultData = array();
         $html = "<b style='color:#fff;'>Tổng User: " . $result['count'] . "</b><br />";

@@ -41,17 +41,16 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
         $total_pu = $rs3->fetch();
         $arpu = $total_rev['total_money'] / $total_login['total'];
         $arppu = $total_rev['total_money'] / $total_pu['total'];
-
-        $stat_ingame = [
-            [
+        $stat_ingame = array(
+            array(
                 'NameStat' => 'ARPU',
                 'Value' => $arpu
-            ],
-            [
+            ),
+            array (
                 'NameStat' => 'ARPPU',
                 'Value' => $arppu
-            ]
-        ];
+            )
+        );
         $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;font-weight:bold;'>";
         $html .= "<td>STT</td><td>Tên Chỉ só Ingame</td><td>Giá trị</td></tr>";
         $i = 0;
