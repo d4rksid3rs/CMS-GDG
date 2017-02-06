@@ -9,12 +9,13 @@ $pass = $_POST['pass'];
 $koin = $_POST['koin'];
 $cause = $_POST['cause'];
 $user = mysql_escape_string($user);
+$user = strtolower($user);
 $pass = mysql_escape_string($pass);
 $cause = mysql_escape_string($cause);
 if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0) {
     if ($koin >= 0) {
         $koin = $koin * (-1);
-        if ($pass == "pwdaddmoeny123$%^") {
+        if ($pass == "gdgonline@2017") {
             try {
                 $db->query("SET NAMES 'UTF8'");
                 $sql = "select * from auth_user where username='" . $user . "' limit 0,1";

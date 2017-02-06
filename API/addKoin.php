@@ -8,6 +8,7 @@ $pass = $_POST['pass'];
 $koin = $_POST['koin'];
 $cause = $_POST['cause'];
 $user = mysql_escape_string($user);
+$user = strtolower($user);
 $pass = mysql_escape_string($pass);
 $cause = mysql_escape_string($cause);
 $current_user = $_COOKIE['username'];

@@ -9,6 +9,7 @@ $pass = $_POST['pass'];
 $koin = $_POST['koin'];
 $cause = $_POST['cause'];
 $user = mysql_escape_string($user);
+$user = strtolower($user);
 $pass = mysql_escape_string($pass);
 $cause = mysql_escape_string($cause);
 if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0) {

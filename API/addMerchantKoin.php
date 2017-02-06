@@ -8,6 +8,7 @@ $user = $_POST['user'];
 $pass = $_POST['pass'];
 $vnd = $_POST['vnd'];
 $user = mysql_escape_string($user);
+$user = strtolower($user);
 $pass = mysql_escape_string($pass);
 $rate = 1;
 $sql_rate = "SELECT * FROM `config` WHERE `key` LIKE 'merchant_rate'  limit 0,1";
