@@ -52,7 +52,7 @@ $new_statistic = array("link" => "new_statistic.php", "img" => "new_statistic.pn
                 break;
             case "cskh":
 
-                $menu = array($logout, $settings, $koin, $money, $new_statistic, $user, $comment);
+                $menu = array($logout, $settings, $koin, $money, $vip, $new_statistic, $user, $comment);
                 break;
 //            case "monaco":
 //
