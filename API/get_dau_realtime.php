@@ -9,7 +9,7 @@ if (isset($_GET['date'])) {
 } else {
     $today = date('Y-m-d');
 }
-
+$path = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..');
 //$today_start = '2016-07-23 00:00:00';
 //$month_start = '2016-06-23 00:00:00';
 // Log Dang ky by CP
@@ -30,7 +30,7 @@ if ($stmt1->rowCount() > 0) {
 }
 $content1 = json_encode($dau_rt_reg_cp_array);
 if (isset($content1)) {
-    $filename = "../dau/rt_reg_cp";
+    $filename = $path . "/dau/rt_reg_cp";
     $fh = fopen($filename, 'w') or die("can't open file");
     //file_put_contents($filename, $content);
     fwrite($fh, $content1);
@@ -61,7 +61,7 @@ if ($stmt2->rowCount() > 0) {
 }
 $content2 = json_encode($dau_rt_login_cp_array);
 if (isset($content2)) {
-    $filename = "../dau/rt_login_cp";
+    $filename = $path . "/dau/rt_login_cp";
     $fh = fopen($filename, 'w') or die("can't open file");
     //file_put_contents($filename, $content);
     fwrite($fh, $content2);
@@ -91,7 +91,7 @@ if ($stmt3->rowCount() > 0) {
 }
 $content3 = json_encode($dau_rt_reg_os_array);
 if (isset($content3)) {
-    $filename = "../dau/rt_reg_os";
+    $filename = $path . "/dau/rt_reg_os";
     $fh = fopen($filename, 'w') or die("can't open file");
     //file_put_contents($filename, $content);
     fwrite($fh, $content3);
@@ -121,7 +121,7 @@ if ($stmt4->rowCount() > 0) {
 }
 $content4 = json_encode($dau_rt_login_os_array);
 if (isset($content4)) {
-    $filename = "../dau/rt_login_os";
+    $filename = $path . "/dau/rt_login_os";
     $fh = fopen($filename, 'w') or die("can't open file");
     //file_put_contents($filename, $content);
     fwrite($fh, $content4);
@@ -151,7 +151,7 @@ if ($stmt5->rowCount() > 0) {
 }
 $content5 = json_encode($dau_rt_reg_ver_array);
 if (isset($content5)) {
-    $filename = "../dau/rt_reg_ver";
+    $filename = $path . "/dau/rt_reg_ver";
     $fh = fopen($filename, 'w') or die("can't open file");
     //file_put_contents($filename, $content);
     fwrite($fh, $content5);
@@ -181,7 +181,7 @@ if ($stmt6->rowCount() > 0) {
 }
 $content6 = json_encode($dau_rt_login_ver_array);
 if (isset($content6)) {
-    $filename = "../dau/rt_login_ver";
+    $filename = $path . "/dau/rt_login_ver";
     $fh = fopen($filename, 'w') or die("can't open file");
     //file_put_contents($filename, $content);
     fwrite($fh, $content6);
