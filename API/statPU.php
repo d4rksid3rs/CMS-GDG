@@ -25,17 +25,17 @@ join user u on l.username = u.username
 left join (select username, sum(money) as sms from log_nap_koin where type = 1 group by username) b on u.username = b.username 
 left join (select username, sum(money) as card from log_nap_koin where type = 2 group by username) c on u.username = c.username 
 left join (select username, sum(money) as iap from log_nap_koin where type = 4 group by username) d on u.username = d.username 
-where l.created_on >= '{$fromDate}' AND l.created_on <= '{$toDate}' AND u.os_type like '%{$os}%' group by l.username"; 
-        $sql_count = "select count(DISTINCT (l.username)) count from log_nap_koin l join user u on l.username = u.username  
+where l.created_on >= '{$fromDate}' AND l.created_on <= '{$toDate}' AND u.os_type like '%{$os}%' group by l.username";
+        $sql_count = "select count(DISTINCT (l.username)) count, sum(money) as total_money from log_nap_koin l join user u on l.username = u.username  
 where l.created_on >= '{$fromDate}' AND l.created_on <= '{$toDate}' AND u.os_type like '%{$os}%'";
         $total = $db->prepare($sql_count);
 
         $total->execute();
 
-        $result = $total->fetch();        
+        $result = $total->fetch();
         $found = false;
         $resultData = array();
-        $html = "<b style='color:#fff;'>Tổng User: " . $result['count'] . "</b><br />";
+        $html = "<b style='color:#fff;'>Tổng User: " . $result['count'] . " | Tổng Doanh thu: " . number_format($result['total_money']) . " VNĐ</b><br />";
         $html .= "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;font-weight:bold;'>";
         $html .= "<td>STT</td><td>Username</td><td>Screen Name</td><td>Mobile</td><td>CP</td>"
                 . "<td>HĐH</td><td>SMS</td><td>CARD</td><td>IAP</td><td>Tổng nạp</td><td>Ngày giờ Đăng ký</td></tr>";

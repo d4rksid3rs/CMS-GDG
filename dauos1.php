@@ -35,14 +35,14 @@ while (strtotime($date_start) <= strtotime($end_date)) {
 //var_dump($cps);
 
 
-$sql1 = "select date_login,name1,sum(dau) as dau from active_user_detail 
-			where type=3 
-
-					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
-				group by name1,date_login 
-				order by name1"; //de duyet data dua vao mang cho de
-
-/* die($sql1); */
+//$sql1 = "select date_login,name1,sum(dau) as dau from active_user_detail 
+//			where type=3 
+//
+//					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
+//				group by name1,date_login 
+//				order by name1"; //de duyet data dua vao mang cho de
+$sql1 = "select count(*) as dau, os_type as name1, date(last_login) as date_login from user "
+        . "where date(last_login) >= '{$start_date}' AND date(last_login) <= '{$end_date}' group by os_type, date(last_login)";
 				
 $data = array();
 $cpname = array();
@@ -78,26 +78,27 @@ $sizeOfCP = count($cpname);
 
 
 //echo $sizeOfCP;
-foreach ($week as $day){
-	
-	//echo $day."<br />";
+foreach ($week as $day) {
+    $table_row = array();
+    $table_row[] = formatdate($day);
+    foreach ($cpname as $name) {
+        if ($name == "x")
+            continue;
+        $found = 0;
+        foreach ($data as $row) {
 
-	$table_row = array();
-	//$table_row[] = $day;
-	$table_row[] = formatdate($day);
-	foreach ($data as $row){
-		
-		//var_dump($day);
-		//var_dump($row);
-		if ($row['date_login'] == $day){
-			//echo "trong ".$day."  ".intval($row['dau'])."<br />";
-			$table_row[] =  intval($row['dau']);
-		} 
-	}
-	
-	//echo count($table_row);
-	if (count($table_row) == $sizeOfCP )
-		$table[] = $table_row;
+            if ($row['date_login'] == $day && $row['name1'] == $name) {
+                //echo "trong ".$day."<br />";
+                $table_row[] = intval($row['dau']);
+                $found++;
+                break;
+            }
+        }
+        if ($found == 0) {
+            $table_row[] = 0;
+        }
+    }
+    $table[] = $table_row;
 }
 
 //var_dump($table);

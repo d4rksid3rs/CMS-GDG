@@ -23,29 +23,30 @@ while (strtotime($date_start) <= strtotime($end_date)) {
 }
 
 //TOP CP trong vong 1 tuan
-$sql = "select name1, sum(dau) as sum_dau from active_user_detail where type=4 and date_login >= '{$start_date}' AND date_login <= '{$end_date}' group by name1 order by sum_dau desc LIMIT 0,20";
-
-//die($sql);
-$cps = array();
-//$cpname = array("x");
-foreach ($db->query($sql) as $row) {
-	$cps[] = "'".$row['name1']."'";
-	//$cpname[] = $row['name1'];
-}
-
-//$cpname = asort($cpname);
-
-$cplist = implode(",",$cps);
-
-//var_dump($cps);
-
-$sql1 = "select date_login,name1,dau from active_user_detail 
-			where type=4
-					and name1 IN ({$cplist}) 
-					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
-				group by name1,date_login 
-				order by name1"; //de duyet data dua vao mang cho de
-
+//$sql = "select name1, sum(dau) as sum_dau from active_user_detail where type=4 and date_login >= '{$start_date}' AND date_login <= '{$end_date}' group by name1 order by sum_dau desc LIMIT 0,20";
+//
+////die($sql);
+//$cps = array();
+////$cpname = array("x");
+//foreach ($db->query($sql) as $row) {
+//	$cps[] = "'".$row['name1']."'";
+//	//$cpname[] = $row['name1'];
+//}
+//
+////$cpname = asort($cpname);
+//
+//$cplist = implode(",",$cps);
+//
+////var_dump($cps);
+//
+//$sql1 = "select date_login,name1,dau from active_user_detail 
+//			where type=4
+//					and name1 IN ({$cplist}) 
+//					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
+//				group by name1,date_login 
+//				order by name1"; //de duyet data dua vao mang cho de
+$sql1 = "select count(*) as dau, cp as name1, date(last_login) as date_login from user "
+        . "where date(last_login) >= '{$start_date}' AND date(last_login) <= '{$end_date}' group by cp, date(last_login)";
 //die($sql1);				
 $data = array();
 $cpname = array();

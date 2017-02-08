@@ -1,7 +1,7 @@
 <?php
 $today = date('Y-m-d');
 if (!isset($_GET['toDate'])) {
-    $toDate = date ("Y-m-d", strtotime("-1 day", strtotime($today)));
+    $toDate = $today;
 } else {
     $toDate = $_GET['toDate'];
 }

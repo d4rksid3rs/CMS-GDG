@@ -18,36 +18,37 @@ while (strtotime($date_start) <= strtotime($end_date)) {
         $date_start = date ("Y-m-d", strtotime("+1 day", strtotime($date_start)));  
 }
 //TOP CP trong vong 1 tuan
-$sql = "select name1, sum(dau) as sum_dau from active_user_detail "
-        . "where type=2 and date_login >= '{$start_date}' AND date_login <= '{$end_date}' group by name1 order by sum_dau desc";
-
-//die($sql);
-$cps = array();
-//$cpname = array("x");
-foreach ($db->query($sql) as $row) {
-	$cps[] = "'".$row['name1']."'";
-	//$cpname[] = $row['name1'];
-}
-
-//$cpname = asort($cpname);
-
-$cplist = implode(",",$cps);
+//$sql = "select name1, sum(dau) as sum_dau from active_user_detail "
+//        . "where type=2 and date_login >= '{$start_date}' AND date_login <= '{$end_date}' group by name1 order by sum_dau desc";
+//
+////die($sql);
+//$cps = array();
+////$cpname = array("x");
+//foreach ($db->query($sql) as $row) {
+//	$cps[] = "'".$row['name1']."'";
+//	//$cpname[] = $row['name1'];
+//}
+//
+////$cpname = asort($cpname);
+//
+//$cplist = implode(",",$cps);
 
 //var_dump($cps);
-
-$sql1 = "select date_login,name1,dau from active_user_detail 
-			where type=2
-					and name1 IN ({$cplist}) 
-					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
-				group by name1,date_login 
-				order by name1"; //de duyet data dua vao mang cho de
-
-//die($sql1);				
+//
+//$sql1 = "select date_login,name1,dau from active_user_detail 
+//			where type=2
+//					and name1 IN ({$cplist}) 
+//					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
+//				group by name1,date_login 
+//				order by name1"; //de duyet data dua vao mang cho de
+                                        
+$sql1 = "select count(*) as dau, cp as name1, date(date_created) as date_login "
+        . "from user where date(date_created) >= '{$start_date}' AND date(date_created) <= '{$end_date}' group by cp, date(date_created)";
+				
 $data = array();
 $cpname = array();
 $lastCPName = "";
 foreach ($db->query($sql1) as $row) {
-	
 	$data[] = $row;
 	if ($row['name1']!=$lastCPName){
 		$lastCPName = $row['name1'];
@@ -65,10 +66,7 @@ array_unshift($cpname,"x");
 //asort($cpname);
 
 $table = array($cpname);
-
 $sizeOfCP = count($cpname);
-
-
 
 foreach ($week as $day){
 		//
@@ -106,7 +104,6 @@ foreach ($week as $day){
 	//if ($found>0) 
 	$table[] = $table_row;
 }
-//var_dump($table);
 //echo json_encode($table);
 
 //$xAxis = "CP,".$cps;
