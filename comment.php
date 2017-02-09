@@ -27,7 +27,7 @@ if ($message != "" && $acc == "") {
     $query .= "&m=" . $message;
     $sql .= " and fb.feedback like '%" . $message . "%'";
 }
-$sql .= " ORDER by fb.date_created desc limit ". ($page - 1) * $pageSize . "," . $pageSize. ") as tmp_table group by user_id order by date_created desc";
+$sql .= " ORDER by fb.date_created desc limit " . ($page - 1) * $pageSize . "," . $pageSize . ") as tmp_table group by user_id order by date_created desc";
 //echo $sql;die;
 $comments = array();
 foreach ($db->query($sql) as $row) {
@@ -172,18 +172,68 @@ foreach ($db->query($sql) as $row) {
                     });
                 }
             }
+
+            function createMessage() {
+                var username = $("#new_message input[name=username]").val();
+                var content = $("#new_message textarea[name=content]").val();
+                $.ajax({
+                    type: "POST",
+                    url: "API/createMessage.php",
+                    data: {
+                        "username": username,
+                        "content": content
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        msg = msg.trim();
+                        if (msg != '' && msg.length > 2) {
+                            var data = jQuery.parseJSON(msg);
+                            if (data.status == 1) {
+                                $("#new_message #message").text(data.numuser);
+                            } else {
+                                $("#new_message #message").html(data.message);
+                                $(this).oneTime(5000, function () {
+                                    $("#new_message #message").html("");
+                                });
+                            }
+                        } else {
+                            $("#new_message #message").html("Lỗi hệ thống");
+                            $(this).oneTime(5000, function () {
+                                $("#new_message #message").html("");
+                            });
+                        }
+                    },
+                    failure: function () {
+                        $("#new_message #message").html("Lỗi hệ thống");
+                        $(this).oneTime(5000, function () {
+                            $("#new_message #message").html("");
+                        });
+                    }
+                });
+            }
         </script>
     </head>
     <body>
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
-
             <div class="box grid">
-                <div class="topheader">
-                    <ul class="topMenus">
-                        <a href="comment_sms.php">Góp ý qua sms</a>
-                    </ul>
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Gửi Tin nhắn cho Người chơi</a></div>
+                <div class="box_body"  style="display: none">
+                    <form id="new_message">    
+                        Username
+                        <input type="text" name="username" />
+                        Nội dung
+                        <textarea type='text' col='50' row='4' name='content' style='margin-right:5px; width:250px;'></textarea>
+
+                        <input type="button" name="add" value="Gửi" onclick="createMessage();"/>
+                        <span id="message" style="color: #800000; font-weight: bold"></span>
+                    </form>
                 </div>
+                <div id="createMessageResult" style="display: none;">
+
+                </div>
+            </div> 
+            <div class="box grid">
                 <div class="box_header">
                     Góp ý
                 </div>
