@@ -9,6 +9,8 @@ $end_date = date('Y-m-d');
 //$date_start = date ("Y-m-d",strtotime("yesterday"));
 //$date_start = date ("Y-m-d", strtotime("-7 day", strtotime($end_date)));
 //$end_date = date ("Y-m-d", strtotime("-1 day", strtotime($end_date)));
+
+$today = date("Y-m-d");
 $date_start = $_GET['fromDate'];
 $end_date = $_GET['toDate'];
 
@@ -20,41 +22,37 @@ while (strtotime($date_start) <= strtotime($end_date)) {
     $date_start = date("Y-m-d", strtotime("+1 day", strtotime($date_start)));
 }
 //TOP CP trong vong 1 tuan
-//$sql = "select name1,name2, sum(dau) from active_user_detail where type=5 and date_login >= '{$start_date}' AND date_login <= '{$end_date}' group by name1,name2 order by dau desc LIMIT 0,20";
+$sql = "select name1, sum(dau) from active_user_detail "
+        . "where type=5 and date_login >= '{$start_date}' AND date_login <= '{$end_date}' group by name1 order by dau desc LIMIT 0,20";
 //
 //
 //
 //
 ////die($sql);
-//$cps = array();
+$cps = array();
 //
 ////$cpname = array("x");
-//foreach ($db->query($sql) as $row) {
-//	$cps[] = 	"('{$row['name1']}','{$row['name2']}')";
-//	//$cps[] = "'".$row['name1']."'";
-//
-//	//$cpname[] = $row['name1'];
-//}
+foreach ($db->query($sql) as $row) {
+	$cps[] = "'" . $row['name1'] . "'";
+	//$cps[] = "'".$row['name1']."'";
+
+	//$cpname[] = $row['name1'];
+}
 //
 ////$cpname = asort($cpname);
 //
-//$cplist = implode(",",$cps);
+$cplist = implode(",",$cps);
 //
 //
 ////var_dump($cps);
 //
-//$sql1 = "select date_login,name1,name2, dau from active_user_detail 
-//			where type=5
-//					and (name1,name2) IN ({$cplist}) 
-//					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
-//				group by name1,name2,date_login 
-//				order by name1,name2"; //de duyet data dua vao mang cho de
-$sql1 = "select count(*) as dau, client_version as name1, date(date_created) as date_login from user "
-        . "where date(date_created) >= '{$start_date}' AND date(date_created) <= '{$end_date}' group by client_version, date(date_created)";
-
-
-
-//die($sql1);				
+$sql1 = "select date_login,name1, dau from active_user_detail 
+			where type=5
+					and (name1) IN ({$cplist}) 
+					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
+				group by name1,date_login 
+				order by name1"; //de duyet data dua vao mang cho de
+				
 $data = array();
 $cpname = array();
 $lastCPName = "";
@@ -69,7 +67,13 @@ foreach ($db->query($sql1) as $row) {
     //$data[] = array($row["date_login"],$row["name1"],$row["dau"]);
 }
 array_unshift($cpname, "x");
-
+if (in_array($today, $week)) {
+    $my_file = file_get_contents("./dau/rt_reg_ver");
+    $jsonData = json_decode($my_file, true);
+    foreach ($jsonData as $val) {
+        array_push($data, $val);
+    }    
+}
 //echo json_encode($data);
 //var_dump($data);
 //asort($cpname);

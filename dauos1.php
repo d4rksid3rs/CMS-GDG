@@ -15,7 +15,7 @@ require('chartutil.php');
 //        $date_start = date ("Y-m-d", strtotime("+1 day", strtotime($date_start)));         
 //	$week[]= $date_start;
 //}
-
+$today = date("Y-m-d");
 $date_start = $_GET['fromDate'];
 $end_date = $_GET['toDate'];
 
@@ -35,14 +35,12 @@ while (strtotime($date_start) <= strtotime($end_date)) {
 //var_dump($cps);
 
 
-//$sql1 = "select date_login,name1,sum(dau) as dau from active_user_detail 
-//			where type=3 
-//
-//					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
-//				group by name1,date_login 
-//				order by name1"; //de duyet data dua vao mang cho de
-$sql1 = "select count(*) as dau, os_type as name1, date(last_login) as date_login from user "
-        . "where date(last_login) >= '{$start_date}' AND date(last_login) <= '{$end_date}' group by os_type, date(last_login)";
+$sql1 = "select date_login,name1,sum(dau) as dau from active_user_detail 
+			where type=3 
+
+					and date_login >= '{$start_date}' AND date_login <= '{$end_date}'
+				group by name1,date_login 
+				order by name1"; //de duyet data dua vao mang cho de
 				
 $data = array();
 $cpname = array();
@@ -64,7 +62,13 @@ for ($i=0;$i<count($cpname);$i++){
 }
 
 array_unshift($cpname,"x");
-
+if (in_array($today, $week)) {
+    $my_file = file_get_contents("./dau/rt_login_os");
+    $jsonData = json_decode($my_file, true);
+    foreach ($jsonData as $val) {
+        array_push($data, $val);
+    }    
+}
 //echo json_encode($cpname);
 
 //echo json_encode($data);
