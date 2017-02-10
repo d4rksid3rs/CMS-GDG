@@ -39,12 +39,12 @@ if ($current_user != 'admin') {
                     url: "API/getRevShare.php",
                     dataType: 'text',
                     success: function (msg) {
-                        $("#statNPUResult").html(msg);
-                        $("#statNPUResult").show();
+                        $("#revShareResult").html(msg);
+                        $("#revShareResult").show();
                         $("#dvloader").hide();
                     },
                     failure: function () {
-                        $("#statNPUResult").html("<b>Không truy cập được dữ liệu</b>");
+                        $("#revShareResult").html("<b>Không truy cập được dữ liệu</b>");
                     }
                 });
             }

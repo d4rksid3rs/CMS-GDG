@@ -52,7 +52,7 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
             )
         );
         $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;font-weight:bold;'>";
-        $html .= "<td>STT</td><td>Tên Chỉ só Ingame</td><td>Giá trị</td></tr>";
+        $html .= "<td>STT</td><td>Tên Chỉ số Ingame</td><td>Giá trị</td></tr>";
         $i = 0;
         foreach ($stat_ingame as $row) {
             $i+=1;
