@@ -33,7 +33,7 @@ $secret = array("link" => "secret.php", "img" => "secret.png", "title" => "Secre
         }
         ?>"><img src="images/logo.png" alt="" height="85px" /></a>
     </div>
-    <ul class="topMenus">
+    <ul class="topMenus" id="mainMenu">
 
 
 
@@ -120,3 +120,8 @@ $secret = array("link" => "secret.php", "img" => "secret.png", "title" => "Secre
 
     </ul>
 </div>
+<script>
+    var height = $("#mainMenu").height();
+    var new_height = height + 20;
+    $(".topheader").height(new_height);
+</script>
