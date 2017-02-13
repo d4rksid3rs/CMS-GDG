@@ -64,9 +64,9 @@ if ($current_user != 'admin') {
                         <input type="button" name="add" value="Thống kê" onclick="getRevShare();"/>
                         <span id="message" style="color: #800000; font-weight: bold"></span>
                     </form>
-                </div>
-                <div id="revShareResult" style="display: none;">
+                    <div id="revShareResult" style="display: none;">
 
+                    </div>
                 </div>
             </div> 
         </div>

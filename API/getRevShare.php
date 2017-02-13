@@ -55,8 +55,8 @@ try {
     $poker = $fee_array['POKER'];
     $ba_cay = $fee_array['BACAY'];
 
-    $total_fee_game = $tlmn + $bacaych + $tlmndc + $xoc_dia + $phom + $lieng + $sam
-            + $bau_cua + $xi_to + $poker + $ba_cay + $host_bau_cua + $host_xoc_dia;
+    $total_fee_game = abs($tlmn) + abs($bacaych) + abs($tlmndc) + abs($xoc_dia) + abs($phom) + abs($lieng) + abs($sam)
+            + abs($bau_cua) + abs($xi_to) + abs($poker) + abs($ba_cay) + abs($host_bau_cua) + abs($host_xoc_dia);
     $rev_share = ($total_fee_game + $total_card) * 0.81 + $total_sms * 0.45 + $total_iap * 0.65;
     
     // render table
