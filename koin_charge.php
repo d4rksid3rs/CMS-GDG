@@ -57,14 +57,14 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
 //                                $sms = $row5["count"];
                                 $sql = "SELECT l.*, u.screen_name, u.vip, u.mobile FROM log_nap_koin l "
                                         . "LEFT JOIN user u ON l.username = u.username "
-                                        . "WHERE l.username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";                                        
+                                        . "WHERE l.username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
                                 $rs = mysql_query($sql) or die("Không thống kê được");
                                 $sms = mysql_num_rows($rs);
                                 $sql_total_chip = "SELECT SUM(CASE WHEN flag1 = 1 THEN koin_added ELSE 0 END) AS total_chip FROM log_nap_koin "
-                                        . "WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";  
+                                        . "WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
 //                                        echo $sql_total_chip;die;
                                 $sql_total_xu = "SELECT SUM(CASE WHEN flag1 = 0 THEN koin_added ELSE 0 END) AS total_xu FROM log_nap_koin "
-                                        . "WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')"; 
+                                        . "WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
                                 $sql_total_money = "SELECT SUM(money) AS total_money FROM log_nap_koin "
                                         . "WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
                                 $sql_total_sms = "SELECT SUM(money) AS total_money FROM log_nap_koin "
@@ -73,6 +73,16 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
                                         . "WHERE username like '%{$usern}%' AND type = 2 AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
                                 $sql_total_iap = "SELECT SUM(money) AS total_money FROM log_nap_koin "
                                         . "WHERE username like '%{$usern}%' AND type = 4 AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
+                                        
+                                $sql_card_koin = "SELECT SUM(money) AS total_money FROM log_nap_koin "
+                                        . "WHERE username like '%{$usern}%' AND type = 2 AND flag1 = 0 AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
+                                $sql_sms_koin = "SELECT SUM(money) AS total_money FROM log_nap_koin "
+                                        . "WHERE username like '%{$usern}%' AND type = 1 AND flag1 = 0 AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
+                                $sql_card_koin_vip = "SELECT SUM(money) AS total_money FROM log_nap_koin "
+                                        . "WHERE username like '%{$usern}%' AND type = 2 AND flag1 = 1 AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
+                                $sql_sms_koin_vip = "SELECT SUM(money) AS total_money FROM log_nap_koin "
+                                        . "WHERE username like '%{$usern}%' AND type = 1 AND flag1 = 1 AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
+                                        
                                 $rs_tt_chip = mysql_query($sql_total_chip) or die("Không thống kế đc");
                                 $rs_tt_xu = mysql_query($sql_total_xu) or die("Không thống kế đc");
                                 $rs_tt_money = mysql_query($sql_total_money) or die("Không thống kế đc");
@@ -80,21 +90,36 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
                                 $rs_tt_card = mysql_query($sql_total_card) or die("Không thống kế đc");
                                 $rs_tt_iap = mysql_query($sql_total_iap) or die("Không thống kế đc");
                                 
+                                $rs_card_koin = mysql_query($sql_card_koin) or die("Không thống kế đc");
+                                $rs_sms_koin = mysql_query($sql_sms_koin) or die("Không thống kế đc");
+                                $rs_card_koinvip = mysql_query($sql_card_koin_vip) or die("Không thống kế đc");
+                                $rs_sms_koinvip = mysql_query($sql_sms_koin_vip) or die("Không thống kế đc");
+
                                 $row_chip = mysql_fetch_array($rs_tt_chip);
                                 $row_xu = mysql_fetch_array($rs_tt_xu);
                                 $row_money = mysql_fetch_array($rs_tt_money);
                                 $row_sms = mysql_fetch_array($rs_tt_sms);
                                 $row_card = mysql_fetch_array($rs_tt_card);
                                 $row_iap = mysql_fetch_array($rs_tt_iap);
+                                
+                                $row_card_koin = mysql_fetch_array($rs_card_koin);
+                                $row_sms_koin = mysql_fetch_array($rs_sms_koin);
+                                $row_card_koinvip = mysql_fetch_array($rs_card_koinvip);
+                                $row_sms_koinvip = mysql_fetch_array($rs_sms_koinvip);
                                 ?>
                                 <div style="height: 20px; text-align: right; padding-right: 9px;"><b><font color="#FFFFFF"> Tổng: <?php echo $sms . " user"; ?> </font></b></div>
                                 <div id="chart_div" style="width: auto; ">
-                                    <span style="font-weight: bold; color: #fff;">Tổng Xu: <?php echo number_format($row_xu['total_xu']);?> Xu |</span>
-                                    <span style="font-weight: bold; color: #fff;">Tổng Chip: <?php echo number_format($row_chip['total_chip']);?> Vàng |</span>
-                                    <span style="font-weight: bold; color: #fff;">Tổng Tiền: <?php echo number_format($row_money['total_money']);?> VNĐ |</span>
-                                    <span style="font-weight: bold; color: #fff;">Tổng SMS: <?php echo number_format($row_sms['total_money']);?> VNĐ |</span>
-                                    <span style="font-weight: bold; color: #fff;">Tổng Card: <?php echo number_format($row_card['total_money']);?> VNĐ |</span>
-                                    <span style="font-weight: bold; color: #fff;">Tổng IAP: <?php echo number_format($row_iap['total_money']);?> VNĐ</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Xu: <?php echo number_format($row_xu['total_xu']); ?> Xu |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Vàng: <?php echo number_format($row_chip['total_chip']); ?> Vàng |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Tiền: <?php echo number_format($row_money['total_money']); ?> VNĐ |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng SMS: <?php echo number_format($row_sms['total_money']); ?> VNĐ |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Card: <?php echo number_format($row_card['total_money']); ?> VNĐ |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng IAP: <?php echo number_format($row_iap['total_money']); ?> VNĐ</span>
+                                    <br />
+                                    <span style="font-weight: bold; color: #fff;">Tổng Card nạp vào Xu: <?php echo number_format($row_card_koin['total_money']); ?> VNĐ |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng SMS nạp vào Xu: <?php echo number_format($row_sms_koin['total_money']); ?> VNĐ |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Card nạp vào Vàng: <?php echo number_format($row_card_koinvip['total_money']); ?> VNĐ |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng SMS nạp vào Vàng: <?php echo number_format($row_sms_koinvip['total_money']); ?> VNĐ</span>
                                     <?php
                                     if (mysql_num_rows($rs) <= 0)
                                         echo "";
@@ -160,5 +185,3 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
         </div>
     </body>
 </html>
-
-
