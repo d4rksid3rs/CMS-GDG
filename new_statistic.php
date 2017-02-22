@@ -36,7 +36,7 @@ $today = date('Y-m-d', time());
                     }
                 });
             }
-            
+
             function statNPU() {
                 $("#dvloader").show();
                 var fromDate = $("#statNPU input[name=fromDate]").val();
@@ -61,7 +61,7 @@ $today = date('Y-m-d', time());
                     }
                 });
             }
-            
+
             function statPU() {
                 $("#dvloader").show();
                 var fromDate = $("#statPU input[name=fromDate]").val();
@@ -86,7 +86,7 @@ $today = date('Y-m-d', time());
                     }
                 });
             }
-            
+
             function koinUserRange() {
                 $.ajax({
                     type: "GET",
@@ -122,7 +122,7 @@ $today = date('Y-m-d', time());
                     }
                 });
             }
-            
+
             function topKoinVIPUser() {
                 var limit = $("#user_top_gold select[name=limit]").val();
 
@@ -133,7 +133,7 @@ $today = date('Y-m-d', time());
                     data: {
                         "limit": limit,
                         "type": 2
-                        
+
                     },
                     dataType: 'text',
                     success: function (msg) {
@@ -145,7 +145,7 @@ $today = date('Y-m-d', time());
                     }
                 });
             }
-            
+
             function statIngame() {
                 $("#dvloader").show();
                 var fromDate = $("#statIngame input[name=fromDate]").val();
@@ -167,6 +167,29 @@ $today = date('Y-m-d', time());
                     },
                     failure: function () {
                         $("#statIngameResult").html("<span>Không truy cập được dữ liệu</span>");
+                    }
+                });
+            }
+
+            function coopUserBlock() {
+                $("#dvloader").show();
+                var fromDate = $("#coopUserBlock input[name=fromDate]").val();
+                var toDate = $("#coopUserBlock input[name=toDate]").val();
+                $.ajax({
+                    type: "GET",
+                    url: "API/coopUserBlock.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#coopUserBlockResult").html(msg);
+                        $("#coopUserBlockResult").show();
+                        $("#dvloader").hide();
+                    },
+                    failure: function () {
+                        $("#coopUserBlockResult").html("<span>Không truy cập được dữ liệu</span>");
                     }
                 });
             }
@@ -324,6 +347,24 @@ $today = date('Y-m-d', time());
 
                 </div>
             </div> 
+            <div class="box grid">
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">DS User bị khóa vì quây bài</a></div>
+                <div class="box_body"  style="display: none">
+                    <form id="coopUserBlock">    
+                        Từ Ngày
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Tới Ngày
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+
+                        <input type="button" name="add" value="Thống kê" onclick="coopUserBlock();"/>
+
+                    </form>
+                    <div id="coopUserBlockResult" style="display: none;">
+
+                    </div>
+                </div>
+
+            </div>
         </div>
         <!-- The Modal -->
         <div id="myModal" class="modal">
