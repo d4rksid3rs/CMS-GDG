@@ -53,7 +53,7 @@ $secret = array("link" => "secret.php", "img" => "secret.png", "title" => "Secre
                 break;
             case "cskh":
 
-                $menu = array($logout, $settings, $koin, $money, $vip, $tool, $new_statistic, $user, $comment);
+                $menu = array($logout, $settings, $koin, $money, $vip, $tool, $exchange_return, $exchange, $new_statistic, $user, $comment);
                 break;
 //            case "monaco":
 //

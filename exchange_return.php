@@ -4,7 +4,7 @@ $today = date('Y-m-d', time());
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Người chơi</title>
+        <title>User Cộng bù Vàng</title>
         <?php require('header.php'); ?>
         <script src="js/highcharts.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/themes/grid.js"></script> 
@@ -60,7 +60,7 @@ $today = date('Y-m-d', time());
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
             <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Thống kê Danh sách User cộng bù Chip</a></div>
+                <div class="box_header"><a href="javascript:void(0);">Thống kê Danh sách User cộng bù Vàng</a></div>
                 <div class="box_body">
                     <form id="koin_vip_exchange_return">
                         Từ Ngày
