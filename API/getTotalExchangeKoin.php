@@ -12,7 +12,7 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
         if ($type == 1) {
             $sql = "SELECT SUM(chip) as total FROM `koin_deduct` WHERE date(date_created) >= '$fromDate' AND date(date_created) <= '$toDate'";
         } else {
-            $sql = "SELECT SUM(coin) as total FROM `koin_add_deducterror` WHERE date(date_created) >= '$fromDate' AND date(date_created) <= '$toDate' AND return_code = 1";
+            $sql = "SELECT SUM(coin) as total FROM `koin_add_deducterror` WHERE date(date_created) >= '$fromDate' AND date(date_created) <= '$toDate'";
         }
         //select koin, date(date) as day from server_koin where date(date) >= '2016-08-18' and date(date) <= '2016-09-07' 
         $found = false;
