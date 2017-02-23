@@ -20,7 +20,7 @@ $dau = array("link" => "dau.php", "img" => "dau.png", "title" => "DAU");
 $game = array("link" => "game.php", "img" => "game.png", "title" => "GAME");
 $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip");
 $exchange = array("link" => "exchange.php", "img" => "exchange.png", "title" => "User đổi thưởng");
-$exchange_return = array("link" => "exchange_return.php", "img" => "exchange_return.png", "title" => "User cộng bù Chip");
+$exchange_return = array("link" => "exchange_return.php", "img" => "exchange_return.png", "title" => "User cộng bù Vàng");
 $merchant = array("link" => "merchant.php", "img" => "merchants.png", "title" => "Đại lý");
 $new_statistic = array("link" => "new_statistic.php", "img" => "new_statistic.png", "title" => "Thống kê Mới");
 $secret = array("link" => "secret.php", "img" => "secret.png", "title" => "Secret");
@@ -45,11 +45,11 @@ $secret = array("link" => "secret.php", "img" => "secret.png", "title" => "Secre
         switch ($u) {
             case "bemon":
 
-                $menu = array($logout, $settings, $activity, $koin, $money, $vip, $tool, $system, $exchange, $new_statistic, $user, $comment, $merchant, $dau, $game);
+                $menu = array($logout, $settings, $activity, $koin, $money, $vip, $tool, $system , $exchange_return, $exchange, $new_statistic, $user, $comment, $merchant, $dau, $game);
                 break;
             case "admin":
 
-                $menu = array($logout, $secret, $settings, $activity, $koin, $money, $vip, $tool, $system, $exchange, $new_statistic, $user, $comment, $merchant, $dau, $game);
+                $menu = array($logout, $secret, $settings, $activity, $koin, $money, $vip, $tool, $system, $exchange_return, $exchange, $new_statistic, $user, $comment, $merchant, $dau, $game);
                 break;
             case "cskh":
 
