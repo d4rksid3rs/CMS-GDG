@@ -444,7 +444,8 @@ echo substr($output, 0, -1);
                                 <td>Xoc Dia VIP</td>
                                 <td>Bau Cua VIP</td>
                                 <td>Xì tố VIP</td>
-                                <td align="center" style="background-color:#81A0F3;"><b>Chip</b></td>
+                                <td>Tài xỉu</td>
+                                <td align="center" style="background-color:#81A0F3;"><b>Vàng</b></td>
 
 <!--                                <td>Facebook</td>
                                 <td>Daily Bonus</td>
@@ -472,9 +473,10 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->XOCDIA) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUA) . "</td>";
                                 echo "<td>" . number_format($obj->XITO) . "</td>";
+                                echo "<td>" . number_format($row['taixiu']) . "</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC +
                                         $obj->POKER + $obj->BACAYCH + $obj->BACAY +
-                                        $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO;
+                                        $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO + $row['taixiu'];
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 /*
@@ -503,7 +505,6 @@ echo substr($output, 0, -1);
                                 <td>Vàng Card</td>
                                 <td>Bau Cua</td>
                                 <td>Xoc Dia</td>
-                                <td>Tai Xiu</td>
                                 <td>Cash Out</td>
                                 <td>Add Chip</td>
                                 <td>Chip Verify</td>
@@ -528,8 +529,7 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->KOINVIPSMS) . "</td>";
                                 echo "<td>" . number_format($obj->KOINVIPCARD) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUAVIP) . "</td>";
-                                echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";
-                                echo "<td>" . number_format($row['taixiu']) . "</td>";
+                                echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";                                
                                 
                                 echo "<td>" . number_format($obj->CASHOUT) . "</td>";
                                 echo "<td>" . number_format($obj->ADDKOIN) . "</td>";
@@ -537,7 +537,7 @@ echo substr($output, 0, -1);
 //                                echo "<td>" . number_format($row['regKoin']) . "</td>";
                                 echo "<td>" . number_format($obj->KOINADMIN) . "</td>";
 
-                                $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD + $obj->KOINVIPIAP + $obj->XOCDIAVIP + $row['taixiu'] +
+                                $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD + $obj->KOINVIPIAP + $obj->XOCDIAVIP +
                                         $obj->BAUCUAVIP + $obj->CASHOUT + $obj->ADDKOIN + $obj->CHIPVERIFY + $obj->KOINADMIN;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "</tr>";

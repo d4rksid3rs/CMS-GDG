@@ -11,6 +11,7 @@ $users = array(
     'admin' => 'abcd123$',
     'bemon' => 'admingdg2017$',    
     'cskh' => 'CsKh123!@#',
+    'ccu' => 'ccuonly',
 //    'huong' => 'chiuchiu2023',
 //    'nguyet' => 'nguyet2023',
 //    'lam' => 'lam2023',

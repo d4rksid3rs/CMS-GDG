@@ -371,6 +371,7 @@ echo substr($output, 0, -1);
                                 <td>Xoc Dia</td>
                                 <td>Bau Cua</td>
                                 <td>Fee Chuyển Xu</td>
+                                <td>Tài xỉu</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Xu game</b></td>
 
 <!--                                <td>Facebook</td>
@@ -399,10 +400,11 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->MAUBINH) . "</td>";
                                 echo "<td>" . number_format($obj->XOCDIA) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUA) . "</td>";
-                                echo "<td>" . number_format($obj->TRANSFERXU) . "</td>";
+                                echo "<td>" . number_format($obj->TRANSFERXU) . "</td>";                                
+                                echo "<td>" . number_format($row['taixiu']) . "</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + 
                                         $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + 
-                                        $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA + $obj->TRANSFERXU;
+                                        $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA + $obj->TRANSFERXU + $row['taixiu'];
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 /*
@@ -435,7 +437,6 @@ echo substr($output, 0, -1);
                                 <td>Xu Card</td>
                                 <td>Register</td>
                                 <td>First Win</td>
-                                <td>Tài Xỉu</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Tổng</b></td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Diff</b></td>
                             </tr>
@@ -457,11 +458,10 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->KOINSMS) . "</td>";
                                 echo "<td>" . number_format($obj->KOINCARD) . "</td>";
                                 echo "<td>" . number_format($row['regKoin']) . "</td>";
-                                echo "<td>" . number_format($obj->MONACO_FIRSTWIN) . "</td>";
-                                echo "<td>" . number_format($row['taixiu']) . "</td>";
+                                echo "<td>" . number_format($obj->MONACO_FIRSTWIN) . "</td>";                                
 
                                 $total2 = $total + $obj->FACEBOOK + $obj->DAILY_BONUS + $obj->KOINADMIN + $obj->EXP_MISSION + $obj->EVENT + 
-                                        $obj->KOINSMS + $obj->KOINCARD  + $row['regKoin'] + $obj->MONACO_FIRSTWIN + $row['taixiu'];
+                                        $obj->KOINSMS + $obj->KOINCARD  + $row['regKoin'] + $obj->MONACO_FIRSTWIN;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($row['koin']) . "</b></td>";
                                 echo "</tr>";
@@ -479,5 +479,3 @@ echo substr($output, 0, -1);
     </body>
 </html>
 <?php include 'cache_end.php'; ?>
-
-
