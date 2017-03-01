@@ -57,7 +57,7 @@ try {
 
     $total_fee_game = abs($tlmn) + abs($bacaych) + abs($tlmndc) + abs($xoc_dia) + abs($phom) + abs($lieng) + abs($sam)
             + abs($bau_cua) + abs($xi_to) + abs($poker) + abs($ba_cay) + abs($host_bau_cua) + abs($host_xoc_dia);
-    $rev_share = ($total_fee_game + $total_card) * 0.81 + $total_sms * 0.45 + $total_iap * 0.65;
+    $rev_share = ($total_fee_game + $total_card) * 0.81 + $total_sms * 0.35 + $total_iap * 0.65;
     
     // render table
     $html = "<table width='100%'><tr style='background-color: rgb(204, 204, 204);font-weight:bold;'>";
