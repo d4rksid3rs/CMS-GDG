@@ -444,7 +444,8 @@ echo substr($output, 0, -1);
                                 <td>Xoc Dia VIP</td>
                                 <td>Bau Cua VIP</td>
                                 <td>Xì tố VIP</td>
-                                <td>Tài xỉu</td>
+                                <td>Vàng sang Xu Put</td>
+                                <td>Tài xỉu</td>                                
                                 <td align="center" style="background-color:#81A0F3;"><b>Vàng</b></td>
 
 <!--                                <td>Facebook</td>
@@ -473,10 +474,11 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->XOCDIA) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUA) . "</td>";
                                 echo "<td>" . number_format($obj->XITO) . "</td>";
+                                echo "<td>" . number_format($obj->GOLDTOSILVER_PUT) . "</td>";
                                 echo "<td>" . number_format($row['taixiu']) . "</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC +
-                                        $obj->POKER + $obj->BACAYCH + $obj->BACAY +
-                                        $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO + $row['taixiu'];
+                                        $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + 
+                                        $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO + $obj->GOLDTOSILVER_PUT + $row['taixiu'];
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 /*
@@ -555,4 +557,3 @@ echo substr($output, 0, -1);
     </body>
 </html>
 <?php include 'cache_end.php'; ?>
-

@@ -16,7 +16,7 @@ if (!isset($_REQUEST['toDate'])) {
 }
 try {
     $sql = "select * from server_koin_daily where datecreate >= '" . $fromDate . "' and datecreate <= '" . $toDate . "' order by datecreate";
-//    echo $sql;
+//    echo $sql;die;
     $chart_data = array();
     //$sql2 = "SELECT type, sum(koin_added) koin_added, date(created_on) as day FROM log_nap_koin  where created_on >= '".$fromDate."' and created_on <= '".$toDate."' GROUP BY day, type order by created_on";
     $sql3 = "SELECT date(date_created) as day, sum(koin) as koinadmin FROM admin_add_koin WHERE date_created >= '" . $fromDate . "' and date_created <= '" . $toDate . "' GROUP BY day";
@@ -437,6 +437,7 @@ echo substr($output, 0, -1);
                                 <td>Xu Card</td>
                                 <td>Register</td>
                                 <td>First Win</td>
+                                <td>Vàng sang Xu Receive</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Tổng</b></td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Diff</b></td>
                             </tr>
@@ -459,9 +460,10 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->KOINCARD) . "</td>";
                                 echo "<td>" . number_format($row['regKoin']) . "</td>";
                                 echo "<td>" . number_format($obj->MONACO_FIRSTWIN) . "</td>";                                
-
+                                echo "<td>" . number_format($obj->GOLDTOSILVER_RECEIVE) . "</td>";  
+                                
                                 $total2 = $total + $obj->FACEBOOK + $obj->DAILY_BONUS + $obj->KOINADMIN + $obj->EXP_MISSION + $obj->EVENT + 
-                                        $obj->KOINSMS + $obj->KOINCARD  + $row['regKoin'] + $obj->MONACO_FIRSTWIN;
+                                        $obj->KOINSMS + $obj->KOINCARD  + $row['regKoin'] + $obj->MONACO_FIRSTWIN + $obj->GOLDTOSILVER_RECEIVE;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($row['koin']) . "</b></td>";
                                 echo "</tr>";
