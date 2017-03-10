@@ -438,6 +438,7 @@ echo substr($output, 0, -1);
                                 <td>Register</td>
                                 <td>First Win</td>
                                 <td>Vàng sang Xu Receive</td>
+                                <td>Nổ hũ</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Tổng</b></td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Diff</b></td>
                             </tr>
@@ -461,9 +462,9 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($row['regKoin']) . "</td>";
                                 echo "<td>" . number_format($obj->MONACO_FIRSTWIN) . "</td>";                                
                                 echo "<td>" . number_format($obj->GOLDTOSILVER_RECEIVE) . "</td>";  
-                                
+                                echo "<td>" . number_format($obj->BOOM) . "</td>";
                                 $total2 = $total + $obj->FACEBOOK + $obj->DAILY_BONUS + $obj->KOINADMIN + $obj->EXP_MISSION + $obj->EVENT + 
-                                        $obj->KOINSMS + $obj->KOINCARD  + $row['regKoin'] + $obj->MONACO_FIRSTWIN + $obj->GOLDTOSILVER_RECEIVE;
+                                        $obj->KOINSMS + $obj->KOINCARD  + $row['regKoin'] + $obj->MONACO_FIRSTWIN + $obj->GOLDTOSILVER_RECEIVE + $obj->BOOM;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($row['koin']) . "</b></td>";
                                 echo "</tr>";

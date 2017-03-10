@@ -511,6 +511,7 @@ echo substr($output, 0, -1);
                                 <td>Add Chip</td>
                                 <td>Chip Verify</td>
                                 <td>Admin Add</td>
+                                <td>Nổ hũ</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Tổng</b></td>
                             </tr>
                             <?php
@@ -538,9 +539,10 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->CHIPVERIFY) . "</td>";
 //                                echo "<td>" . number_format($row['regKoin']) . "</td>";
                                 echo "<td>" . number_format($obj->KOINADMIN) . "</td>";
+                                echo "<td>" . number_format($obj->BOOM) . "</td>";
 
                                 $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD + $obj->KOINVIPIAP + $obj->XOCDIAVIP +
-                                        $obj->BAUCUAVIP + $obj->CASHOUT + $obj->ADDKOIN + $obj->CHIPVERIFY + $obj->KOINADMIN;
+                                        $obj->BAUCUAVIP + $obj->CASHOUT + $obj->ADDKOIN + $obj->CHIPVERIFY + $obj->KOINADMIN + $obj->BOOM;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "</tr>";
                             }
