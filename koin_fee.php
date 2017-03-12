@@ -449,7 +449,7 @@ echo substr($output, 0, -1);
                                 echo "<td>{$row['day']}</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + 
                                         $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + 
-                                        $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA+ $obj->TRANSFERXU;
+                                        $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA + $obj->TRANSFERXU + $row['taixiu'];
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 echo "<td>" . number_format($obj->FACEBOOK) . "</td>";
