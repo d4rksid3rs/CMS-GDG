@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="css/jquery.ui.theme.css" />
 <link rel="stylesheet" type="text/css" href="css/jquery.ui.datepicker.css" />
 <link rel="stylesheet" type="text/css" href="css/jquery.timepicker.css" />
-<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.timers-1.2.js"></script>
 <script type="text/javascript" src="js/jquery.ui.core.js"></script>
 <script type="text/javascript" src="js/jquery.ui.widget.js"></script>

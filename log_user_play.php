@@ -7,7 +7,7 @@ $today = date('Y-m-d', time());
         <!--<title><?php echo $title; ?></title>-->
         <title>Thống kê Log chơi game</title>
         <link type='text/css' href='css/basic.css' rel='stylesheet' media='screen' />
-        <?php require('header.php'); ?>
+        <?php require('header2.php'); ?>
         <script src="js/jquery.simplemodal.js"></script>
         <script>
             function getLogKoin(type) {
