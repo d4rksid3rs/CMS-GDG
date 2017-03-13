@@ -5,7 +5,7 @@ if ($_GET['date']) {
     $date = $_GET['date'];
 }
 if ($_GET['game']) {
-    $game = $_GET['game'];
+    $game = $_GET['game']."_";
 }
 if ($_GET['fromHour']) {
     $fromHour = $_GET['fromHour'];
