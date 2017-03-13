@@ -6,7 +6,9 @@ $today = date('Y-m-d', time());
     <head>
         <!--<title><?php echo $title; ?></title>-->
         <title>Thống kê Log chơi game</title>
+        <link type='text/css' href='css/basic.css' rel='stylesheet' media='screen' />
         <?php require('header.php'); ?>
+        <script src="js/jquery.simplemodal.js"></script>
         <script>
             function getLogKoin(type) {
                 $("#dvloader").show();
@@ -53,8 +55,9 @@ $today = date('Y-m-d', time());
                     },
                     dataType: 'text',
                     success: function (msg) {
+                        
                         $("#logTableResult").html(msg);
-                        $("#logTableResult").show();
+                        $("#logTableResult").show(); 
                         $("#dvloader").hide();
                     },
                     failure: function () {
@@ -64,6 +67,36 @@ $today = date('Y-m-d', time());
                 });            
             }
             
+            $("a.showLogTable").live("click", function(e) {
+                e.preventDefault();
+                var file_name = $(this).data('file');
+                $.ajax({
+                    type: "GET",
+                    url: "API/showLogTable.php",
+                    data: {
+                        "file_name": file_name
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        if (msg != '' && msg.length > 2) {
+                            $('#logTableDetail').html(msg);
+                            $('#logTableDetail').modal({
+                                closeHTML: '<div style="float:right; font-size:25px; color:#fff"><a href="#" class="simplemodal-close" style="color:#fff">x</a></div>',
+                                opacity: 65,
+                                overlayClose: true,
+                                minWidth: '750px',
+                                minHeight: '500px'
+                            });
+                            
+                        } else {
+                            alert("Lỗi hệ thống");
+                        }
+                    },
+                    failure: function () {
+                        alert("Kiểm tra lại kết nối mạng")
+                    }
+                });
+            });
 
             $("a.pagination-link-log").live("click", function (e) {
                 e.preventDefault();
@@ -168,6 +201,7 @@ $today = date('Y-m-d', time());
         </div>
         <div style="display:none" id="dvloader">
         </div>
+        <div id="logTableDetail" style="display:none">demodemodemo</div>
     </body>
 </html>
 
