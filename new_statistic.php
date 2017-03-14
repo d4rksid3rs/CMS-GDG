@@ -193,6 +193,29 @@ $today = date('Y-m-d', time());
                     }
                 });
             }
+            
+            function bonusUpdate() {
+                $("#dvloader").show();
+                var fromDate = $("#bonusUpdate input[name=fromDate]").val();
+                var toDate = $("#bonusUpdate input[name=toDate]").val();
+                $.ajax({
+                    type: "GET",
+                    url: "API/bonusUpdate.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#bonusUpdateResult").html(msg);
+                        $("#bonusUpdateResult").show();
+                        $("#dvloader").hide();
+                    },
+                    failure: function () {
+                        $("#coopUserBlockResult").html("<span>Không truy cập được dữ liệu</span>");
+                    }
+                });
+            }            
 
             $(document).ready(function () {
                 $(".datepicker").datepicker();
@@ -360,6 +383,25 @@ $today = date('Y-m-d', time());
 
                     </form>
                     <div id="coopUserBlockResult" style="display: none;">
+
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="box grid">
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê User được tặng vàng sau khi Update</a></div>
+                <div class="box_body"  style="display: none">
+                    <form id="bonusUpdate">    
+                        Từ Ngày
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Tới Ngày
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+
+                        <input type="button" name="add" value="Thống kê" onclick="bonusUpdate();"/>
+
+                    </form>
+                    <div id="bonusUpdateResult" style="display: none;">
 
                     </div>
                 </div>
