@@ -41,7 +41,7 @@ try {
     $i = 0;
     $lines = split("\n", $log);
     $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;'>";
-    $html .= "<td>Thời điểm</td><td>Username</td><td>Thay đổi</td><td>Giá trị mới</td></tr>";
+    $html .= "<td>Thời điểm</td><td>Username</td><td>Game</td><td>Thay đổi</td><td>Giá trị mới</td></tr>";
     foreach ($lines as $line) {
         $i++;
         if (!empty($line)) {
@@ -53,10 +53,12 @@ try {
             $new_record = $info[$count - 2];
             $text_u = $info[$count-3];
             $username = substr($text_u, 2);
+            $game = $info[$count-4];            
             $found = true;
             $html .= "<tr style='background-color: rgb(" . ($i % 2 > 0 ? "204,204,204" : "255, 255, 255") . ");text-align:center;'>";
             $html .= "<td width='5%'>" . $time . "</td>";
             $html .= "<td width='6%'>" . $username . "</td>";
+            $html .= "<td width='6%'>" . $game . "</td>";
             $html .= "<td width='5%'>" . number_format($change) . "</td>";
             $html .= "<td width='5%'>" . number_format($new_record) . "</td>";            
             $html .= "</tr>";
