@@ -67,6 +67,34 @@ $today = date('Y-m-d', time());
                 });            
             }
             
+            function logBoom() {
+                $("#dvloader").show();
+                var fromDate = $("#logBoom input[name=fromDate]").val();
+                var toDate = $("#logBoom input[name=toDate]").val();
+                var type = $("#logBoom select[name=type]").val();
+                
+                $.ajax({
+                    type: "GET",
+                    url: "API/getLogBoom.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate,
+                        "type": type
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        
+                        $("#logBoomResult").html(msg);
+                        $("#logBoomResult").show(); 
+                        $("#dvloader").hide();
+                    },
+                    failure: function () {
+                        $("#exchangeUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindListUser").attr("disabled", false);
+                    }
+                });            
+            }
+            
             $("a.showLogTable").live("click", function(e) {
                 e.preventDefault();
                 var file_name = $(this).data('file');
@@ -161,7 +189,7 @@ $today = date('Y-m-d', time());
 
                     </form>
                     <hr />
-                    <div id="logKoinResult" style="display: none;">                    
+                    <div id="logKoinResult" style="display: none;overflow: hidden;">                    
                     </div>
                 </div>
 
@@ -195,6 +223,28 @@ $today = date('Y-m-d', time());
                     </form>
                     <hr />
                     <div id="logTableResult" style="display: none;">                    
+                    </div>
+                </div>
+            </div>
+            
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);">Log Nổ hũ</a></div>
+                <div class="box_body" style="display: none">
+                    <form id="logBoom">
+                        Từ Ngày
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Đến Ngày
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Loại
+                        <select name="type">
+                            <option value="2" selected="selected">Vàng</option>
+                            <option value="1">Xu</option>
+                        </select>
+                        <input type="button" name="add" value="Thống kê" onclick="logBoom();"/>
+
+                    </form>
+                    <hr />
+                    <div id="logBoomResult" style="display: none;">                    
                     </div>
                 </div>
             </div>
