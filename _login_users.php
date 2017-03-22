@@ -12,6 +12,7 @@ $users = array(
     'bemon' => 'admingdg2017$',    
     'cskh' => 'CsKh123!@#',
     'ccu' => 'ccuonly',
+    'vmg' => 'vmg123!@#',
 //    'huong' => 'chiuchiu2023',
 //    'nguyet' => 'nguyet2023',
 //    'lam' => 'lam2023',

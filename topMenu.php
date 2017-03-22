@@ -59,6 +59,10 @@ $secret = array("link" => "secret.php", "img" => "secret.png", "title" => "Secre
 
                 $menu = array($logout, $game);
                 break;
+            case "vmg":
+
+                $menu = array($logout, $user);
+                break;
 //            case "monaco":
 //
 //                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $merchant, $dau, $game);
