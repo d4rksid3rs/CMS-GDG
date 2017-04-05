@@ -48,6 +48,53 @@ if ($current_user != 'admin') {
                     }
                 });
             }
+            
+            function getGoldToKoin() {
+                $("#dvloader").show();
+                var fromDate = $("#goldToKoin input[name=fromDate]").val();
+                var toDate = $("#goldToKoin input[name=toDate]").val();
+                $.ajax({
+                    type: "GET",
+                    url: "API/goldToKoin.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#goldToKoinResult").html(msg);
+                        $("#goldToKoinResult").show();
+                        $("#dvloader").hide();
+                    },
+                    failure: function () {
+                        $("#goldToKoinResult").html("<b>Không truy cập được dữ liệu</b>");
+                    }
+                });
+            }
+            
+            function getRevShareByDay() {
+                $("#dvloader").show();
+                var fromDate = $("#revShareByDay input[name=fromDate]").val();
+                var toDate = $("#revShareByDay input[name=toDate]").val();
+                $.ajax({
+                    type: "GET",
+                    url: "API/getRevShareByDay.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#revShareByDayResult").html(msg);
+                        $("#revShareByDayResult").show();
+                        $("#dvloader").hide();
+                    },
+                    failure: function () {
+                        $("#goldToKoinResult").html("<b>Không truy cập được dữ liệu</b>");
+                    }
+                });
+            }
+            
             $(document).ready(function () {
                 $(".datepicker").datepicker();
             });
@@ -58,7 +105,7 @@ if ($current_user != 'admin') {
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
             <div class="box grid">
-                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê Chia sẻ Doanh thu</a></div>
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê Chia sẻ Doanh thu Real Time</a></div>
                 <div class="box_body"  style="display: none">
                     <form id="revShare">
                         <input type="button" name="add" value="Thống kê" onclick="getRevShare();"/>
@@ -69,6 +116,40 @@ if ($current_user != 'admin') {
                     </div>
                 </div>
             </div> 
+            
+            <div class="box grid">
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê Vàng đổi Xu</a></div>
+                <div class="box_body"  style="display: none">
+                    <form id="goldToKoin">
+                        Từ ngày:
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;"/>
+                        Đến ngày:
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;"/>
+                        <input type="button" name="add" value="Thống kê" onclick="getGoldToKoin();"/>
+                        <span id="message" style="color: #800000; font-weight: bold"></span>
+                    </form>
+                    <div id="goldToKoinResult" style="display: none;">
+
+                    </div>
+                </div>
+            </div> 
+            
+            <div class="box grid">
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê Chia sẻ Doanh thu Theo ngày</a></div>
+                <div class="box_body"  style="display: none">
+                    <form id="revShareByDay">
+                        Từ ngày:
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;"/>
+                        Đến ngày:
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;"/>
+                        <input type="button" name="add" value="Thống kê" onclick="getRevShareByDay();"/>
+                        <span id="message" style="color: #800000; font-weight: bold"></span>
+                    </form>
+                    <div id="revShareByDayResult" style="display: none;">
+
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- The Modal -->
         <div id="myModal" class="modal">
