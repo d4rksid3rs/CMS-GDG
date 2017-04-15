@@ -48,7 +48,7 @@ if ($current_user != 'admin') {
                     }
                 });
             }
-            
+
             function getGoldToKoin() {
                 $("#dvloader").show();
                 var fromDate = $("#goldToKoin input[name=fromDate]").val();
@@ -71,18 +71,14 @@ if ($current_user != 'admin') {
                     }
                 });
             }
-            
+
             function getRevShareByDay() {
                 $("#dvloader").show();
-                var fromDate = $("#revShareByDay input[name=fromDate]").val();
-                var toDate = $("#revShareByDay input[name=toDate]").val();
+                var str = $("form#revShareByDay").serialize();
+                var url = "API/getRevShareByDay.php?"+ str;
                 $.ajax({
                     type: "GET",
-                    url: "API/getRevShareByDay.php",
-                    data: {
-                        "fromDate": fromDate,
-                        "toDate": toDate
-                    },
+                    url: url,
                     dataType: 'text',
                     success: function (msg) {
                         $("#revShareByDayResult").html(msg);
@@ -94,12 +90,36 @@ if ($current_user != 'admin') {
                     }
                 });
             }
-            
+
             $(document).ready(function () {
                 $(".datepicker").datepicker();
             });
 
         </script>
+        <style>
+            ul#revShare-list {
+                list-style-type: none;
+                overflow-x: hidden;
+                padding: 0;
+                width: 200px;
+            }
+            ul#revShare-list li {
+                margin: 0;
+                padding: 0;
+            }
+            ul#revShare-list label {
+                background-color: window;
+                color: windowtext;
+                display: block;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+            ul#revShare-list label:hover {
+                background-color: highlight;
+                color: highlighttext;
+            }
+        </style>
     </head>
     <body>
         <div class="pagewrap">
@@ -116,7 +136,7 @@ if ($current_user != 'admin') {
                     </div>
                 </div>
             </div> 
-            
+
             <div class="box grid">
                 <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê Vàng đổi Xu</a></div>
                 <div class="box_body"  style="display: none">
@@ -133,7 +153,7 @@ if ($current_user != 'admin') {
                     </div>
                 </div>
             </div> 
-            
+
             <div class="box grid">
                 <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê Chia sẻ Doanh thu Theo ngày</a></div>
                 <div class="box_body"  style="display: none">
@@ -142,6 +162,18 @@ if ($current_user != 'admin') {
                         <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;"/>
                         Đến ngày:
                         <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;"/>
+                        <br />
+                        List Danh mục:
+                        <ul id="revShare-list">
+                            <li><label for="chk1"><input name="fee" value="fee" type="checkbox">Fee Game</label></li>
+                            <li><label for="chk2"><input name="baucua" value="baucua" type="checkbox">Bầu Cua</label></li>
+                            <li><label for="chk3"><input name="xocdia" value="xocdia" type="checkbox">Xóc Đĩa</label></li>
+                            <li><label for="chk4"><input name="card_koin" value="card_koin" type="checkbox">Card Xu</label></li>
+                            <li><label for="chk5"><input name="gold_to_koin" value="gold_to_koin" type="checkbox">Vàng đổi Xu</label></li>
+                            <li><label for="chk6"><input name="boom" value="boom" type="checkbox">Nổ hũ</label></li>
+                            <li><label for="chk7"><input name="sms_koin" value="sms_koin" type="checkbox">SMS Xu</label></li>
+                            <li><label for="chk7"><input name="iap" value="iap" type="checkbox">IAP</label></li>
+                        </ul>
                         <input type="button" name="add" value="Thống kê" onclick="getRevShareByDay();"/>
                         <span id="message" style="color: #800000; font-weight: bold"></span>
                     </form>

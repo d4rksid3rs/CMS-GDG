@@ -2,11 +2,14 @@
 
 require('../Config.php');
 require('db.class.php');
-$fromDate = $_GET['fromDate'];
-$toDate = $_GET['toDate'];
+$parameter = $_GET;
+$fromDate = $parameter['fromDate'];
+$toDate = $parameter['toDate'];
+unset($parameter['fromDate']);
+unset($parameter['toDate']);
 $array_date = createDateRangeArray($fromDate, $toDate);
 $today = date('Y-m-d', time());
-
+//var_dump($parameter);die;
 try {
     $found = false;
     include('Net/SSH2.php');
@@ -36,7 +39,8 @@ try {
             $stmt1 = $db->prepare($sql1);
             $stmt1->execute();
             $fee_chip_by_date = $stmt1->fetch();
-
+            $total_fee = json_decode($fee_chip_by_date['data']);
+            var_dump($total_fee);die;
             $sql2 = "select * from server_koin_daily where datecreate = '{$date}'";
             $stmt2 = $db->prepare($sql2);
             $stmt2->execute();
