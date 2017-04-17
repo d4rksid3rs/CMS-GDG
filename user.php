@@ -891,6 +891,28 @@ $today = date('Y-m-d', time());
                 });
             }
             
+            function setVipUser() {
+                var username = $("#setVipUser input[name=username]").val();
+                var type = $("#setVipUser select[name=type]").val();                
+                $.ajax({
+                    type: "POST",
+                    url: "API/setVIP.php",
+                    data: {
+                        "username": username,
+                        "type": type
+                    },
+                    dataType: 'text',
+                    success: function (msg) {                        
+                        var data = jQuery.parseJSON(msg);
+                        $("#setVipUser #message").html(data.message);
+                    },
+                    failure: function () {
+                        $("#changeUserPassForm #message").html("<span>Không truy cập được dữ liệu</span>");                        
+                    }
+                });
+            }
+            
+            
             function findUserMobile() {
                 var phonenumber = $("#findPhoneData input[name=phonenumber]").val();
                 var fdate = $("#findPhoneData input[name=fromDate]").val();
@@ -1482,6 +1504,30 @@ $today = date('Y-m-d', time());
                         Xác nhận mật khẩu mới:
                         <input type="password" name="confirm_pass" value="" />
                         <input type="button" name="add" id="btnChangePassUser" value="Search" onclick="changePassUser();"/>
+                        <span id="message" style="color: #800000; font-weight: bold"></span>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);">Set VIP</a></div>
+                <div class="box_body" style="display: none">                    
+                    <form id="setVipUser">
+                        Username:
+                        <input type="text" name="username" value="" />
+                        Số lượng
+                        <select name="type">
+                            <option value="0" selected="selected">VIP 0</option>
+                            <option value="1">VIP 1</option>
+                            <option value="2">VIP 2</option>
+                            <option value="3">VIP 3</option>
+                            <option value="4">VIP 4</option>
+                            <option value="5">VIP 5</option>
+                            <option value="6">VIP 6</option>
+                            <option value="7">VIP 7</option>
+                            <option value="8">VIP 8</option>
+                        </select>
+                        <input type="button" name="add" value="Set VIP" onclick="setVipUser();"/>
                         <span id="message" style="color: #800000; font-weight: bold"></span>
                     </form>
                 </div>
