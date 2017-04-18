@@ -9,21 +9,14 @@ unset($parameters['fromDate']);
 unset($parameters['toDate']);
 $array_date = createDateRangeArray($fromDate, $toDate);
 $today = date('Y-m-d', time());
+if (empty($parameters)) {
+    echo "<span style='font-weight:bold;color:red;'>Phải chọn ít nhất 1 Fee</span>";
+    exit;
+}
 //var_dump($parameter);die;
 try {
     $found = false;
     include('Net/SSH2.php');
-
-    $server = __HOST;
-    $port = __PORT;
-    $remote = "gdg";
-    $password = "$#Fsda345#1z";
-    $command = "ps";
-    $log = '';
-    $ssh = new Net_SSH2($server, $port, 100);
-    if (!$ssh->login($remote, $password)) {
-        exit('Login Failed');
-    }
 
     $fee_game = 0;
     $bau_cua = 0;
@@ -33,48 +26,57 @@ try {
     $boom = 0;
     $sms_xu = 0;
     $iap = 0;
-    foreach ($array_date as $date) {
-        if ($date != $today) {
-            $sql1 = "select * from server_chip_daily where datecreate = '{$date}'";
-            $stmt1 = $db->prepare($sql1);
-            $stmt1->execute();
-            $fee_chip_by_date = $stmt1->fetch();
-            $total_fee = json_decode($fee_chip_by_date['data'], true);
-            $fee_game += abs($total_fee['TLMN']) + abs($total_fee['BACAYCH']) + abs($total_fee['TLMNDC']) + abs($total_fee['XOCDIA']) + abs($total_fee['PHOM']) + abs($total_fee['LIENG']) + abs($total_fee['SAM']) + abs($total_fee['BAUCUA']) + abs($total_fee['XITO']) + abs($total_fee['POKER']) + abs($total_fee['BACAY']);
-            $bau_cua += abs($fee_chip_by_date['vipbaucua']);
-            $xoc_dia += abs($fee_chip_by_date['vipxocdia']);
-            $gold_to_koin = abs($total_fee['GOLDTOSILVER_PUT']);
-            $iap += abs($fee_chip_by_date['iap_chip']);
-            $boom += abs($total_fee['BOOM']);
-        } else {
-            $cmd = "python checkFeeVip.py";
-            $fee_chip_today_json = $ssh->exec($cmd);
-            $fee_chip_today = json_decode($fee_chip_today_json, true);
-            $fee_game += abs($fee_chip_today['XOCDIA']) + abs($fee_chip_today['TLMN']) + abs($fee_chip_today['BACAYCH']) + abs($fee_chip_today['TLMNDC']) + abs($fee_chip_today['PHOM']) + abs($fee_chip_today['LIENG']) + abs($fee_chip_today['SAM']) + abs($fee_chip_today['BAUCUA']) + abs($fee_chip_today['XITO']) + abs($fee_chip_today['POKER']) + abs($fee_chip_today['BACAY']);
-            $bau_cua += abs($fee_chip_today['HOSTBAUCUA']);
-            $xoc_dia += abs($fee_chip_today['HOSTXOCDIA']);
-            $gold_to_koin += abs($fee_chip_today['GOLDTOSILVER_PUT']);
-            $boom += abs($fee_chip_today['BOOM']);
-        }
-        $sql_sms_koin = "SELECT SUM(money) AS total_money FROM log_nap_koin WHERE flag1 = 0 AND type = 1 AND date(created_on) = '{$today}'";
-        $sql_card_koin = "SELECT SUM(money) AS total_money FROM log_nap_koin WHERE flag1 = 0 AND type = 2 AND date(created_on) = '{$today}'";
-        $sql_iap = "SELECT SUM(money) AS total_money FROM log_nap_koin WHERE type = 4 AND date(created_on) = '{$today}'";
 
-        $stmt1 = $db->prepare($sql_sms_koin);
-        $stmt1->execute();
-        $sms = $stmt1->fetch();
-        $sms_xu += $sms['total_money'];
+    $sql_sms_koin = "SELECT SUM(money) AS total_money FROM log_nap_koin WHERE flag1 = 0 AND type = 1 AND date(created_on) >= '{$fromDate}' AND date(created_on) <= '{$toDate}'";
+    $sql_card_koin = "SELECT SUM(money) AS total_money FROM log_nap_koin WHERE flag1 = 0 AND type = 2 AND date(created_on) >= '{$fromDate}' AND date(created_on) <= '{$toDate}'";    
+    $sql_iap = "SELECT SUM(money) AS total_money FROM log_nap_koin WHERE type = 4 AND date(created_on) >= '{$fromDate}' AND date(created_on) <= '{$toDate}'";
 
-        $stmt2 = $db->prepare($sql_card_koin);
-        $stmt2->execute();
-        $card = $stmt2->fetch();
-        $card_xu += $card['total_money'];
+    $stmt1 = $db->prepare($sql_sms_koin);
+    $stmt1->execute();
+    $sms = $stmt1->fetch();
+    $sms_xu = $sms['total_money'];
 
-        $stmt3 = $db->prepare($sql_iap);
-        $stmt3->execute();
-        $iap_rs = $stmt3->fetch();
-        $iap += $iap['total_money'];
+    $stmt2 = $db->prepare($sql_card_koin);
+    $stmt2->execute();
+    $card = $stmt2->fetch();
+    $card_xu = $card['total_money'];
+
+    $stmt3 = $db->prepare($sql_iap);
+    $stmt3->execute();
+    $iap_rs = $stmt3->fetch();
+    $iap = $iap_rs['total_money'];
+
+    $sql = "select * from server_chip_daily where datecreate >= '{$fromDate}' and datecreate <= '{$toDate}'";
+    foreach ($db->query($sql) as $row) {
+        $total_fee = json_decode($row['data'], true);
+        $fee_game += abs($total_fee['TLMN']) + abs($total_fee['BACAYCH']) + abs($total_fee['TLMNDC']) + abs($total_fee['XOCDIA']) + abs($total_fee['PHOM']) + abs($total_fee['LIENG']) + abs($total_fee['SAM']) + abs($total_fee['BAUCUA']) + abs($total_fee['XITO']) + abs($total_fee['POKER']) + abs($total_fee['BACAY']);
+        $bau_cua += abs($row['vipbaucua']);
+        $xoc_dia += abs($row['vipxocdia']);
+        $gold_to_koin = abs($total_fee['GOLDTOSILVER_PUT']);
+        $boom += abs($total_fee['BOOM']);
     }
+
+    if (in_array($today, $array_date)) {
+        $server = __HOST;
+        $port = __PORT;
+        $remote = "gdg";
+        $password = "$#Fsda345#1z";
+        $command = "ps";
+        $log = '';
+        $ssh = new Net_SSH2($server, $port, 100);
+        if (!$ssh->login($remote, $password)) {
+            exit('Login Failed');
+        }
+
+        $cmd = "python checkFeeVip.py";
+        $fee_chip_today_json = $ssh->exec($cmd);
+        $fee_chip_today = json_decode($fee_chip_today_json, true);
+        $fee_game += abs($fee_chip_today['XOCDIA']) + abs($fee_chip_today['TLMN']) + abs($fee_chip_today['BACAYCH']) + abs($fee_chip_today['TLMNDC']) + abs($fee_chip_today['PHOM']) + abs($fee_chip_today['LIENG']) + abs($fee_chip_today['SAM']) + abs($fee_chip_today['BAUCUA']) + abs($fee_chip_today['XITO']) + abs($fee_chip_today['POKER']) + abs($fee_chip_today['BACAY']);
+        $bau_cua += abs($fee_chip_today['HOSTBAUCUA']);
+        $xoc_dia += abs($fee_chip_today['HOSTXOCDIA']);
+        $gold_to_koin += abs($fee_chip_today['GOLDTOSILVER_PUT']);
+        $boom += abs($fee_chip_today['BOOM']);
+    }    
 
     $list_rev = array(
         'fee' => array(
@@ -133,7 +135,7 @@ try {
         $html .= "</tr>";
         $total_rev_share += $list_rev[$parameter]['net'];
     }
-    $html .= "<tr style='background-color: rgb(255, 255, 255);text-align:center;font-weight:bold;'><td colspan='4'>Tổng</td><td style='color:red; '>".  number_format($total_rev_share)."</td></tr>";
+    $html .= "<tr style='background-color: rgb(255, 255, 255);text-align:center;font-weight:bold;'><td colspan='4'>Tổng</td><td style='color:red; '>" . number_format($total_rev_share) . "</td></tr>";
     $html .= "</table>";
 
     echo $html;
