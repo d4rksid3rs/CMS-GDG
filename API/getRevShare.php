@@ -25,6 +25,8 @@ try {
     $sql_total_card = "SELECT SUM(money) AS total_money FROM log_nap_koin WHERE flag1 = 0 AND type = 2 AND date(created_on) = '{$today}'";
     $sql_total_iap = "SELECT SUM(money) AS total_money FROM log_nap_koin WHERE flag1 = 0 AND type = 4 AND date(created_on) = '{$today}'";
 
+    $sql_taixiu = "select date(time_update) as day, fee_vip from fee_taixiu where date(time_update) = '{$today}'";
+    
     $stmt1 = $db->prepare($sql_total_sms);
     $stmt1->execute();
     $sms = $stmt1->fetch();
@@ -39,6 +41,11 @@ try {
     $stmt3->execute();
     $iap = $stmt3->fetch();
     $total_iap = $iap['total_money'];
+    
+    $stmt4 = $db->prepare($sql_total_iap);
+    $stmt4->execute();
+    $taixiu = $stmt4->fetch();
+    $fee_taixiu = $taixiu['fee_vip'];
 
     $fee_array = json_decode($log, true);
     $host_xoc_dia = $fee_array['HOSTXOCDIA'];
@@ -58,7 +65,7 @@ try {
     $boom = $fee_array['BOOM'];
 
     $total_fee_game = abs($tlmn) + abs($bacaych) + abs($tlmndc) + abs($xoc_dia) + abs($phom) + abs($lieng) + abs($sam)
-            + abs($bau_cua) + abs($xi_to) + abs($poker) + abs($ba_cay) + abs($host_bau_cua) + abs($host_xoc_dia) + abs($gold_to_silver) - abs($boom);
+            + abs($bau_cua) + abs($xi_to) + abs($poker) + abs($ba_cay) + abs($host_bau_cua) + abs($host_xoc_dia) + abs($gold_to_silver) + abs($fee_taixiu) - abs($boom);
     $rev_share = ($total_fee_game + $total_card) * 0.81 + $total_sms * 0.35 + $total_iap * 0.65;
     
     // render table
@@ -79,6 +86,7 @@ try {
     $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>13</td><td>Tiền Xóc đĩa ăn</td><td>" . number_format(abs($host_xoc_dia)) . "</td></td></tr>";
     $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>14</td><td>Đổi Vàng -> Xu</td><td>" . number_format(abs($gold_to_silver)) . "</td></td></tr>";
     $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>15</td><td>Nổ Hũ</td><td> -" . number_format(abs($boom)) . "</td></td></tr>";
+    $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>15</td><td>Tài Xỉu</td><td> -" . number_format(abs($fee_taixiu)) . "</td></td></tr>";
     $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>16</td><td>Tổng <span style='font-weight:bold;color:red;'>(A)</span></td><td>" . number_format($total_fee_game) . "</td></td></tr>";
     $html .= "</table>";
     
