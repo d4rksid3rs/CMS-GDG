@@ -52,7 +52,7 @@ try {
         $fee_game += abs($total_fee['TLMN']) + abs($total_fee['BACAYCH']) + abs($total_fee['TLMNDC']) + abs($total_fee['XOCDIA']) + abs($total_fee['PHOM']) + abs($total_fee['LIENG']) + abs($total_fee['SAM']) + abs($total_fee['BAUCUA']) + abs($total_fee['XITO']) + abs($total_fee['POKER']) + abs($total_fee['BACAY']);
         $bau_cua += abs($row['vipbaucua']);
         $xoc_dia += abs($row['vipxocdia']);
-        $gold_to_koin = abs($total_fee['GOLDTOSILVER_PUT']);
+        $gold_to_koin += abs($total_fee['GOLDTOSILVER_PUT']);
         $boom += abs($total_fee['BOOM']);
     }
 
