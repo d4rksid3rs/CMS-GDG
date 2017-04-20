@@ -86,7 +86,7 @@ try {
     $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>13</td><td>Tiền Xóc đĩa ăn</td><td>" . number_format(abs($host_xoc_dia)) . "</td></td></tr>";
     $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>14</td><td>Đổi Vàng -> Xu</td><td>" . number_format(abs($gold_to_silver)) . "</td></td></tr>";
     $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>15</td><td>Nổ Hũ</td><td> -" . number_format(abs($boom)) . "</td></td></tr>";
-    $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>15</td><td>Tài Xỉu</td><td> -" . number_format(abs($fee_taixiu)) . "</td></td></tr>";
+    $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>15</td><td>Tài Xỉu</td><td> " . number_format(abs($fee_taixiu)) . "</td></td></tr>";
     $html .= "<tr style='background-color: rgb(255, 255, 255)'><td>16</td><td>Tổng <span style='font-weight:bold;color:red;'>(A)</span></td><td>" . number_format($total_fee_game) . "</td></td></tr>";
     $html .= "</table>";
     
