@@ -159,8 +159,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $init = TRUE;
 $sql = "select value from config where `key` = 'special_offer_koin_v3' limit 1";
 $result = mysql_query($sql);
+$loadDb = true;
 if ($row = mysql_fetch_assoc($result)) {
-//    var_dump($row);die;
+    $loadDb = true;
     $value = $row['value'];
     if (!empty($value)) {
         $init = FALSE;
@@ -226,6 +227,8 @@ if ($row = mysql_fetch_assoc($result)) {
         $to_time6 = $arr1[1];
         $factor6 = !empty($arr['cardvip']['factor']) ? $arr['cardvip']['factor'] : $ratio_presets;
     }
+} else {
+    $loadDb = false;
 }
 if ($init) {
     $from_date = $to_date = $from_date2 = $to_date2 = $from_date3 = $to_date3 = $from_date4 = $to_date4 = $from_date5 = $to_date5 = $from_date6 = $to_date6 = '';
@@ -559,277 +562,274 @@ foreach ($value as $k => $v) {
     <body>
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
-
-            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Xu/Chip Special Offers</a></div>
-                <div class="box_body">
-                    <div style="padding-left:10px;">
-                        <form action="" method="post">
-                            <b>Xu (SMS) </b><br>
-                            Từ ngày
-                            <input type="text" id="datepicker1" name="from_date" style="text-align: center; width: 100px;" value="<?php echo $from_date; ?>"/>
-                            <input type="text" id="" name="from_time" style="width: 60px;" value="<?php echo $from_time; ?>"/>
-                            Tới ngày
-                            <input type="text" id="datepicker2" name="to_date" style="text-align: center; width: 100px;" value="<?php echo $to_date; ?>"/> 
-                            <input type="text" id="" name="to_time" style="width: 60px;" value="<?php echo $to_time; ?>"/>
-                            <br>
-                            Hệ số nhân
-                            <input type="text" id="factor" name="factor" style="text-align: right; width: 40px;" value="<?php echo $factor; ?>"/> 
-                            <hr>
-                            <b>Xu (CARD) (Khoảng thời gian 1) </b><br>
-                            Từ ngày
-                            <input type="text" id="datepicker5" name="from_date2" style="text-align: center; width: 100px;" value="<?php echo $from_date2; ?>"/> 
-                            <input type="text" id="" name="from_time2" style="width: 60px;" value="<?php echo $from_time2; ?>"/>
-                            Tới ngày
-                            <input type="text" id="datepicker6" name="to_date2" style="text-align: center; width: 100px;" value="<?php echo $to_date2; ?>"/> 
-                            <input type="text" id="" name="to_time2" style="width: 60px;" value="<?php echo $to_time2; ?>"/>
-                            <br>
-                            Hệ số nhân
-                            <br>
-                            <?php
-                            foreach ($card_types as $key => $item) {
-                                echo $item . " <input type='text' id='factor2[]' name='factor2[]' style='text-align: right; width: 40px;' value='" . $factor2[$key] . "' /> ";
-                            }
-                            ?>
-                            <br>
-                            <b>Xu (CARD) (Khoảng thời gian 2) </b><br>
-                            Từ ngày
-                            <input type="text" id="datepicker7" name="from_date3" style="text-align: center; width: 100px;" value="<?php echo $from_date3; ?>"/> 
-                            <input type="text" id="" name="from_time3" style="width: 60px;" value="<?php echo $from_time3; ?>"/>
-                            Tới ngày
-                            <input type="text" id="datepicker8" name="to_date3" style="text-align: center; width: 100px;" value="<?php echo $to_date3; ?>"/> 
-                            <input type="text" id="" name="to_time3" style="width: 60px;" value="<?php echo $to_time3; ?>"/>
-                            <br>
-                            Hệ số nhân
-                            <br>
-                            <?php
-                            foreach ($card_types as $key => $item) {
-                                echo $item . " <input type='text' id='factor3[]' name='factor3[]' style='text-align: right; width: 40px;' value='" . $factor3[$key] . "' /> ";
-                            }
-                            ?>
-                            <hr>
-                            <b>IAP (Khoảng thời gian 1) </b><br>
-                            Từ ngày
-                            <input type="text" id="datepicker9" name="from_date4" style="text-align: center; width: 100px;" value="<?php echo $from_date4; ?>"/> 
-                            <input type="text" id="" name="from_time4" style="width: 60px;" value="<?php echo $from_time4; ?>"/>
-                            Tới ngày
-                            <input type="text" id="datepicker10" name="to_date4" style="text-align: center; width: 100px;" value="<?php echo $to_date4; ?>"/> 
-                            <input type="text" id="" name="to_time4" style="width: 60px;" value="<?php echo $to_time4; ?>"/>
-                            <br>
-                            Hệ số nhân
-                            <br>
-                            <?php
-                            foreach ($iap_types as $key => $item) {
-                                echo $item . " <input type='text' id='factor4[]' name='factor4[]' style='text-align: right; width: 40px;' value='" . $factor4[$key] . "' /> ";
-                            }
-                            ?>
-                            <br />
-                            <b>IAP (Khoảng thời gian 2) </b><br>
-                            Từ ngày
-                            <input type="text" id="datepicker11" name="from_date5" style="text-align: center; width: 100px;" value="<?php echo $from_date5; ?>"/> 
-                            <input type="text" id="" name="from_time5" style="width: 60px;" value="<?php echo $from_time5; ?>"/>
-                            Tới ngày
-                            <input type="text" id="datepicker12" name="to_date5" style="text-align: center; width: 100px;" value="<?php echo $to_date5; ?>"/> 
-                            <input type="text" id="" name="to_time5" style="width: 60px;" value="<?php echo $to_time5; ?>"/>
-                            <br>
-                            Hệ số nhân
-                            <br>
-                            <?php
-                            foreach ($iap_types as $key => $item) {
-                                echo $item . " <input type='text' id='factor5[]' name='factor5[]' style='text-align: right; width: 40px;' value='" . $factor5[$key] . "' /> ";
-                            }
-                            ?>
-                            <br />
-                            <hr />
-                            <b>Chip (CARD)  </b><br>
-                            Từ ngày
-                            <input type="text" class="datepicker" name="from_date6" style="text-align: center; width: 100px;" value="<?php echo $from_date6; ?>"/> 
-                            <input type="text" id="" name="from_time6" style="width: 60px;" value="<?php echo $from_time6; ?>"/>
-                            Tới ngày
-                            <input type="text" class="datepicker" name="to_date6" style="text-align: center; width: 100px;" value="<?php echo $to_date6; ?>"/> 
-                            <input type="text" id="" name="to_time6" style="width: 60px;" value="<?php echo $to_time6; ?>"/>
-                            <br>
-                            Hệ số nhân
-                            <br>
-                            <?php
-                            foreach ($card_types as $key => $item) {
-                                echo $item . " <input type='text' id='factor6[]' name='factor6[]' style='text-align: right; width: 40px;' value='" . $factor6[$key] . "' /> ";
-                            }
-                            ?>
-                            <br>
-                            <hr>
-                            <input type="submit" value="Cập nhật" class="input_button"/>
-                        </form>
-                        <div>
+            <?php if ($loadDb): ?>
+                <div class="box grid">
+                    <div class="box_header"><a href="javascript:void(0);">Xu/Chip Special Offers</a></div>
+                    <div class="box_body">
+                        <div style="padding-left:10px;">
+                            <form action="" method="post">
+                                <b>Xu (SMS) </b><br>
+                                Từ ngày
+                                <input type="text" id="datepicker1" name="from_date" style="text-align: center; width: 100px;" value="<?php echo $from_date; ?>"/>
+                                <input type="text" id="" name="from_time" style="width: 60px;" value="<?php echo $from_time; ?>"/>
+                                Tới ngày
+                                <input type="text" id="datepicker2" name="to_date" style="text-align: center; width: 100px;" value="<?php echo $to_date; ?>"/> 
+                                <input type="text" id="" name="to_time" style="width: 60px;" value="<?php echo $to_time; ?>"/>
+                                <br>
+                                Hệ số nhân
+                                <input type="text" id="factor" name="factor" style="text-align: right; width: 40px;" value="<?php echo $factor; ?>"/> 
+                                <hr>
+                                <b>Xu (CARD) (Khoảng thời gian 1) </b><br>
+                                Từ ngày
+                                <input type="text" id="datepicker5" name="from_date2" style="text-align: center; width: 100px;" value="<?php echo $from_date2; ?>"/> 
+                                <input type="text" id="" name="from_time2" style="width: 60px;" value="<?php echo $from_time2; ?>"/>
+                                Tới ngày
+                                <input type="text" id="datepicker6" name="to_date2" style="text-align: center; width: 100px;" value="<?php echo $to_date2; ?>"/> 
+                                <input type="text" id="" name="to_time2" style="width: 60px;" value="<?php echo $to_time2; ?>"/>
+                                <br>
+                                Hệ số nhân
+                                <br>
+                                <?php
+                                foreach ($card_types as $key => $item) {
+                                    echo $item . " <input type='text' id='factor2[]' name='factor2[]' style='text-align: right; width: 40px;' value='" . $factor2[$key] . "' /> ";
+                                }
+                                ?>
+                                <br>
+                                <b>Xu (CARD) (Khoảng thời gian 2) </b><br>
+                                Từ ngày
+                                <input type="text" id="datepicker7" name="from_date3" style="text-align: center; width: 100px;" value="<?php echo $from_date3; ?>"/> 
+                                <input type="text" id="" name="from_time3" style="width: 60px;" value="<?php echo $from_time3; ?>"/>
+                                Tới ngày
+                                <input type="text" id="datepicker8" name="to_date3" style="text-align: center; width: 100px;" value="<?php echo $to_date3; ?>"/> 
+                                <input type="text" id="" name="to_time3" style="width: 60px;" value="<?php echo $to_time3; ?>"/>
+                                <br>
+                                Hệ số nhân
+                                <br>
+                                <?php
+                                foreach ($card_types as $key => $item) {
+                                    echo $item . " <input type='text' id='factor3[]' name='factor3[]' style='text-align: right; width: 40px;' value='" . $factor3[$key] . "' /> ";
+                                }
+                                ?>
+                                <hr>
+                                <b>IAP (Khoảng thời gian 1) </b><br>
+                                Từ ngày
+                                <input type="text" id="datepicker9" name="from_date4" style="text-align: center; width: 100px;" value="<?php echo $from_date4; ?>"/> 
+                                <input type="text" id="" name="from_time4" style="width: 60px;" value="<?php echo $from_time4; ?>"/>
+                                Tới ngày
+                                <input type="text" id="datepicker10" name="to_date4" style="text-align: center; width: 100px;" value="<?php echo $to_date4; ?>"/> 
+                                <input type="text" id="" name="to_time4" style="width: 60px;" value="<?php echo $to_time4; ?>"/>
+                                <br>
+                                Hệ số nhân
+                                <br>
+                                <?php
+                                foreach ($iap_types as $key => $item) {
+                                    echo $item . " <input type='text' id='factor4[]' name='factor4[]' style='text-align: right; width: 40px;' value='" . $factor4[$key] . "' /> ";
+                                }
+                                ?>
+                                <br />
+                                <b>IAP (Khoảng thời gian 2) </b><br>
+                                Từ ngày
+                                <input type="text" id="datepicker11" name="from_date5" style="text-align: center; width: 100px;" value="<?php echo $from_date5; ?>"/> 
+                                <input type="text" id="" name="from_time5" style="width: 60px;" value="<?php echo $from_time5; ?>"/>
+                                Tới ngày
+                                <input type="text" id="datepicker12" name="to_date5" style="text-align: center; width: 100px;" value="<?php echo $to_date5; ?>"/> 
+                                <input type="text" id="" name="to_time5" style="width: 60px;" value="<?php echo $to_time5; ?>"/>
+                                <br>
+                                Hệ số nhân
+                                <br>
+                                <?php
+                                foreach ($iap_types as $key => $item) {
+                                    echo $item . " <input type='text' id='factor5[]' name='factor5[]' style='text-align: right; width: 40px;' value='" . $factor5[$key] . "' /> ";
+                                }
+                                ?>
+                                <br />
+                                <hr />
+                                <b>Chip (CARD)  </b><br>
+                                Từ ngày
+                                <input type="text" class="datepicker" name="from_date6" style="text-align: center; width: 100px;" value="<?php echo $from_date6; ?>"/> 
+                                <input type="text" id="" name="from_time6" style="width: 60px;" value="<?php echo $from_time6; ?>"/>
+                                Tới ngày
+                                <input type="text" class="datepicker" name="to_date6" style="text-align: center; width: 100px;" value="<?php echo $to_date6; ?>"/> 
+                                <input type="text" id="" name="to_time6" style="width: 60px;" value="<?php echo $to_time6; ?>"/>
+                                <br>
+                                Hệ số nhân
+                                <br>
+                                <?php
+                                foreach ($card_types as $key => $item) {
+                                    echo $item . " <input type='text' id='factor6[]' name='factor6[]' style='text-align: right; width: 40px;' value='" . $factor6[$key] . "' /> ";
+                                }
+                                ?>
+                                <br>
+                                <hr>
+                                <input type="submit" value="Cập nhật" class="input_button"/>
+                            </form>
+                            <div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Event Message</a></div>
-                <div class="box_body">
-                    <div style="padding-left:10px;">                            
-                        <form action="" method="post">
-                            <table width="100%" cellspacing="1" style="font-size:13px;">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 200px;" align="center">Title</th>
-                                        <th>Nội dung</th>
-                                        <th style="width: 150px;" align="center">Ngày bắt đầu</th>
-                                        <th style="width: 150px;" align="center">Ngày kết thúc</th>
-                                        <th style="width: 50px;" align="center">OS</th>
-                                        <th style="width: 20px;" align="center">Fang?</th>
-                                        <th style="width:80px"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($msg as $m) {
-                                        echo "<tr>";
-                                        echo "<td>" . substr($m['content'], 0, strrpos($m['content'], '@@@')) . "</td>";
-                                        $flag_event_text = trim(str_replace("\n", "<br/>", substr($m['content'], strrpos($m['content'], '@@@') + 3)));                                        
-                                        if ($flag_event_text == 'event_text') {
-                                            $sql_top_text = "select * from user order by event_text desc limit 0,10";                                            
-                                            $str_top_text = "";
-                                            foreach ($db->query($sql_top_text) as $key => $row) {
-                                                $str_top_text = $str_top_text . ($key + 1). '. '.$row['username'].': '.$row['event_text']. ' bộ chữ<br/>';                                                
+                <div class="box grid">
+                    <div class="box_header"><a href="javascript:void(0);">Event Message</a></div>
+                    <div class="box_body">
+                        <div style="padding-left:10px;">                            
+                            <form action="" method="post">
+                                <table width="100%" cellspacing="1" style="font-size:13px;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 200px;" align="center">Title</th>
+                                            <th>Nội dung</th>
+                                            <th style="width: 150px;" align="center">Ngày bắt đầu</th>
+                                            <th style="width: 150px;" align="center">Ngày kết thúc</th>
+                                            <th style="width: 50px;" align="center">OS</th>
+                                            <th style="width: 20px;" align="center">Fang?</th>
+                                            <th style="width:80px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($msg as $m) {
+                                            echo "<tr>";
+                                            echo "<td>" . substr($m['content'], 0, strrpos($m['content'], '@@@')) . "</td>";
+                                            $flag_event_text = trim(str_replace("\n", "<br/>", substr($m['content'], strrpos($m['content'], '@@@') + 3)));
+                                            if ($flag_event_text == 'event_text') {
+                                                $sql_top_text = "select * from user order by event_text desc limit 0,10";
+                                                $str_top_text = "";
+                                                foreach ($db->query($sql_top_text) as $key => $row) {
+                                                    $str_top_text = $str_top_text . ($key + 1) . '. ' . $row['username'] . ': ' . $row['event_text'] . ' bộ chữ<br/>';
+                                                }
+                                                echo "<td>" . $str_top_text . "</td>";
+                                            } else {
+                                                echo "<td>" . str_replace("\n", "<br/>", substr($m['content'], strrpos($m['content'], '@@@') + 3)) . "</td>";
                                             }
-                                            echo "<td>".$str_top_text."</td>";
-                                        } else {
-                                            echo "<td>" . str_replace("\n", "<br/>", substr($m['content'], strrpos($m['content'], '@@@') + 3)) . "</td>";
+                                            echo "<td>" . $m['dateBegin'] . "</td>";
+                                            echo "<td>" . $m['dateEnd'] . "</td>";
+                                            echo "<td>";
+                                            echo ($m['os_type'] != "") ? $m['os_type'] : "Cả 3";
+                                            echo "</td>";
+                                            if ($m['gsm'] == 0)
+                                                echo "<td>Có</td>";
+                                            else
+                                                echo "<td>Không</td>";
+                                            echo "<td align='center'><a href='javascript:editMessage(" . json_encode($m) . ");'>Sửa</a> / <a href='javascript:deleteMessage(" . $m['id'] . ");'>Xóa</a></td>";
+                                            echo "</tr>";
                                         }
-                                        echo "<td>" . $m['dateBegin'] . "</td>";
-                                        echo "<td>" . $m['dateEnd'] . "</td>";
-                                        echo "<td>";
-                                        echo ($m['os_type'] != "") ? $m['os_type'] : "Cả 3";
-                                        echo "</td>";
-                                        if ($m['gsm'] == 0)
-                                            echo "<td>Có</td>";
-                                        else
-                                            echo "<td>Không</td>";
-                                        echo "<td align='center'><a href='javascript:editMessage(" . json_encode($m) . ");'>Sửa</a> / <a href='javascript:deleteMessage(" . $m['id'] . ");'>Xóa</a></td>";
-                                        echo "</tr>";
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                            <input type="button" value="Thêm nhiệm vụ" id='btnThemid' onclick="document.getElementById('divAddEvent').style.display = 'block';
-                                    this.style.display = 'none';" />
-                            <div style="display: none" id="divAddEvent">
-                                Tiêu đề: <input type="text" id="msgTitle" style="width: 300px;"/> <br/>
-                                Nội dung:  <br/> <textarea id="msgContent" cols=50 rows=5></textarea> <br/>
-                                Ngày bắt đầu: <input type="text" id="datepicker3" style="text-align: center; width: 100px;" value=""/> 
-                                <input type="text" id="from_time_mess" style="width: 60px;" value="00:00:00"/><br/>
-                                Ngày hết hạn: <input type="text" id="datepicker4" style="text-align: center; width: 100px;" value=""/>
-                                <input type="text" id="to_time_mess" style="width: 60px;" value="23:59:59"/> <br/>
-                                Fang?: <select name="gsmselect" id="gsmselect"> <option value="0">Có</option><option value="1">Không</option> </select> <br />
-                                OS: <select name="vms" id="os_type"> <option value="">Cả 4</option><option value="android">Android</option><option value="iphone">iPhone</option><option value="ipad">iPad</option><option value="j2me">Java</option> </select> <br />
-                                <input type="button" value="Thêm" onclick="addMessage();"/>
-                                <input type="button" value="Huỷ" onclick="document.getElementById('divAddEvent').style.display = 'none';
-                                        document.getElementById('btnThemid').style.display = 'block';"/> 
-                            </div>
-                            <div style="display: none" id="editEvent">
-                                Tiêu đề: <input type="text" id="msgTitle" style="width: 300px;"/>
-                                <input type="hidden" id="msgID" style="width: 300px;"/> <br/>
-                                Nội dung:  <br/> <textarea id="msgContent" cols=50 rows=5></textarea> <br/>
-                                Ngày bắt đầu: <input type="text" id="editdatepicker3" style="text-align: center; width: 100px;" value=""/>  <br/>
-                                Ngày hết hạn: <input type="text" id="editdatepicker4" style="text-align: center; width: 100px;" value=""/>  <br/>
-                                Fang?: <select name="gsmselect" id="gsmselect"> <option value="0">Có</option><option value="1">Không</option> </select> <br />
-                                OS: <select name="vms" id="os_type"> <option value="">Cả 4</option><option value="android">Android</option><option value="iphone">iPhone</option><option value="ipad">iPad</option><option value="j2me">Java</option> </select> <br />
-                                <input type="button" value="Sửa" onclick="saveEditedMessage();"/>
-                                <input type="button" value="Huỷ" onclick="document.getElementById('editEvent').style.display = 'none';"/> 
-                            </div>
+                                        ?>
+                                    </tbody>
+                                </table>
+                                <input type="button" value="Thêm nhiệm vụ" id='btnThemid' onclick="document.getElementById('divAddEvent').style.display = 'block';
+                                        this.style.display = 'none';" />
+                                <div style="display: none" id="divAddEvent">
+                                    Tiêu đề: <input type="text" id="msgTitle" style="width: 300px;"/> <br/>
+                                    Nội dung:  <br/> <textarea id="msgContent" cols=50 rows=5></textarea> <br/>
+                                    Ngày bắt đầu: <input type="text" id="datepicker3" style="text-align: center; width: 100px;" value=""/> 
+                                    <input type="text" id="from_time_mess" style="width: 60px;" value="00:00:00"/><br/>
+                                    Ngày hết hạn: <input type="text" id="datepicker4" style="text-align: center; width: 100px;" value=""/>
+                                    <input type="text" id="to_time_mess" style="width: 60px;" value="23:59:59"/> <br/>
+                                    Fang?: <select name="gsmselect" id="gsmselect"> <option value="0">Có</option><option value="1">Không</option> </select> <br />
+                                    OS: <select name="vms" id="os_type"> <option value="">Cả 4</option><option value="android">Android</option><option value="iphone">iPhone</option><option value="ipad">iPad</option><option value="j2me">Java</option> </select> <br />
+                                    <input type="button" value="Thêm" onclick="addMessage();"/>
+                                    <input type="button" value="Huỷ" onclick="document.getElementById('divAddEvent').style.display = 'none';
+                                            document.getElementById('btnThemid').style.display = 'block';"/> 
+                                </div>
+                                <div style="display: none" id="editEvent">
+                                    Tiêu đề: <input type="text" id="msgTitle" style="width: 300px;"/>
+                                    <input type="hidden" id="msgID" style="width: 300px;"/> <br/>
+                                    Nội dung:  <br/> <textarea id="msgContent" cols=50 rows=5></textarea> <br/>
+                                    Ngày bắt đầu: <input type="text" id="editdatepicker3" style="text-align: center; width: 100px;" value=""/>  <br/>
+                                    Ngày hết hạn: <input type="text" id="editdatepicker4" style="text-align: center; width: 100px;" value=""/>  <br/>
+                                    Fang?: <select name="gsmselect" id="gsmselect"> <option value="0">Có</option><option value="1">Không</option> </select> <br />
+                                    OS: <select name="vms" id="os_type"> <option value="">Cả 4</option><option value="android">Android</option><option value="iphone">iPhone</option><option value="ipad">iPad</option><option value="j2me">Java</option> </select> <br />
+                                    <input type="button" value="Sửa" onclick="saveEditedMessage();"/>
+                                    <input type="button" value="Huỷ" onclick="document.getElementById('editEvent').style.display = 'none';"/> 
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="box grid">
+                    <div class="box_header"><a href="javascript:void(0);">Hiển thị full game VMS</a></div>
+                    <div class="box_body">
+                        <form action="" method="post">	               
+                            <?php if ($gamevms == 1) { ?>
+                                Có hiển thị full game? <select name="gamevms" id="gamevms"> <option value="1">Có</option><option value="0">Không</option> </select> <br />
+                            <?php } else { ?>
+                                Có hiển thị full game? <select name="gamevms" id="gamevms"><option value="0">Không</option> <option value="1">Có</option> </select> <br />
+                            <?php } ?>
+                            <input type="button" value="Xác nhận" onclick="configFullgame();"/>
                         </form>
                     </div>
                 </div>
-            </div>
-            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Hiển thị full game VMS</a></div>
-                <div class="box_body">
-                    <form action="" method="post">	               
-                        <?php if ($gamevms == 1) { ?>
-                            Có hiển thị full game? <select name="gamevms" id="gamevms"> <option value="1">Có</option><option value="0">Không</option> </select> <br />
-                        <?php } else { ?>
-                            Có hiển thị full game? <select name="gamevms" id="gamevms"><option value="0">Không</option> <option value="1">Có</option> </select> <br />
-<?php } ?>
-                        <input type="button" value="Xác nhận" onclick="configFullgame();"/>
-                    </form>
-                </div>
-            </div>
-            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Block Word</a></div>
-                <div class="box_body">
-                    <div style="margin-right:10px;">
-                        <textarea id="blockContent" cols=50 rows=5 style="width:100%;"><?php echo $blockWord; ?></textarea>
+                <div class="box grid">
+                    <div class="box_header"><a href="javascript:void(0);">Block Word</a></div>
+                    <div class="box_body">
+                        <div style="margin-right:10px;">
+                            <textarea id="blockContent" cols=50 rows=5 style="width:100%;"><?php echo $blockWord; ?></textarea>
+                        </div>
+                        <input type="button" value="Lưu" onclick="saveBlockWord();"/>
                     </div>
-                    <input type="button" value="Lưu" onclick="saveBlockWord();"/>
-                </div>
-            </div>	
-            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Thông tin cấu hình</a></div>
-                <div class="box_body" style="display:none">
-                    <div style="margin-right:10px;">
-                        <table width="100%" cellpadding="1">
-                            <tr>
-                                <td colspan="2"><b>Xu nhận được khi đăng ký</b></td>
-                            </tr>
-                            <tr>
-                                <td>Free</td> <td>5.000 xu</td>
-                            </tr>
-                            <tr>
-                                <td>SMS 5.000 đ</td> <td>10.000 xu</td>
-                            </tr>
-                            <tr>
-                                <td>Facebook</td> <td>5.000 xu</td>
-                            </tr>
-                            <tr>
-                                <td>Xu Bonus</td><td><?php echo number_format($xu_bonus); ?> xu</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><b>Tiền fee game</b></td>
-                            </tr>
-                            <?php
-                            foreach ($json_fee as $key => $val) {
-                                echo "<tr><td>" . $key . "</td>";
-                                echo "<td>" . ( 1 - $val['fee']['winner'] ) * 100 . " %</td></tr>";
-                            }
-                            ?>
-                            <tr>
-                                <td colspan="2"><b>Xu nạp SMS</b></td>
-                            </tr>
-                            <?php
-                            foreach ($json_settings['tygia']['smsArray'] as $tygia) {
-                                echo "<tr><td>" . number_format($tygia['key']) . " đ</td>";
-                                echo "<td>" . number_format($tygia['value']) . " xu</td></tr>";
-                            }
-                            ?>
-                            <tr>
-                                <td colspan="2"><b>Xu nạp Card</b></td>
-                            </tr>
-                            <?php
-                            foreach ($json_settings['tygia']['cardArray'] as $tygia) {
-                                echo "<tr><td>" . number_format($tygia['key']) . " đ</td>";
-                                echo "<td>" . number_format($tygia['value']) . " xu</td></tr>";
-                            }
-                            ?>
-                        </table>
+                </div>	
+                <div class="box grid">
+                    <div class="box_header"><a href="javascript:void(0);">Thông tin cấu hình</a></div>
+                    <div class="box_body" style="display:none">
+                        <div style="margin-right:10px;">
+                            <table width="100%" cellpadding="1">
+                                <tr>
+                                    <td colspan="2"><b>Xu nhận được khi đăng ký</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Free</td> <td>5.000 xu</td>
+                                </tr>
+                                <tr>
+                                    <td>SMS 5.000 đ</td> <td>10.000 xu</td>
+                                </tr>
+                                <tr>
+                                    <td>Facebook</td> <td>5.000 xu</td>
+                                </tr>
+                                <tr>
+                                    <td>Xu Bonus</td><td><?php echo number_format($xu_bonus); ?> xu</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><b>Tiền fee game</b></td>
+                                </tr>
+                                <?php
+                                foreach ($json_fee as $key => $val) {
+                                    echo "<tr><td>" . $key . "</td>";
+                                    echo "<td>" . ( 1 - $val['fee']['winner'] ) * 100 . " %</td></tr>";
+                                }
+                                ?>
+                                <tr>
+                                    <td colspan="2"><b>Xu nạp SMS</b></td>
+                                </tr>
+                                <?php
+                                foreach ($json_settings['tygia']['smsArray'] as $tygia) {
+                                    echo "<tr><td>" . number_format($tygia['key']) . " đ</td>";
+                                    echo "<td>" . number_format($tygia['value']) . " xu</td></tr>";
+                                }
+                                ?>
+                                <tr>
+                                    <td colspan="2"><b>Xu nạp Card</b></td>
+                                </tr>
+                                <?php
+                                foreach ($json_settings['tygia']['cardArray'] as $tygia) {
+                                    echo "<tr><td>" . number_format($tygia['key']) . " đ</td>";
+                                    echo "<td>" . number_format($tygia['value']) . " xu</td></tr>";
+                                }
+                                ?>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!--            <div class="box grid">
-                            <div class="box_header"><a href="javascript:void(0);">Bật tắt kênh thanh toán</a></div>
-                            <div class="box_body">
-                                <div style="margin-right:10px;">
-                                    Viettel: <input type="checkbox" value="viettel" name="paymentCard" <?php if ($json_settings['payment']['viettel'] == 1) echo 'checked="checked"' ?> /><br />
-                                    Vinaphone: <input type="checkbox" value="vina" name="paymentCard" <?php if ($json_settings['payment']['vina'] == 1) echo 'checked="checked"' ?> /><br />
-                                    Mobifone: <input type="checkbox" value="mobi" name="paymentCard" <?php if ($json_settings['payment']['mobi'] == 1) echo 'checked="checked"' ?> /><br />
-                                    SMS: <input type="text" value="<?php echo implode(",", $json_settings['payment']['sms']); ?>" id="paymentSMS" /> (SMS có dạng 8x62)<br />
-                                </div>
-                                <input type="button" value="Lưu" onclick="saveConfigPayment();"/>
-                            </div>
-                        </div>-->
+            <?php else: ?>
+                <div class="box grid">
+                    <div class="box_header"><a href="javascript:void(0);">Xu/Chip Special Offers</a></div>
+                    <div class="box_body">
+                        <div style="padding-left:10px;">
+                            <span><b>Không thể load dữ liệu. Vui lòng Refresh lại trình duyệt</b></span>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
     </body>
 </html>
