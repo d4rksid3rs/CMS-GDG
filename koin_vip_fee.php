@@ -1,5 +1,6 @@
 <?php
 //include 'cache_begin.php';
+require('Config.php');
 require('API/db.class.php');
 
 if (!isset($_REQUEST['fromDate'])) {
@@ -23,6 +24,10 @@ try {
     $sql4 = "select date(time_update) as day, fee_vip from fee_taixiu where date(time_update) >= '" . $fromDate . "' and date(time_update) <= '" . $toDate . "' order by time_update";
 //    echo $sql3;
     foreach ($db->query($sql) as $row) {
+        $sql_koin_deduct = "select sum(coin) as total_deduct from koin_add_deducterror where date(date_created) = '{$row['datecreate']}'";
+        $stmt999 = $db->prepare($sql_koin_deduct);
+        $stmt999->execute();
+        $total_addkoin = $stmt999->fetch();
         $obj = json_decode($row['data']);
         $obj->KOINVIPSMS = $row['sms_chip'];
         $obj->KOINVIPCARD = $row['card_chip'];
@@ -30,7 +35,7 @@ try {
         $obj->XOCDIAVIP = $row['vipxocdia'];
         $obj->BAUCUAVIP = $row['vipbaucua'];
         $obj->CASHOUT = $row['cashout'];
-        $obj->ADDKOIN = $row['addkoin'];
+        $obj->ADDKOIN = $total_addkoin['total_deduct'];
         $obj->CHIPVERIFY = $row['chipverify'];
         $obj->KOINADMIN = $row['adminaddchip'];
         /*
@@ -397,7 +402,7 @@ echo substr($output, 0, -1);
     </head>
     <body>
         <div class="pagewrap">
-<?php require('topMenu.php'); ?> 
+                <?php require('topMenu.php'); ?> 
 
             <div class="box grid">
 <?php include('topMenu.koin.php'); ?>
@@ -477,7 +482,7 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->GOLDTOSILVER_PUT) . "</td>";
                                 echo "<td>" . number_format($row['taixiu']) . "</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC +
-                                        $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + 
+                                        $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW +
                                         $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO + $obj->GOLDTOSILVER_PUT + $row['taixiu'];
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
@@ -520,7 +525,7 @@ echo substr($output, 0, -1);
                                 echo "<tr>";
                                 echo "<td>{$row['day']}</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC +
-                                        $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + 
+                                        $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW +
                                         $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO + $obj->GOLDTOSILVER_PUT + $row['taixiu'];
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
@@ -532,8 +537,8 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->KOINVIPSMS) . "</td>";
                                 echo "<td>" . number_format($obj->KOINVIPCARD) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUAVIP) . "</td>";
-                                echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";                                
-                                
+                                echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";
+
                                 echo "<td>" . number_format($obj->CASHOUT) . "</td>";
                                 echo "<td>" . number_format($obj->ADDKOIN) . "</td>";
                                 echo "<td>" . number_format($obj->CHIPVERIFY) . "</td>";
